@@ -7,6 +7,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+/* NOTE:
+ * I'm breaking a rule of OOP badly here and using public members all over the place. This is
+ * mostly because LUA has no understanding of C#'s member access specifiers, and the binding
+ * framework we're using complains if we try to use anything else. Think of this as a glorified
+ * referenced struct, and not a proper class.
+ * */
+
 namespace DrunkenArcher
 {
 

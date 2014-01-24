@@ -48,6 +48,34 @@ namespace DrunkenArcher
             base.Initialize();
         }
 
+        public void loadLevel(string path) 
+        {
+            //cleanup anything from the old level
+            game_objects.Clear();
+
+            //reset the lua VM entirely (the vm is re-run fresh for each new level)
+            vm.Dispose(); //cleanup? NO IDEA. No documentation. None. Anywhere.
+            vm = new Lua();
+
+            //run the initial config set
+            vm.DoFile("lua/main.lua");
+
+            //bind some functions into place
+            vm.RegisterFunction("GameEngine.spawn",
+                this,
+                GetType().GetMethod("SpawnObject"));
+
+            
+
+            //finally, run the level file
+            vm.DoFile("lua/" + path);
+        }
+
+        /// <summary>
+        /// Creates a new object and returns its unique ID. This is intended to be called by a
+        /// lua script; note that calling it from anywhere else will result in lua not knowing
+        /// about the object at all.
+        /// </summary>
         public int SpawnObject()
         {
             GameObject new_object = new GameObject(vm, this);
@@ -66,15 +94,8 @@ namespace DrunkenArcher
             textures["art/sprites/triangle"] = Content.Load<Texture2D>("art/sprites/triangle");
             textures["art/sprites/zero"] = Content.Load<Texture2D>("art/sprites/zero");
             
-            vm.DoFile("lua/main.lua");
-
-            //bind some functions into place
-            vm.RegisterFunction("GameEngine.spawn",
-                this,
-                GetType().GetMethod("SpawnObject"));
-
-            //DEBUG: Go ahead and load the test level
-            vm.DoFile("lua/testlevel.lua");
+            //load the test level
+            loadLevel("testlevel.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -101,6 +122,11 @@ namespace DrunkenArcher
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            //quick thing to restart the level on command
+            if (Keyboard.GetState().IsKeyDown(Keys.R)) {
+                loadLevel("testlevel.lua");
+            }
 
             // TODO: Add your update logic here
             foreach (var o in game_objects)

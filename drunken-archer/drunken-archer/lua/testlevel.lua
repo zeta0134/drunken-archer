@@ -30,7 +30,7 @@ end
 
 print("Creating several balls")
 
-for i = 0, 100 do
+for i = 0, 10 do
 	local test = Ball.create {
 		x=math.random(10, 750),
 		y=math.random(10, 350),
