@@ -3,11 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace DrunkenArcher
 {
+
     class GameObject
     {
+        static Game game;
+
         static int next_id = 1;
         int id;
 
@@ -23,17 +29,31 @@ namespace DrunkenArcher
         public double tx = 0;
         public double ty = 0;
 
+        public Color color;
+        public Texture2D texture;
+
         public static double gravity = 0.2;
 
-        public GameObject(Lua vm)
+        public GameObject(Lua vm, Game gm)
         {
             id = next_id++;
             bind_to_lua(vm);
+            game = gm;
         }
 
         public int ID()
         {
             return id;
+        }
+
+        public void sprite_color(int r, int g, int b, int a)
+        {
+            color = new Color(r, g, b, a);
+        }
+
+        public void sprite(string path)
+        {
+            texture = game.textures[path];
         }
 
         public void bind_to_lua(Lua vm)

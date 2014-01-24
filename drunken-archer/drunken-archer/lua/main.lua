@@ -25,20 +25,23 @@ end
 
 Object = {}
 
-function process_defaults(o)
+function process_defaults(o, keep)
 	if not type(o) == "table" then
 		return
 	end
 	
 	--important: do this for parents
 	if (getmetatable(o)) then
-		process_defaults(getmetatable(o).__index)
+		process_defaults(getmetatable(o).__index, true)
 	end
 	
 	for k, v in pairs(o) do
 		if object_to_bind[k] and type(object_to_bind[k]) ~= "string" then
 			--print("setting default: ", k)
 			object_to_bind[k] = v
+			if not keep then
+				o[k] = nil
+			end
 		end
 	end
 	
@@ -73,20 +76,15 @@ function Object.create(original)
 	--weird things now
 	o.parentclass = mt.__index
 	mt.__index = function(t, k)
-		if rawget(t, k) then
-			return rawget(t, k)
-		end
 		local object = rawget(t, "object")
-		if object and object[k] and type(object[k]) ~= "string" then
+		if type(object[k]) ~= "string" then
 			return object[k]
 		end
 		local parentclass = rawget(t, "parentclass")
 		if type(parentclass) == "table" then
 			return parentclass[k]
-		else
-			--print(type(parentclass))
 		end
-		return nil
+		return rawget(t, k)
 	end
 
 	return o

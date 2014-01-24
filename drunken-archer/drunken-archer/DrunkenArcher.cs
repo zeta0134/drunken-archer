@@ -21,7 +21,7 @@ namespace DrunkenArcher
         SpriteBatch spriteBatch;
 
         List<GameObject> game_objects;
-        Texture2D triangle;
+        public Dictionary<String, Texture2D> textures;
 
         Lua vm;
 
@@ -32,6 +32,7 @@ namespace DrunkenArcher
 
             vm = new Lua();
             game_objects = new List<GameObject>();
+            textures = new Dictionary<String, Texture2D>();
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace DrunkenArcher
 
         public int SpawnObject()
         {
-            GameObject new_object = new GameObject(vm);
+            GameObject new_object = new GameObject(vm, this);
             game_objects.Add(new_object);
             //tell lua about the new object
             return new_object.ID();
@@ -61,6 +62,10 @@ namespace DrunkenArcher
         /// </summary>
         protected override void LoadContent()
         {
+            // TODO: use this.Content to load your game content here
+            textures["art/sprites/triangle"] = Content.Load<Texture2D>("art/sprites/triangle");
+            textures["art/sprites/zero"] = Content.Load<Texture2D>("art/sprites/zero");
+            
             vm.DoFile("lua/main.lua");
 
             //bind some functions into place
@@ -74,8 +79,7 @@ namespace DrunkenArcher
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            triangle = Content.Load<Texture2D>("art/sprites/triangle");
+            
         }
 
         /// <summary>
@@ -122,7 +126,10 @@ namespace DrunkenArcher
             //fancy stuff
             foreach (var o in game_objects)
             {
-                spriteBatch.Draw(triangle, new Vector2((float)o.x, (float)o.y), Color.White);
+                if (o.texture != null)
+                {
+                    spriteBatch.Draw(o.texture, new Vector2((float)o.x, (float)o.y), o.color);
+                }
             }
 
             spriteBatch.End();
