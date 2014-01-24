@@ -99,6 +99,10 @@ namespace DrunkenArcher
                 this.Exit();
 
             // TODO: Add your update logic here
+            foreach (var o in game_objects)
+            {
+                o.engine_update();
+            }
             vm.DoString("GameEngine.update()");
 
             base.Update(gameTime);
