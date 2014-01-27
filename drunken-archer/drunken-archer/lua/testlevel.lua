@@ -2,49 +2,27 @@
 --the game engine *should* have injected a whole bunch of extra
 --functions that we now have access to
 
-Ball = inherits(Object)
+dofile("lua/objects/ball.lua")
+dofile("lua/objects/paddle.lua")
 
-function Ball:update()
+ball = Ball.create()
+ball.x = 400
+ball.y = 200
+ball.vx = 6
+ball.vy = 6
+ball.object:sprite("art/sprites/triangle")
 
-	--"Collision"
-	if self.x > 800 - 32 then
-		self.x = 800 - 32
-		self.vx = self.vx * -0.8
-	end
+paddle = Paddle.create()
+paddle.x = 0
+paddle.y = 200
+paddle.object:sprite("art/sprites/paddle")
 
-	if self.x < 0 then
-		self.x = 0
-		self.vx = self.vx * -0.8
-	end
+aipaddle = AIPaddle.create()
+aipaddle.x = 630
+aipaddle.y = 200
+aipaddle.object:sprite("art/sprites/paddle")
 
-	if self.y > 480 - 32 then
-		self.y = 480 - 32
-		self.vy = self.vy * -0.8
-	end
+player_score = 0
+ai_score = 0
 
-	if self.y < 0 then
-		self.y = 0
-		self.vy = self.vy * -0.8
-	end
-end
-
-print("Creating several balls")
-
-for i = 0, 10 do
-	local test = Ball.create {
-		x=math.random(10, 750),
-		y=math.random(10, 350),
-		vx = math.random(-2.0, 2.0),
-		vy = math.random(-2.0, 2.0)}
-	--note that at this point, we discard test; that's OK. The game engine keeps track of it on its own
-	--(Lua keeps a copy in its global objects[] table) and continues to process it. We need to *explicitly*
-	--destroy objects to make them go away.
-	test.object:sprite_color(255, 0, 0, 255)
-	test.object:sprite("art/sprites/triangle")
-end
-
-happy = Ball.create({vx=20,vy=10})
-happy.object:sprite_color(255, 255, 255, 200)
-happy.object:sprite("art/sprites/zero")
-
-print("Left testlevel.lua without errors!")
+GameEngine.playMusic("music/zelda-overworld")

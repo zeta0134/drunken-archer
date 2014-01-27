@@ -39,13 +39,14 @@ namespace DrunkenArcher
         public Color color;
         public Texture2D texture;
 
-        public static double gravity = 0.2;
+        public static double gravity = 0.0;
 
         public GameObject(Lua vm, Game gm)
         {
             id = next_id++;
             bind_to_lua(vm);
             game = gm;
+            color = Color.White;
         }
 
         public int ID()

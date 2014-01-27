@@ -22,6 +22,8 @@ namespace DrunkenArcher
 
         List<GameObject> game_objects;
         public Dictionary<String, Texture2D> textures;
+        public Dictionary<String, Song> music;
+        public Dictionary<String, SoundEffect> sound;
 
         Lua vm;
 
@@ -33,6 +35,8 @@ namespace DrunkenArcher
             vm = new Lua();
             game_objects = new List<GameObject>();
             textures = new Dictionary<String, Texture2D>();
+            music = new Dictionary<String, Song>();
+            sound = new Dictionary<String, SoundEffect>();
         }
 
         /// <summary>
@@ -44,8 +48,14 @@ namespace DrunkenArcher
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 480;
+            graphics.ApplyChanges();
             base.Initialize();
+        }
+
+        public void playMusic(string path) {
+            MediaPlayer.Play(music[path]);
         }
 
         public void loadLevel(string path) 
@@ -61,9 +71,9 @@ namespace DrunkenArcher
             vm.DoFile("lua/main.lua");
 
             //bind some functions into place
-            vm.RegisterFunction("GameEngine.spawn",
-                this,
-                GetType().GetMethod("SpawnObject"));
+            vm.RegisterFunction("GameEngine.spawn", this, GetType().GetMethod("SpawnObject"));
+            vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
+
 
             
 
@@ -93,14 +103,18 @@ namespace DrunkenArcher
             // TODO: use this.Content to load your game content here
             textures["art/sprites/triangle"] = Content.Load<Texture2D>("art/sprites/triangle");
             textures["art/sprites/zero"] = Content.Load<Texture2D>("art/sprites/zero");
-            
+            textures["art/sprites/paddle"] = Content.Load<Texture2D>("art/sprites/paddle");
+
+            music["music/zelda-overworld"] = Content.Load<Song>("music/zelda-overworld");
+
+
+
             //load the test level
             loadLevel("testlevel.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
         }
 
         /// <summary>
@@ -122,6 +136,10 @@ namespace DrunkenArcher
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            vm.DoString("keys.up = " + (Keyboard.GetState().IsKeyDown(Keys.Up) ? "true" : "false"));
+            vm.DoString("keys.down = " + (Keyboard.GetState().IsKeyDown(Keys.Down) ? "true" : "false"));
+
 
             //quick thing to restart the level on command
             if (Keyboard.GetState().IsKeyDown(Keys.R)) {

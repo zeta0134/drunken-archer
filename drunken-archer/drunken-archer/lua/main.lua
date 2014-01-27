@@ -44,7 +44,6 @@ function process_defaults(o, keep)
 			end
 		end
 	end
-	
 end
 
 function Object.create(original)
@@ -109,3 +108,5 @@ GameEngine.update = function()
 		end
 	end
 end
+
+keys = {}
