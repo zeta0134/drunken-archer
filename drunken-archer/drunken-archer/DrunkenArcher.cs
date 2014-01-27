@@ -55,7 +55,22 @@ namespace DrunkenArcher
         }
 
         public void playMusic(string path) {
+            if (!music.ContainsKey(path))
+            {
+                //Attempt to load the song (we haven't done so yet)
+                music[path] = Content.Load<Song>(path);
+            }
             MediaPlayer.Play(music[path]);
+        }
+
+        public void playSound(string path)
+        {
+            if (!sound.ContainsKey(path))
+            {
+                //Attempt to load the song (we haven't done so yet)
+                sound[path] = Content.Load<SoundEffect>(path);
+            }
+            sound[path].Play(0.5f,0.0f,0.0f);
         }
 
         public void loadLevel(string path) 
@@ -73,9 +88,7 @@ namespace DrunkenArcher
             //bind some functions into place
             vm.RegisterFunction("GameEngine.spawn", this, GetType().GetMethod("SpawnObject"));
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
-
-
-            
+            vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
 
             //finally, run the level file
             vm.DoFile("lua/" + path);
@@ -100,15 +113,6 @@ namespace DrunkenArcher
         /// </summary>
         protected override void LoadContent()
         {
-            // TODO: use this.Content to load your game content here
-            textures["art/sprites/triangle"] = Content.Load<Texture2D>("art/sprites/triangle");
-            textures["art/sprites/zero"] = Content.Load<Texture2D>("art/sprites/zero");
-            textures["art/sprites/paddle"] = Content.Load<Texture2D>("art/sprites/paddle");
-
-            music["music/zelda-overworld"] = Content.Load<Song>("music/zelda-overworld");
-
-
-
             //load the test level
             loadLevel("testlevel.lua");
 

@@ -61,6 +61,11 @@ namespace DrunkenArcher
 
         public void sprite(string path)
         {
+            if (!game.textures.ContainsKey(path))
+            {
+                //try to load the asset first
+                game.textures[path] = game.Content.Load<Texture2D>(path);
+            }
             texture = game.textures[path];
         }
 

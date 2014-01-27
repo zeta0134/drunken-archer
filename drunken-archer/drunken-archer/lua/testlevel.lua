@@ -6,8 +6,8 @@ dofile("lua/objects/ball.lua")
 dofile("lua/objects/paddle.lua")
 
 ball = Ball.create()
-ball.x = 400
-ball.y = 200
+ball.x = math.random(100, 400)
+ball.y = math.random(100, 400)
 ball.vx = 6
 ball.vy = 6
 ball.object:sprite("art/sprites/triangle")
