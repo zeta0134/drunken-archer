@@ -25,4 +25,4 @@ aipaddle:sprite("art/sprites/paddle")
 player_score = 0
 ai_score = 0
 
-GameEngine.playMusic("music/zelda-overworld")
+GameEngine.playMusic("music/game-loop")
