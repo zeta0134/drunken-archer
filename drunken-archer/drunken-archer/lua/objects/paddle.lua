@@ -2,11 +2,11 @@
 Paddle = inherits(Object)
 
 function Paddle:update()
-	if keys.up and self.y > 0 then
+	if keys_held.Up and self.y > 0 then
 		self.y = self.y - 8
 	end
 
-	if keys.down and self.y < 380 then
+	if keys_held.Down and self.y < 380 then
 		self.y = self.y + 8
 	end
 end

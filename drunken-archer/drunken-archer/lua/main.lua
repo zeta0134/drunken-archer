@@ -77,7 +77,13 @@ function Object.create(original)
 	mt.__index = function(t, k)
 		local object = rawget(t, "object")
 		if type(object[k]) ~= "string" then
-			return object[k]
+			if type(object[k]) == "userdata" then
+				return function(self, ...)
+					return object[k](object, ...)
+				end
+			else
+				return object[k]
+			end
 		end
 		local parentclass = rawget(t, "parentclass")
 		if type(parentclass) == "table" then
@@ -100,13 +106,49 @@ GameEngine = {}
 --global collection of all game objects
 objects = {}
 
-
+--This is called every frame
 GameEngine.update = function()
 	for k, v in pairs(objects) do
 		if objects[k].update then
 			objects[k]:update()
 		end
 	end
+
+	--debug code
+	if keys_up.R then
+		--reload the current level
+		GameEngine.loadLevel(current_level)
+	end
 end
 
-keys = {}
+--These are filled by the game engine
+prev_keys_held = {}
+keys_held = {}
+
+prev_gamepad_held = {}
+gamepad_held = {}
+
+--These here let us do *sane things* with key polling
+_key_down = function(t, k)
+	return keys_held[k] and not prev_keys_held[k]
+end
+
+_gamepad_down = function(t, k)
+	return keys_held[k] and not prev_keys_held[k]
+end
+
+_key_up = function(t, k)
+	return prev_keys_held[k] and not keys_held[k]
+end
+
+_gamepad_up = function(t, k)
+	return prev_keys_held[k] and not keys_held[k]
+end
+
+keys_down = setmetatable({}, {__index=_key_down})
+gamepad_down = setmetatable({}, {__index=_gamepad_down})
+keys_up = setmetatable({}, {__index=_key_up})
+gamepad_up = setmetatable({}, {__index=_gamepad_up})
+
+--this is filled by the game engine, and is used in debug mode for restarts
+current_level = ""

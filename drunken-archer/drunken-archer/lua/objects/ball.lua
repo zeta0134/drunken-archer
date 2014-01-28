@@ -9,13 +9,13 @@ function Ball:update()
 
 		--"collision check"
 		if self.y < aipaddle.y or self.y > aipaddle.y + 100 then
-			 self.x = 200
-			 self.y = 200
-			 self.vx = 6
-			 self.vy = 6
-			 player_score = player_score + 1
-			 --print("Player Scores! So far: " .. player_score)
-			 GameEngine.playSound("sound/ballout")
+			self.x = 200
+			self.y = 200
+			self.vx = 6
+			self.vy = 6
+			player_score = player_score + 1
+			--print("Player Scores! So far: " .. player_score)
+			GameEngine.playSound("sound/ballout")
 		else 
 			GameEngine.playSound("sound/paddlehit")
 		end

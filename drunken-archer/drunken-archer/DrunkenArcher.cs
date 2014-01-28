@@ -73,6 +73,14 @@ namespace DrunkenArcher
             sound[path].Play(0.5f,0.0f,0.0f);
         }
 
+        private string levelToLoad = "";
+
+        public void luaLoadLevel(string path)
+        {
+            //This exists to prevent lua from deleting itself while it's running
+            levelToLoad = path;
+        }
+
         public void loadLevel(string path) 
         {
             //cleanup anything from the old level
@@ -89,6 +97,10 @@ namespace DrunkenArcher
             vm.RegisterFunction("GameEngine.spawn", this, GetType().GetMethod("SpawnObject"));
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
+            vm.RegisterFunction("GameEngine.loadLevel", this, GetType().GetMethod("luaLoadLevel"));
+
+            //Set some engine-level variables for the lua code to use
+            vm.DoString("current_level = \"" + path + "\"");
 
             //finally, run the level file
             vm.DoFile("lua/" + path);
@@ -141,14 +153,20 @@ namespace DrunkenArcher
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            vm.DoString("keys.up = " + (Keyboard.GetState().IsKeyDown(Keys.Up) ? "true" : "false"));
-            vm.DoString("keys.down = " + (Keyboard.GetState().IsKeyDown(Keys.Down) ? "true" : "false"));
+            GamePadButtons gamepad = GamePad.GetState(PlayerIndex.One).Buttons;
+            vm.DoString("prev_gamepad_held = gamepad_held");
+            vm["gamepad_held"] = gamepad;
 
+            Keys[] keys_pressed = Keyboard.GetState().GetPressedKeys();
+            vm.DoString("prev_keys_held = keys_held\nkeys_held = {}");
+            foreach (var key in keys_pressed) {
+                vm.DoString("keys_held[\"" + key + "\"] = true");
+            }
 
             //quick thing to restart the level on command
-            if (Keyboard.GetState().IsKeyDown(Keys.R)) {
-                loadLevel("testlevel.lua");
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.R)) {
+            //    loadLevel("testlevel.lua");
+            //}
 
             // TODO: Add your update logic here
             foreach (var o in game_objects)
@@ -156,6 +174,13 @@ namespace DrunkenArcher
                 o.engine_update();
             }
             vm.DoString("GameEngine.update()");
+
+            //If we need to change levels, do that now
+            if (levelToLoad != "")
+            {
+                loadLevel(levelToLoad);
+                levelToLoad = "";
+            }
 
             base.Update(gameTime);
         }
