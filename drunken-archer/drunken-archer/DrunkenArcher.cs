@@ -18,14 +18,17 @@ namespace DrunkenArcher
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
-        List<GameObject> game_objects;
+        public SortedList<int, DrawableList> layers = new SortedList<int, DrawableList>();
+        List<GameObject> game_objects= new List<GameObject>();
         public Dictionary<String, Texture2D> textures;
         public Dictionary<String, Song> music;
         public Dictionary<String, SoundEffect> sound;
 
         Lua vm;
+
+        public Vector2 camera = new Vector2(0.0f);
 
         public Game()
         {
@@ -33,7 +36,6 @@ namespace DrunkenArcher
             Content.RootDirectory = "Content";
 
             vm = new Lua();
-            game_objects = new List<GameObject>();
             textures = new Dictionary<String, Texture2D>();
             music = new Dictionary<String, Song>();
             sound = new Dictionary<String, SoundEffect>();
@@ -81,10 +83,22 @@ namespace DrunkenArcher
             levelToLoad = path;
         }
 
+        public void setCamera(float x, float y)
+        {
+            camera.X = x;
+            camera.Y = y;
+        }
+
         public void loadLevel(string path) 
         {
             //cleanup anything from the old level
             game_objects.Clear();
+
+            //Cleanup all the graphics layers
+            layers.Clear();
+
+            //setup the default layer, 0
+            layers.Add(0, new DrawableList());
 
             //reset the lua VM entirely (the vm is re-run fresh for each new level)
             vm.Dispose(); //cleanup? NO IDEA. No documentation. None. Anywhere.
@@ -98,6 +112,7 @@ namespace DrunkenArcher
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
             vm.RegisterFunction("GameEngine.loadLevel", this, GetType().GetMethod("luaLoadLevel"));
+            vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_level = \"" + path + "\"");
@@ -115,6 +130,10 @@ namespace DrunkenArcher
         {
             GameObject new_object = new GameObject(vm, this);
             game_objects.Add(new_object);
+            
+            //the default layer is 0
+            layers[0].items.Add(new_object);
+
             //tell lua about the new object
             return new_object.ID();
         }
@@ -196,13 +215,11 @@ namespace DrunkenArcher
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            //fancy stuff
-            foreach (var o in game_objects)
+            //Draw each layer of the engine in turn; lower layers draw first so they
+            //end up behind everything else
+            foreach (var layer in layers)
             {
-                if (o.texture != null)
-                {
-                    spriteBatch.Draw(o.texture, new Vector2((float)o.x, (float)o.y), o.color);
-                }
+                layer.Value.Draw(this);
             }
 
             spriteBatch.End();
