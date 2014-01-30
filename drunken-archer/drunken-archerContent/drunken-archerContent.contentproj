@@ -48,9 +48,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="art\tiles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="art\sprites\triangle.png">
       <Name>triangle</Name>
@@ -106,6 +104,13 @@
       <Name>menu-loop</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="art\tiles\testytest.BMP">
+      <Name>testytest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

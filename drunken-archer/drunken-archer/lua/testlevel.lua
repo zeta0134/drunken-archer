@@ -53,16 +53,16 @@ Camera = inherits(Object)
 
 function Camera:update()
 	if keys_held.W then
-		self.y = self.y + 5
-	end
-	if keys_held.S then
 		self.y = self.y - 5
 	end
+	if keys_held.S then
+		self.y = self.y + 5
+	end
 	if keys_held.D then
-		self.x = self.x - 5
+		self.x = self.x + 5
 	end
 	if keys_held.A then
-		self.x = self.x + 5
+		self.x = self.x - 5
 	end
 
 	--actually update the game camera based on this object's position
@@ -70,3 +70,34 @@ function Camera:update()
 end
 
 camera = Camera.create()
+
+--try out some interesting things
+testytest = TileMap.create()
+
+testytest:z_index(-2)
+testytest:setTiles("art/tiles/testytest")
+testytest:mapSize(40,30)
+
+--edges
+for x = 1, 38 do
+	testytest:setTile(x, 0, 2)
+	testytest:setTile(x, 29, 14)
+end
+
+for y = 1, 28 do
+	testytest:setTile(0, y, 7)
+	testytest:setTile(39, y, 9)
+end
+
+--fill
+for y = 1, 28 do
+	for x = 1, 38 do
+		testytest:setTile(x, y, 8)
+	end
+end
+
+--corners
+testytest:setTile(0,0,1)
+testytest:setTile(0,29,13)
+testytest:setTile(39,0,3)
+testytest:setTile(39,29,15)

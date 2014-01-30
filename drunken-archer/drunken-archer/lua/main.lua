@@ -31,7 +31,7 @@ function process_defaults(o, keep)
 	end
 	
 	--important: do this for parents
-	if (getmetatable(o)) then
+	if (getmetatable(o) and getmetatable(o).__index) then
 		process_defaults(getmetatable(o).__index, true)
 	end
 	
@@ -46,21 +46,7 @@ function process_defaults(o, keep)
 	end
 end
 
-function Object.create(original)
-	--print("Spawning an object with parent: ", getmetatable(original).__index)
-
-	local spawn_id = GameEngine.spawn() --returns the assigned object ID, which we need to keep track of
-
-	local o = original or {}
-	--print("Spawned object ID:" .. spawn_id)
-
-	--set defaults; any keys that exist in the C# class will be set from their values in the original
-	--object
-	process_defaults(o)
-
-	o.object = object_to_bind
-	objects[spawn_id] = o
-	
+function process_metatables(o)
 	--attempt fun things!
 	local mt = getmetatable(o)
 	mt.__newindex = function(t, k, v)
@@ -91,6 +77,24 @@ function Object.create(original)
 		end
 		return rawget(t, k)
 	end
+end
+
+function Object.create(original)
+	--print("Spawning an object with parent: ", getmetatable(original).__index)
+
+	local spawn_id = GameEngine.spawn() --returns the assigned object ID, which we need to keep track of
+
+	local o = original or {}
+	--print("Spawned object ID:" .. spawn_id)
+
+	--set defaults; any keys that exist in the C# class will be set from their values in the original
+	--object
+	process_defaults(o)
+
+	o.object = object_to_bind
+	objects[spawn_id] = o
+	
+	process_metatables(o)
 
 	return o
 end
@@ -100,17 +104,52 @@ function Object:destroy()
 	GameEngine.destroy(self)
 end
 
+--same as objects, now for TileMaps
+
+TileMap = {}
+
+function TileMap.create(original)
+	local spawn_id = GameEngine.tilemap()
+
+	local o = setmetatable({}, {})
+	if original then
+		o = original
+	end
+	print(type(o))
+
+	process_defaults(o)
+
+	o.object = object_to_bind
+	tilemaps[spawn_id] = o
+	
+	process_metatables(o)
+
+	return o
+end
+
+function TileMap:destroy()
+	print("Destroying a tilemap...")
+	GameEngine.destroy(self)
+end
+
 --table for GameEngine stuff
 GameEngine = {}
 
 --global collection of all game objects
 objects = {}
+tilemaps = {}
 
 --This is called every frame
 GameEngine.update = function()
 	for k, v in pairs(objects) do
 		if objects[k].update then
 			objects[k]:update()
+		end
+	end
+
+	for k, v in pairs(tilemaps) do
+		if tilemaps[k].update then
+			tilemaps[k]:update()
 		end
 	end
 

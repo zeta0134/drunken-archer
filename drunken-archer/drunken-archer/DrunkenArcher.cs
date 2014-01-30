@@ -10,18 +10,16 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using NLua;
 
-namespace DrunkenArcher
-{
+namespace DrunkenArcher {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game : Microsoft.Xna.Framework.Game
-    {
-        GraphicsDeviceManager graphics;
+    public class Game : Microsoft.Xna.Framework.Game {
+        public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
         public SortedList<int, DrawableList> layers = new SortedList<int, DrawableList>();
-        List<GameObject> game_objects= new List<GameObject>();
+        List<PhysicsObject> engine_objects = new List<PhysicsObject>();
         public Dictionary<String, Texture2D> textures;
         public Dictionary<String, Song> music;
         public Dictionary<String, SoundEffect> sound;
@@ -30,8 +28,7 @@ namespace DrunkenArcher
 
         public Vector2 camera = new Vector2(0.0f);
 
-        public Game()
-        {
+        public Game() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -47,8 +44,7 @@ namespace DrunkenArcher
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize()
-        {
+        protected override void Initialize() {
             // TODO: Add your initialization logic here
             graphics.PreferredBackBufferWidth = 640;
             graphics.PreferredBackBufferHeight = 480;
@@ -57,42 +53,36 @@ namespace DrunkenArcher
         }
 
         public void playMusic(string path) {
-            if (!music.ContainsKey(path))
-            {
+            if (!music.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
                 music[path] = Content.Load<Song>(path);
             }
             MediaPlayer.Play(music[path]);
         }
 
-        public void playSound(string path)
-        {
-            if (!sound.ContainsKey(path))
-            {
+        public void playSound(string path) {
+            if (!sound.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
                 sound[path] = Content.Load<SoundEffect>(path);
             }
-            sound[path].Play(0.5f,0.0f,0.0f);
+            sound[path].Play(0.5f, 0.0f, 0.0f);
         }
 
         private string levelToLoad = "";
 
-        public void luaLoadLevel(string path)
-        {
+        public void luaLoadLevel(string path) {
             //This exists to prevent lua from deleting itself while it's running
             levelToLoad = path;
         }
 
-        public void setCamera(float x, float y)
-        {
+        public void setCamera(float x, float y) {
             camera.X = x;
             camera.Y = y;
         }
 
-        public void loadLevel(string path) 
-        {
+        public void loadLevel(string path) {
             //cleanup anything from the old level
-            game_objects.Clear();
+            engine_objects.Clear();
 
             //Cleanup all the graphics layers
             layers.Clear();
@@ -109,6 +99,7 @@ namespace DrunkenArcher
 
             //bind some functions into place
             vm.RegisterFunction("GameEngine.spawn", this, GetType().GetMethod("SpawnObject"));
+            vm.RegisterFunction("GameEngine.tilemap", this, GetType().GetMethod("CreateTileMap"));
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
             vm.RegisterFunction("GameEngine.loadLevel", this, GetType().GetMethod("luaLoadLevel"));
@@ -126,11 +117,10 @@ namespace DrunkenArcher
         /// lua script; note that calling it from anywhere else will result in lua not knowing
         /// about the object at all.
         /// </summary>
-        public int SpawnObject()
-        {
+        public int SpawnObject() {
             GameObject new_object = new GameObject(vm, this);
-            game_objects.Add(new_object);
-            
+            engine_objects.Add(new_object);
+
             //the default layer is 0
             layers[0].items.Add(new_object);
 
@@ -138,12 +128,22 @@ namespace DrunkenArcher
             return new_object.ID();
         }
 
+        public int CreateTileMap() {
+            TileMap new_tilemap = new TileMap(vm, this);
+            engine_objects.Add(new_tilemap);
+
+            //the default layer is 0
+            layers[0].items.Add(new_tilemap);
+
+            //tell lua about the new object
+            return new_tilemap.ID();
+        }
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
-        {
+        protected override void LoadContent() {
             //load the test level
             loadLevel("testlevel.lua");
 
@@ -156,8 +156,7 @@ namespace DrunkenArcher
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void UnloadContent()
-        {
+        protected override void UnloadContent() {
             // TODO: Unload any non ContentManager content here
         }
 
@@ -166,8 +165,7 @@ namespace DrunkenArcher
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
+        protected override void Update(GameTime gameTime) {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -188,15 +186,13 @@ namespace DrunkenArcher
             //}
 
             // TODO: Add your update logic here
-            foreach (var o in game_objects)
-            {
+            foreach (var o in engine_objects) {
                 o.engine_update();
             }
             vm.DoString("GameEngine.update()");
 
             //If we need to change levels, do that now
-            if (levelToLoad != "")
-            {
+            if (levelToLoad != "") {
                 loadLevel(levelToLoad);
                 levelToLoad = "";
             }
@@ -208,8 +204,7 @@ namespace DrunkenArcher
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
+        protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
@@ -217,8 +212,7 @@ namespace DrunkenArcher
 
             //Draw each layer of the engine in turn; lower layers draw first so they
             //end up behind everything else
-            foreach (var layer in layers)
-            {
+            foreach (var layer in layers) {
                 layer.Value.Draw(this);
             }
 

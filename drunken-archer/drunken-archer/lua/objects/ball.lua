@@ -1,7 +1,6 @@
 ﻿Ball = inherits(Object)
 
 function Ball:update()
-
 	--"Collision"
 	if self.x > 630 - 32 then
 		self.x = 630 - 32
