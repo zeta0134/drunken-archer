@@ -68,6 +68,10 @@ namespace DrunkenArcher {
                 game.textures[path] = game.Content.Load<Texture2D>(path);
             }
             texture = game.textures[path];
+
+            //set the bounding box from the sprite dimensions (for the physics engine)
+            bounding_box = new Rectangle(0, 0, texture.Width, texture.Height);
+
         }
 
         public void bind_to_lua(Lua vm) {

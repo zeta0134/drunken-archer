@@ -7,7 +7,7 @@ function Ball:update()
 		self.vx = self.vx * -1.01
 
 		--"collision check"
-		if self.y < aipaddle.y or self.y > aipaddle.y + 100 then
+		if self.y + 16 < aipaddle.y or self.y  + 16 > aipaddle.y + 100 then
 			self.x = 200
 			self.y = 200
 			self.vx = 6
@@ -25,7 +25,7 @@ function Ball:update()
 		self.vx = self.vx * -1.01
 		
 		--"collision check"
-		if self.y < paddle.y or self.y > paddle.y + 100 then
+		if self.y + 16 < paddle.y or self.y + 16  > paddle.y + 100 then
 			self.x = 200
 			self.y = 200
 			self.vx = 6
