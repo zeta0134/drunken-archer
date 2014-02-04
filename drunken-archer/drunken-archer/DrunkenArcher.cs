@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using NLua;
+using Box2D.XNA;
 
 namespace DrunkenArcher {
     /// <summary>
@@ -25,8 +26,12 @@ namespace DrunkenArcher {
         public Dictionary<String, SoundEffect> sound;
 
         Lua vm;
-
         public Vector2 camera = new Vector2(0.0f);
+
+        //physics stuff
+        public World world = new World(new Vector2(0.0f, 10.0f), true);
+
+        
 
         public Game() {
             graphics = new GraphicsDeviceManager(this);
@@ -36,6 +41,28 @@ namespace DrunkenArcher {
             textures = new Dictionary<String, Texture2D>();
             music = new Dictionary<String, Song>();
             sound = new Dictionary<String, SoundEffect>();
+
+            //testing!
+            Vector2[] edges = new Vector2[4];
+            edges[0] = new Vector2(0f, 0f);
+            edges[1] = new Vector2(64f, 0f);
+            edges[2] = new Vector2(64f, 48f);
+            edges[3] = new Vector2(0f, 48f);
+            LoopShape shape = new LoopShape();
+            shape._vertices = edges;
+            shape._count = 4;
+
+            BodyDef def = new BodyDef();
+            def.type = BodyType.Static;
+            def.position = new Vector2(0f, 0f);
+            Body stage = world.CreateBody(def);
+
+            FixtureDef fdef = new FixtureDef();
+            fdef.shape = shape;
+            fdef.density = 1.0f;
+            fdef.friction = 0.3f;
+            Fixture fixture = stage.CreateFixture(fdef);
+
         }
 
         /// <summary>
@@ -145,7 +172,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadLevel("testlevel.lua");
+            loadLevel("physicstest.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -189,6 +216,10 @@ namespace DrunkenArcher {
             foreach (var o in engine_objects) {
                 o.engine_update();
             }
+
+            //process world stuffs
+            world.Step(1.0f / 60.0f, 8, 3);
+
             vm.DoString("GameEngine.update()");
 
             //If we need to change levels, do that now

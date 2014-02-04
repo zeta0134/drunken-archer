@@ -92,6 +92,7 @@ function Object.create(original)
 	process_defaults(o)
 
 	o.object = object_to_bind
+	o.body = body_to_bind
 	objects[spawn_id] = o
 	
 	process_metatables(o)

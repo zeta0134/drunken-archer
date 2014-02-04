@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Box2D.XNA;
 
 /* NOTE:
  * I'm breaking a rule of OOP badly here and using public members all over the place. This is
@@ -15,7 +16,6 @@ using Microsoft.Xna.Framework.Graphics;
  * */
 
 namespace DrunkenArcher {
-
     class GameObject : PhysicsObject, Drawable {
 
         static int next_id = 1;
@@ -26,9 +26,27 @@ namespace DrunkenArcher {
 
         public GameObject(Lua vm, Game gm) {
             id = next_id++;
-            bind_to_lua(vm);
             game = gm;
             sprite_color = Color.White;
+
+            //setup physics stuff
+            BodyDef def = new BodyDef();
+            def.type = BodyType.Dynamic;
+            def.position = new Vector2(0.0f);
+            body = game.world.CreateBody(def);
+
+            //create a fixture for the bounding box
+            PolygonShape box = new PolygonShape();
+            box.SetAsBox(1.0f, 1.0f);
+
+            FixtureDef fdef = new FixtureDef();
+            fdef.shape = box;
+            fdef.density = 1.0f;
+            fdef.friction = 0.3f;
+
+            fixture = body.CreateFixture(fdef);
+
+            bind_to_lua(vm);
         }
 
         public int ID() {
@@ -68,21 +86,43 @@ namespace DrunkenArcher {
                 game.textures[path] = game.Content.Load<Texture2D>(path);
             }
             texture = game.textures[path];
+            
+            //setup fun physics things
+            body.DestroyFixture(fixture);
 
-            //set the bounding box from the sprite dimensions (for the physics engine)
-            bounding_box = new Rectangle(0, 0, texture.Width, texture.Height);
+            PolygonShape box = new PolygonShape();
+            float phys_width = (float)texture.Width / 10.0f;
+            float phys_height = (float)texture.Width / 10.0f;
+            box.SetAsBox(
+                phys_width / 2.0f,
+                phys_height / 2.0f,
+                new Vector2(phys_width / 2.0f, phys_height / 2.0f), 
+                0.0f);
 
+            FixtureDef fdef = new FixtureDef();
+            fdef.shape = box;
+            fdef.density = 1.0f;
+            fdef.friction = 0.3f;
+
+            fixture = body.CreateFixture(fdef);
+            body.ResetMassData();
         }
 
         public void bind_to_lua(Lua vm) {
             vm["object_to_bind"] = this;
+            vm["body_to_bind"] = this.body;
         }
 
         public void Draw(Game game) {
             if (this.texture != null) {
-                float draw_x = x - game.camera.X * _camera_weight.X;
-                float draw_y = y - game.camera.Y * _camera_weight.Y;
-                game.spriteBatch.Draw(texture, new Vector2(draw_x, draw_y), sprite_color);
+                float draw_x = (body.Position.X * 10.0f) - game.camera.X * _camera_weight.X;
+                float draw_y = (body.Position.Y * 10.0f) - game.camera.Y * _camera_weight.Y;
+
+                float scale = 1.0f;
+                float angle = body.GetAngle();
+                float layer = 0f;
+                game.spriteBatch.Draw(texture, new Vector2(draw_x, draw_y), null, sprite_color, angle, new Vector2(0.0f), scale, SpriteEffects.None, layer);
+                
             }
         }
     }

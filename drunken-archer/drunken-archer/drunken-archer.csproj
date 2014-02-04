@@ -60,6 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Box2D.XNA">
+      <HintPath>..\..\..\..\..\Downloads\box2dxna-62331\Box2D.XNA\bin\x86\Release\Box2D.XNA.dll</HintPath>
+    </Reference>
     <Reference Include="KeraLua">
       <HintPath>..\..\KeraLua.dll</HintPath>
     </Reference>
@@ -165,6 +168,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="lua\objects\paddle.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="lua\physicstest.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="lua\testlevel.lua">
