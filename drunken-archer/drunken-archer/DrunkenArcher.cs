@@ -79,13 +79,27 @@ namespace DrunkenArcher {
             base.Initialize();
         }
 
+        SoundEffectInstance musicPlayer;
+
         public void playMusic(string path) {
-            if (!music.ContainsKey(path)) {
+            /*if (!music.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
                 music[path] = Content.Load<Song>(path);
             }
             MediaPlayer.Play(music[path]);
-            MediaPlayer.IsRepeating = true;
+            MediaPlayer.IsRepeating = true;*/
+            if (!sound.ContainsKey(path)) {
+                //Attempt to load the song (we haven't done so yet)
+                sound[path] = Content.Load<SoundEffect>(path);
+            }
+
+            if (musicPlayer != null) {
+                musicPlayer.Stop();
+            }
+
+            musicPlayer = sound[path].CreateInstance();
+            musicPlayer.IsLooped = true;
+            musicPlayer.Play();
         }
 
         public void playSound(string path) {

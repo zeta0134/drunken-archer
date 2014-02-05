@@ -8,6 +8,7 @@ box:sprite("art/sprites/zero")
 box.x = 10
 box.y = 10
 box.vx = 5
+
 function box:update()
 	if keys_held.Up then
 		self.vy = -10
@@ -25,7 +26,7 @@ function box:update()
 	if keys_down.D then
 		self.x = 10
 		self.y = 10
-		GameEngine.playMusic("music/game-loop")
+		GameEngine.playMusic("music/game-loop2")
 	end
 end
 
