@@ -10,19 +10,21 @@ namespace DrunkenArcher {
         protected static Game game;
 
         public float x {
-            get { return body.Position.X; } 
-            set { body.Position = new Vector2(value, body.Position.Y); } }
+            get { return body.Position.X; }
+            set { body.Position = new Vector2(value, body.Position.Y); body.SetAwake(true); }
+        }
         public float y {
             get { return body.Position.Y; }
-            set { body.Position = new Vector2(body.Position.X, value); } }
+            set { body.Position = new Vector2(body.Position.X, value); body.SetAwake(true); }
+        }
 
         public float vx {
             get { return body.GetLinearVelocity().X; }
-            set { body.SetLinearVelocity(new Vector2(value, body.GetLinearVelocity().Y)); }
+            set { body.SetLinearVelocity(new Vector2(value, body.GetLinearVelocity().Y)); body.SetAwake(true); }
         }
         public float vy {
             get { return body.GetLinearVelocity().Y; }
-            set { body.SetLinearVelocity(new Vector2(body.GetLinearVelocity().X, value)); }
+            set { body.SetLinearVelocity(new Vector2(body.GetLinearVelocity().X, value)); body.SetAwake(true); }
         }
 
 

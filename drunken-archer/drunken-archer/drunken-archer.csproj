@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Box2D.XNA">
-      <HintPath>..\..\..\..\..\Downloads\box2dxna-62331\Box2D.XNA\bin\x86\Release\Box2D.XNA.dll</HintPath>
+      <HintPath>..\..\Box2D.XNA.dll</HintPath>
     </Reference>
     <Reference Include="KeraLua">
       <HintPath>..\..\KeraLua.dll</HintPath>

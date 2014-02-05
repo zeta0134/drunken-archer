@@ -85,6 +85,7 @@ namespace DrunkenArcher {
                 music[path] = Content.Load<Song>(path);
             }
             MediaPlayer.Play(music[path]);
+            MediaPlayer.IsRepeating = true;
         }
 
         public void playSound(string path) {

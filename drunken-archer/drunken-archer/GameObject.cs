@@ -92,7 +92,7 @@ namespace DrunkenArcher {
 
             PolygonShape box = new PolygonShape();
             float phys_width = (float)texture.Width / 10.0f;
-            float phys_height = (float)texture.Width / 10.0f;
+            float phys_height = (float)texture.Height / 10.0f;
             box.SetAsBox(
                 phys_width / 2.0f,
                 phys_height / 2.0f,
