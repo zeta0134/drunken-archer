@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NLua;
 
 namespace DrunkenArcher {
-    class TileMap : PhysicsObject, Drawable {
+    class TileMap : GameObject {
         struct Tile {
             public bool solid;
             public int index;
@@ -26,44 +26,15 @@ namespace DrunkenArcher {
         static int next_id = 1;
         int id;
 
-        public TileMap(Lua vm, Game gm) {
+        public TileMap(Lua vm, Game gm) : base(vm, gm) {
             id = next_id++;
             bind_to_lua(vm);
             game = gm;
+
+            body.SetType(Box2D.XNA.BodyType.Static);
         }
 
-        public int ID() {
-            return id;
-        }
-
-        private int layer = 0;
-
-        public void z_index(int z) {
-            //remove this item from its current layer (assuming that exists)
-            if (game.layers.ContainsKey(layer)) {
-                if (game.layers[layer].items.Contains(this)) {
-                    game.layers[layer].items.Remove(this);
-                }
-
-                //if we just emptied this layer out, remove the list entirely
-                if (layer != 0 && game.layers[layer].items.Count == 0) {
-                    game.layers.Remove(layer);
-                }
-            }
-
-            //Switch this item's layer, then add it to the appropriate collection
-            layer = z;
-            if (!game.layers.ContainsKey(layer)) {
-                game.layers.Add(layer, new DrawableList());
-            }
-            game.layers[layer].items.Add(this);
-        }
-
-        public void bind_to_lua(Lua vm) {
-            vm["object_to_bind"] = this;
-        }
-
-        public void Draw(Game game) {
+        public override void Draw(Game game) {
             Vector2 map_position = new Vector2(x - game.camera.X * _camera_weight.X, y - game.camera.Y * _camera_weight.Y);
 
             for (int dy = 0; dy < height; dy++) {

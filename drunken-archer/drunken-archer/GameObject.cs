@@ -16,7 +16,41 @@ using Box2D.XNA;
  * */
 
 namespace DrunkenArcher {
-    class GameObject : PhysicsObject, Drawable {
+    class GameObject : Drawable {
+        protected static Game game;
+
+        public float x {
+            get { return body.Position.X; }
+            set { body.Position = new Vector2(value, body.Position.Y); body.SetAwake(true); }
+        }
+        public float y {
+            get { return body.Position.Y; }
+            set { body.Position = new Vector2(body.Position.X, value); body.SetAwake(true); }
+        }
+
+        public float vx {
+            get { return body.GetLinearVelocity().X; }
+            set { body.SetLinearVelocity(new Vector2(value, body.GetLinearVelocity().Y)); body.SetAwake(true); }
+        }
+        public float vy {
+            get { return body.GetLinearVelocity().Y; }
+            set { body.SetLinearVelocity(new Vector2(body.GetLinearVelocity().X, value)); body.SetAwake(true); }
+        }
+
+        protected Vector2 _camera_weight = new Vector2(1.0f);
+        protected Rectangle bounding_box = new Rectangle(0, 0, 0, 0);
+
+        public void camera_weight(float x, float y) {
+            _camera_weight.X = x;
+            _camera_weight.Y = y;
+        }
+
+        public Body body;
+        protected Fixture fixture;
+
+        public void engine_update() {
+
+        }
 
         static int next_id = 1;
         int id;
@@ -34,17 +68,6 @@ namespace DrunkenArcher {
             def.type = BodyType.Dynamic;
             def.position = new Vector2(0.0f);
             body = game.world.CreateBody(def);
-
-            //create a fixture for the bounding box
-            PolygonShape box = new PolygonShape();
-            box.SetAsBox(1.0f, 1.0f);
-
-            FixtureDef fdef = new FixtureDef();
-            fdef.shape = box;
-            fdef.density = 1.0f;
-            fdef.friction = 0.3f;
-
-            fixture = body.CreateFixture(fdef);
 
             bind_to_lua(vm);
         }
@@ -88,7 +111,9 @@ namespace DrunkenArcher {
             texture = game.textures[path];
             
             //setup fun physics things
-            body.DestroyFixture(fixture);
+            if (fixture != null) {
+                body.DestroyFixture(fixture);
+            }
 
             PolygonShape box = new PolygonShape();
             float phys_width = (float)texture.Width / 10.0f;
@@ -113,7 +138,7 @@ namespace DrunkenArcher {
             vm["body_to_bind"] = this.body;
         }
 
-        public void Draw(Game game) {
+        public virtual void Draw(Game game) {
             if (this.texture != null) {
                 float draw_x = (body.Position.X * 10.0f) - game.camera.X * _camera_weight.X;
                 float draw_y = (body.Position.Y * 10.0f) - game.camera.Y * _camera_weight.Y;

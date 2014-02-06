@@ -20,7 +20,7 @@ namespace DrunkenArcher {
         public SpriteBatch spriteBatch;
 
         public SortedList<int, DrawableList> layers = new SortedList<int, DrawableList>();
-        List<PhysicsObject> engine_objects = new List<PhysicsObject>();
+        List<GameObject> engine_objects = new List<GameObject>();
         public Dictionary<String, Texture2D> textures;
         public Dictionary<String, Song> music;
         public Dictionary<String, SoundEffect> sound;
