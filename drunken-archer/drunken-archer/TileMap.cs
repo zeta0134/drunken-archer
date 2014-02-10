@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using NLua;
+using Box2D.XNA;
 
 namespace DrunkenArcher {
     class TileMap : GameObject {
@@ -65,8 +66,36 @@ namespace DrunkenArcher {
             map = new Tile[w, h];
         }
 
-        public void setTile(int x, int y, int index) {
+
+        public void setTile(int x, int y, int index, bool solid) {
+            //if this block was solid before, remove the physics object
+            //TODO: THIS
+            
             map[x, y].index = index;
+            map[x, y].solid = solid;
+
+            if (solid) {
+                //add a new physics object for this tile
+                //(note: this method will probably fail)
+                PolygonShape box = new PolygonShape();
+                float phys_width = (float)tile_width / 10.0f;
+                float phys_height = (float)tile_height / 10.0f;
+
+                box.SetAsBox(
+                    phys_width / 2.0f,
+                    phys_height / 2.0f,
+                    new Vector2(
+                        phys_width * x + phys_width / 2.0f,
+                        phys_height * y + phys_height / 2.0f),
+                    0.0f);
+
+                FixtureDef fdef = new FixtureDef();
+                fdef.shape = box;
+                fdef.density = 1.0f;
+                fdef.friction = 0.3f;
+
+                fixture = body.CreateFixture(fdef);
+            }
         }
     }
 }

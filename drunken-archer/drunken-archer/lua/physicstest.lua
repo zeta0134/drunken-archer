@@ -55,24 +55,30 @@ testytest:mapSize(40,30)
 
 --edges
 for x = 1, 38 do
-	testytest:setTile(x, 0, 2)
-	testytest:setTile(x, 29, 14)
+	testytest:setTile(x, 0, 2, false)
+	testytest:setTile(x, 29, 14, false)
 end
 
 for y = 1, 28 do
-	testytest:setTile(0, y, 7)
-	testytest:setTile(39, y, 9)
+	testytest:setTile(0, y, 7, false)
+	testytest:setTile(39, y, 9, false)
 end
 
 --fill
 for y = 1, 28 do
 	for x = 1, 38 do
-		testytest:setTile(x, y, 8)
+		testytest:setTile(x, y, 8, false)
 	end
 end
 
 --corners
-testytest:setTile(0,0,1)
-testytest:setTile(0,29,13)
-testytest:setTile(39,0,3)
-testytest:setTile(39,29,15)
+testytest:setTile(0,0,1, false)
+testytest:setTile(0,29,13, false)
+testytest:setTile(39,0,3, false)
+testytest:setTile(39,29,15, false)
+
+--weird stuff!
+
+for x = 12, 27 do
+	testytest:setTile(x, 19, 4, true)
+end
