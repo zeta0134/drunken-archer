@@ -163,6 +163,9 @@
     <None Include="lua\main.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\maps\editablemap.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\objects\ball.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
