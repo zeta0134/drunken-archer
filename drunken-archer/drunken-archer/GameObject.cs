@@ -37,6 +37,11 @@ namespace DrunkenArcher {
             set { body.SetLinearVelocity(new Vector2(body.GetLinearVelocity().X, value)); body.SetAwake(true); }
         }
 
+        public bool active {
+            get { return body.IsActive(); }
+            set { body.SetActive(value); }
+        }
+
         protected Vector2 _camera_weight = new Vector2(1.0f);
         protected Rectangle bounding_box = new Rectangle(0, 0, 0, 0);
 

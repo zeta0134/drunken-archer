@@ -145,25 +145,25 @@ end
 GameEngine = {}
 
 --global collection of all game objects
+--TODO: Do we really need tilemaps and objects to be separated?
 objects = {}
 tilemaps = {}
 
---This is called every frame
-GameEngine.update = function()
+GameEngine.processEvent = function(event)
 	for k, v in pairs(objects) do
-		if objects[k].update then
-			objects[k]:update()
+		if objects[k][event] then
+			objects[k][event](v)
 		end
 	end
 
 	for k, v in pairs(tilemaps) do
-		if tilemaps[k].update then
-			tilemaps[k]:update()
+		if tilemaps[k][event] then
+			tilemaps[k][event](v)
 		end
 	end
 
 	--debug code
-	if keys_up.R then
+	if event == "update" and keys_up.R then
 		--reload the current level
 		GameEngine.loadLevel(current_level)
 	end
@@ -175,6 +175,8 @@ keys_held = {}
 
 prev_gamepad_held = {}
 gamepad_held = {}
+
+mouse = {}
 
 --These here let us do *sane things* with key polling
 _key_down = function(t, k)

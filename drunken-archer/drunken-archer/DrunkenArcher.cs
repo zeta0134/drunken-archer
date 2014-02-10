@@ -63,6 +63,8 @@ namespace DrunkenArcher {
             fdef.friction = 0.3f;
             Fixture fixture = stage.CreateFixture(fdef);
 
+            //this.IsMouseVisible = true;
+
         }
 
         /// <summary>
@@ -202,6 +204,9 @@ namespace DrunkenArcher {
             // TODO: Unload any non ContentManager content here
         }
 
+        MouseState lastMouse;
+        MouseState currentMouse;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -222,20 +227,38 @@ namespace DrunkenArcher {
                 vm.DoString("keys_held[\"" + key + "\"] = true");
             }
 
-            //quick thing to restart the level on command
-            //if (Keyboard.GetState().IsKeyDown(Keys.R)) {
-            //    loadLevel("testlevel.lua");
-            //}
-
             // TODO: Add your update logic here
             foreach (var o in engine_objects) {
                 o.engine_update();
             }
 
+            //handle mouse movement / clicks
+            lastMouse = currentMouse;
+            currentMouse = Mouse.GetState();
+            vm.DoString("mouse.x = " + ((float)(currentMouse.X + camera.X) / 10f));
+            vm.DoString("mouse.y = " + ((float)(currentMouse.Y + camera.Y) / 10f));
+
+
+            if (currentMouse.LeftButton == ButtonState.Pressed && lastMouse.LeftButton == ButtonState.Released) {
+                vm.DoString("GameEngine.processEvent('on_click')");
+            }
+
+            if (currentMouse.ScrollWheelValue < lastMouse.ScrollWheelValue) {
+                vm.DoString("GameEngine.processEvent('scroll_down')");
+            }
+
+            if (currentMouse.ScrollWheelValue > lastMouse.ScrollWheelValue) {
+                vm.DoString("GameEngine.processEvent('scroll_up')");
+            }
+
+            //scroll click
+            if (currentMouse.MiddleButton == ButtonState.Pressed && lastMouse.MiddleButton == ButtonState.Released) {
+                vm.DoString("GameEngine.processEvent('scroll_click')");
+            }
+
             //process world stuffs
             world.Step(1.0f / 60.0f, 8, 3);
-
-            vm.DoString("GameEngine.update()");
+            vm.DoString("GameEngine.processEvent('update')");
 
             //If we need to change levels, do that now
             if (levelToLoad != "") {

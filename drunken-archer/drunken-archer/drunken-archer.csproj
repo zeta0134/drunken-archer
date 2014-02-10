@@ -169,6 +169,9 @@
     <None Include="lua\objects\ball.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\objects\cursor.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\objects\paddle.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

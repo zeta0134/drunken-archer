@@ -83,3 +83,43 @@ end
 --add a camera
 dofile("lua/objects/WASDcamera.lua")
 camera = WASDcamera.create()
+
+--add a nice mouse cursor
+dofile("lua/objects/cursor.lua")
+cursor = Cursor.create()
+cursor:z_index(10)
+cursor:sprite("art/sprites/mousecursor")
+
+selector = TileCursor.create()
+selector:z_index(11)
+selector:setTiles("art/tiles/testytest")
+selector:displayTile(1)
+selector.offset_x = 8
+selector.offset_y = 7
+
+selector.index = 1
+selector.max_index = 16
+selector.solid = true
+
+function selector:scroll_up()
+	if self.index > 0 then
+		self.index = self.index - 1
+		self:displayTile(self.index)
+	end
+end
+
+function selector:scroll_down()
+	if self.index < self.max_index then
+		self.index = self.index + 1
+		self:displayTile(self.index)
+	end
+end
+
+function selector:scroll_click()
+	selector.solid = not selector.solid
+	if selector.solid then
+		cursor:sprite("art/sprites/mousecursor")
+	else
+		cursor:sprite("art/sprites/mousecursor_empty")
+	end
+end
