@@ -169,6 +169,9 @@
     <None Include="lua\objects\paddle.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\objects\WASDcamera.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\physicstest.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

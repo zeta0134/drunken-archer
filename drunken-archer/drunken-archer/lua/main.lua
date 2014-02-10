@@ -97,6 +97,10 @@ function Object.create(original)
 	
 	process_metatables(o)
 
+	if o.init then
+		o:init()
+	end
+
 	return o
 end
 
@@ -124,6 +128,10 @@ function TileMap.create(original)
 	tilemaps[spawn_id] = o
 	
 	process_metatables(o)
+
+	if o.init then
+		o:init()
+	end
 
 	return o
 end

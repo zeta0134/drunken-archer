@@ -23,7 +23,7 @@ function box:update()
 		self.vx = 10
 	end
 
-	if keys_down.D then
+	if keys_down.F3 then
 		self.x = 10
 		self.y = 10
 		GameEngine.playMusic("music/game-loop2")
@@ -82,3 +82,7 @@ testytest:setTile(39,29,15, false)
 for x = 12, 27 do
 	testytest:setTile(x, 19, 4, true)
 end
+
+--add a camera
+dofile("lua/objects/WASDcamera.lua")
+camera = WASDcamera.create()

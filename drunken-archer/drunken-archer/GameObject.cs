@@ -52,6 +52,23 @@ namespace DrunkenArcher {
 
         }
 
+        public void body_type(string type) {
+            switch (type) {
+                case "static":
+                    body.SetType(BodyType.Static);
+                    break;
+                case "kinematic":
+                    body.SetType(BodyType.Kinematic);
+                    break;
+                case "dynamic":
+                    body.SetType(BodyType.Dynamic);
+                    break;
+                default:
+                    Console.WriteLine("ERROR: Bad body type given: " + type);
+                    break;
+            }
+        }
+
         static int next_id = 1;
         int id;
 
