@@ -41,10 +41,16 @@ namespace DrunkenArcher {
             for (int dy = 0; dy < height; dy++) {
                 for (int dx = 0; dx < width; dx++) {
                     if (map[dx, dy].index > 0) {
+                        int tilemap_x = (map[dx, dy].index - 1) * tile_width;
+                        int tilemap_y = 0;
+                        while (tilemap_x > tile_texture.Width && tilemap_y < tile_texture.Height) {
+                            tilemap_x -= tile_texture.Width;
+                            tilemap_y += tile_height;
+                        }
                         Vector2 tile_position = map_position + new Vector2(dx * tile_width, dy * tile_height);
                         if (tile_position.X >= 0 - tile_width && tile_position.Y >= 0 - tile_height &&
                             tile_position.X <= game.graphics.PreferredBackBufferWidth && tile_position.Y <= game.graphics.PreferredBackBufferHeight) {
-                            game.spriteBatch.Draw(tile_texture, tile_position, new Rectangle((map[dx, dy].index - 1) * tile_width, 0, tile_width, tile_height), (map[dx, dy].solid ? Color.LightBlue : Color.White));
+                            game.spriteBatch.Draw(tile_texture, tile_position, new Rectangle(tilemap_x, tilemap_y, tile_width, tile_height), (map[dx, dy].solid ? Color.LightBlue : Color.White));
                         }
                     }
                 }
@@ -66,6 +72,13 @@ namespace DrunkenArcher {
             map = new Tile[w, h];
         }
 
+        public int getTile(int x, int y) {
+            return map[x, y].index;
+        }
+
+        public bool isSolid(int x, int y) {
+            return map[x, y].solid;
+        }
 
         public void setTile(int x, int y, int index, bool solid) {
             //if this block was solid before, remove the physics object

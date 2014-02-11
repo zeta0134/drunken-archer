@@ -74,8 +74,8 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 640;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -240,8 +240,8 @@ namespace DrunkenArcher {
             //handle mouse movement / clicks
             lastMouse = currentMouse;
             currentMouse = Mouse.GetState();
-            vm.DoString("mouse.x = " + ((float)(currentMouse.X + camera.X) / 10f));
-            vm.DoString("mouse.y = " + ((float)(currentMouse.Y + camera.Y) / 10f));
+            vm.DoString("mouse.x = " + ((float)Math.Floor((currentMouse.X + camera.X) / 2) / 10f));
+            vm.DoString("mouse.y = " + ((float)Math.Floor((currentMouse.Y + camera.Y) / 2) / 10f));
 
 
             if (currentMouse.LeftButton == ButtonState.Pressed && lastMouse.LeftButton == ButtonState.Released) {

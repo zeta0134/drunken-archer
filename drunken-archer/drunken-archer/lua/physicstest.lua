@@ -49,20 +49,22 @@ end
 --try out some interesting things
 dofile("lua/maps/editablemap.lua")
 map = EditableMap.create()
+map:mapSize(40,21)
+map.y = 24 / 10.0
 
 --edges
 for x = 1, 38 do
 	map:setTile(x, 0, 2, false)
-	map:setTile(x, 29, 14, false)
+	map:setTile(x, 20, 14, false)
 end
 
-for y = 1, 28 do
+for y = 1, 19 do
 	map:setTile(0, y, 7, false)
 	map:setTile(39, y, 9, false)
 end
 
 --fill
-for y = 1, 28 do
+for y = 1, 19 do
 	for x = 1, 38 do
 		map:setTile(x, y, 8, false)
 	end
@@ -70,9 +72,9 @@ end
 
 --corners
 map:setTile(0,0,1, false)
-map:setTile(0,29,13, false)
+map:setTile(0,20,13, false)
 map:setTile(39,0,3, false)
-map:setTile(39,29,15, false)
+map:setTile(39,20,15, false)
 
 --weird stuff!
 
