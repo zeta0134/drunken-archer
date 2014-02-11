@@ -25,7 +25,7 @@ aipaddle:sprite("art/sprites/paddle")
 player_score = 0
 ai_score = 0
 
---GameEngine.playMusic("music/game-loop")
+GameEngine.playMusic("music/game-loop")
 
 --test things out
 zero1 = Ball.create()

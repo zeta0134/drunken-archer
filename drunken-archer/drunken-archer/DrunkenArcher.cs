@@ -29,9 +29,8 @@ namespace DrunkenArcher {
         public Vector2 camera = new Vector2(0.0f);
 
         //physics stuff
-        public World world = new World(new Vector2(0.0f, 10.0f), true);
-
-        
+        static Vector2 gravity = new Vector2(0.0f, 10.0f);
+        public World world = new World(gravity, true);
 
         public Game() {
             graphics = new GraphicsDeviceManager(this);
@@ -138,6 +137,9 @@ namespace DrunkenArcher {
             vm.Dispose(); //cleanup? NO IDEA. No documentation. None. Anywhere.
             vm = new Lua();
 
+            //clear out the physics everything
+            world = new World(gravity, true);
+
             //run the initial config set
             vm.DoFile("lua/main.lua");
 
@@ -183,6 +185,8 @@ namespace DrunkenArcher {
             return new_tilemap.ID();
         }
 
+        Effect pixelDouble;
+
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -194,6 +198,7 @@ namespace DrunkenArcher {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            pixelDouble = Content.Load<Effect>("PixelDouble");
         }
 
         /// <summary>
@@ -274,6 +279,11 @@ namespace DrunkenArcher {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
+            //setup a render to texture
+            RenderTarget2D render_target = new RenderTarget2D(graphics.GraphicsDevice, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            graphics.GraphicsDevice.SetRenderTarget(render_target);
+            graphics.ApplyChanges();
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
@@ -281,11 +291,22 @@ namespace DrunkenArcher {
 
             //Draw each layer of the engine in turn; lower layers draw first so they
             //end up behind everything else
-            foreach (var layer in layers) {
+            foreach (var layer in layers)
+            {
                 layer.Value.Draw(this);
             }
 
             spriteBatch.End();
+
+            //grab the rendered texture and apply effects and stuff
+            graphics.GraphicsDevice.SetRenderTarget(null);
+            graphics.ApplyChanges();
+
+            SpriteBatch newthing = new SpriteBatch(graphics.GraphicsDevice);
+
+            newthing.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, pixelDouble);
+            newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.LightGray);
+            newthing.End();
 
             base.Draw(gameTime);
         }
