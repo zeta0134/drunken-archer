@@ -1,15 +1,13 @@
 ﻿--GameEngine.playMusic("music/menu-loop")
 
 --create a box! (it should fall)
-Box = inherits(Object)
-
 box = Box.create()
 box:sprite("art/sprites/zero")
 box.x = 10
 box.y = 10
 box.vx = 5
 
-function box:update()
+function Box:update()
 	if keys_held.Up then
 		self.vy = -10
 	end
@@ -21,12 +19,6 @@ function box:update()
 	end
 	if keys_held.Right then
 		self.vx = 10
-	end
-
-	if keys_down.F3 then
-		self.x = 10
-		self.y = 10
-		GameEngine.playMusic("music/game-loop2")
 	end
 end
 
@@ -94,7 +86,7 @@ selector.offset_x = 8
 selector.offset_y = 7
 
 selector.index = 1
-selector.max_index = 16
+selector.activeMap = map
 selector.solid = true
 
 function selector:scroll_up()
@@ -105,7 +97,7 @@ function selector:scroll_up()
 end
 
 function selector:scroll_down()
-	if self.index < self.max_index then
+	if self.index < self.activeMap:maxIndex() then
 		self.index = self.index + 1
 		self:displayTile(self.index)
 	end

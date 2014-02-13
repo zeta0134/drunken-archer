@@ -8,9 +8,6 @@ function EditableMap:init()
 end
 
 function EditableMap:on_click()
-	--figure out tile position based on click coordinates
-	print("Click!")
-
 	--adjust mouse for self position
 	x = mouse.x - self.x
 	y = mouse.y - self.y

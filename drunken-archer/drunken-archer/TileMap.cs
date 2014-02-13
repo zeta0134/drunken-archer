@@ -15,7 +15,6 @@ namespace DrunkenArcher {
             public int index;
         }
 
-        Texture2D tile_texture;
         Tile[,] map;
 
         public int width = 0;
@@ -43,14 +42,14 @@ namespace DrunkenArcher {
                     if (map[dx, dy].index > 0) {
                         int tilemap_x = (map[dx, dy].index - 1) * tile_width;
                         int tilemap_y = 0;
-                        while (tilemap_x > tile_texture.Width && tilemap_y < tile_texture.Height) {
-                            tilemap_x -= tile_texture.Width;
+                        while (tilemap_x >= texture.Width && tilemap_y < texture.Height) {
+                            tilemap_x -= texture.Width;
                             tilemap_y += tile_height;
                         }
                         Vector2 tile_position = map_position + new Vector2(dx * tile_width, dy * tile_height);
                         if (tile_position.X >= 0 - tile_width && tile_position.Y >= 0 - tile_height &&
                             tile_position.X <= game.graphics.PreferredBackBufferWidth && tile_position.Y <= game.graphics.PreferredBackBufferHeight) {
-                            game.spriteBatch.Draw(tile_texture, tile_position, new Rectangle(tilemap_x, tilemap_y, tile_width, tile_height), (map[dx, dy].solid ? Color.LightBlue : Color.White));
+                            game.spriteBatch.Draw(texture, tile_position, new Rectangle(tilemap_x, tilemap_y, tile_width, tile_height), (map[dx, dy].solid ? Color.LightBlue : Color.White));
                         }
                     }
                 }
@@ -62,7 +61,15 @@ namespace DrunkenArcher {
                 //try to load the asset first
                 game.textures[path] = game.Content.Load<Texture2D>(path);
             }
-            tile_texture = game.textures[path];
+            texture = game.textures[path];
+        }
+
+        public int maxIndex()
+        {
+            //returns the maximum tile, based on the size of the currently loaded tilemap texture
+            return (texture.Width / tile_width) * (texture.Height / tile_height);
+
+            //Note: undefined behavior if the tile texture is not an even multiple of the tile width / height
         }
 
         public void mapSize(int w, int h) {

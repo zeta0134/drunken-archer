@@ -163,9 +163,9 @@ GameEngine.processEvent = function(event)
 	end
 
 	--debug code
-	if event == "update" and keys_up.R then
+	if event == "update" and keys_up.F3 then
 		--reload the current level
-		GameEngine.loadLevel(current_level)
+		GameEngine.loadStage(current_stage)
 	end
 end
 
@@ -201,17 +201,10 @@ keys_up = setmetatable({}, {__index=_key_up})
 gamepad_up = setmetatable({}, {__index=_gamepad_up})
 
 --this is filled by the game engine, and is used in debug mode for restarts
-current_level = ""
+current_stage = ""
 
-function saveTable(table, filename)
-	
-end
+--bring in some happy things from lua tables
+dofile("lua/savetable.lua")
 
-function serializeTable(table)
-	--given a lua table, returns a string representation
-
-end
-
-function deserializeTable(string)
-	--given a table which has been serialized to a string, returns that table
-end
+--this is used by the level editor
+registered_objects = {}

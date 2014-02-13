@@ -111,11 +111,11 @@ namespace DrunkenArcher {
             sound[path].Play(0.5f, 0.0f, 0.0f);
         }
 
-        private string levelToLoad = "";
+        private string stageToLoad = "";
 
-        public void luaLoadLevel(string path) {
+        public void luaLoadStage(string path) {
             //This exists to prevent lua from deleting itself while it's running
-            levelToLoad = path;
+            stageToLoad = path;
         }
 
         public void setCamera(float x, float y) {
@@ -123,7 +123,7 @@ namespace DrunkenArcher {
             camera.Y = y;
         }
 
-        public void loadLevel(string path) {
+        public void loadStage(string path) {
             //cleanup anything from the old level
             engine_objects.Clear();
 
@@ -148,14 +148,14 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.tilemap", this, GetType().GetMethod("CreateTileMap"));
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
-            vm.RegisterFunction("GameEngine.loadLevel", this, GetType().GetMethod("luaLoadLevel"));
+            vm.RegisterFunction("GameEngine.loadStage", this, GetType().GetMethod("luaLoadStage"));
             vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
 
             //Set some engine-level variables for the lua code to use
-            vm.DoString("current_level = \"" + path + "\"");
+            vm.DoString("current_stage = \"" + path + "\"");
 
             //finally, run the level file
-            vm.DoFile("lua/" + path);
+            vm.DoFile("lua/stages/" + path);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadLevel("physicstest.lua");
+            loadStage("physicstest.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -266,9 +266,9 @@ namespace DrunkenArcher {
             vm.DoString("GameEngine.processEvent('update')");
 
             //If we need to change levels, do that now
-            if (levelToLoad != "") {
-                loadLevel(levelToLoad);
-                levelToLoad = "";
+            if (stageToLoad != "") {
+                loadStage(stageToLoad);
+                stageToLoad = "";
             }
 
             base.Update(gameTime);
@@ -280,7 +280,7 @@ namespace DrunkenArcher {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
             //setup a render to texture
-            RenderTarget2D render_target = new RenderTarget2D(graphics.GraphicsDevice, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            RenderTarget2D render_target = new RenderTarget2D(graphics.GraphicsDevice, graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
             graphics.GraphicsDevice.SetRenderTarget(render_target);
             graphics.ApplyChanges();
 
@@ -304,7 +304,7 @@ namespace DrunkenArcher {
 
             SpriteBatch newthing = new SpriteBatch(graphics.GraphicsDevice);
 
-            newthing.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, pixelDouble);
+            newthing.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null);
             newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.LightGray);
             newthing.End();
 
