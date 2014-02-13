@@ -26,6 +26,10 @@ namespace DrunkenArcher {
         static int next_id = 1;
         int id;
 
+        public bool debug = false;
+        public int highlight_x = -1;
+        public int highlight_y = -1;
+
         public TileMap(Lua vm, Game gm) : base(vm, gm) {
             id = next_id++;
             bind_to_lua(vm);
@@ -49,7 +53,20 @@ namespace DrunkenArcher {
                         Vector2 tile_position = map_position + new Vector2(dx * tile_width, dy * tile_height);
                         if (tile_position.X >= 0 - tile_width && tile_position.Y >= 0 - tile_height &&
                             tile_position.X <= game.graphics.PreferredBackBufferWidth && tile_position.Y <= game.graphics.PreferredBackBufferHeight) {
-                            game.spriteBatch.Draw(texture, tile_position, new Rectangle(tilemap_x, tilemap_y, tile_width, tile_height), (map[dx, dy].solid ? Color.LightBlue : Color.White));
+                                Color tile_color = Color.White;
+                                if (debug) {
+                                    if (highlight_x == dx && highlight_y == dy) {
+                                        tile_color = Color.LightCoral;
+                                    }
+                                    else if (map[dx, dy].solid) {
+                                        tile_color = Color.LightBlue;
+                                    }
+                                }
+                                game.spriteBatch.Draw(
+                                    texture, 
+                                    tile_position, 
+                                    new Rectangle(tilemap_x, tilemap_y, tile_width, tile_height), 
+                                    tile_color);
                         }
                     }
                 }

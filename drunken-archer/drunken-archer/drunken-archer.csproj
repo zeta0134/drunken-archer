@@ -163,7 +163,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lua\objects\physicsbox.lua" />
+    <None Include="lua\objects\physicsbox.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\stages\leveleditor.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

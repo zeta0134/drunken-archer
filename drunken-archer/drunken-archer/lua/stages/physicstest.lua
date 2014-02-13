@@ -1,5 +1,7 @@
 ﻿--GameEngine.playMusic("music/menu-loop")
 
+dofile("lua/objects/physicsbox.lua")
+
 --create a box! (it should fall)
 box = Box.create()
 box:sprite("art/sprites/zero")
@@ -7,7 +9,7 @@ box.x = 10
 box.y = 10
 box.vx = 5
 
-function Box:update()
+function box:update()
 	if keys_held.Up then
 		self.vy = -10
 	end
@@ -22,14 +24,14 @@ function Box:update()
 	end
 end
 
-for i = 1, 10 do
+for i = 1, 5 do
 	paddle = Box.create()
 	paddle:sprite("art/sprites/paddle")
 	paddle.x = math.random(1, 30)
 	paddle.y = math.random(3, 15)
 end
 
-for i = 1, 10 do
+for i = 1, 5 do
 	triangle = Box.create()
 	triangle:sprite("art/sprites/triangle")
 	triangle.x = math.random(1, 30)
@@ -109,5 +111,15 @@ function selector:scroll_click()
 		cursor:sprite("art/sprites/mousecursor")
 	else
 		cursor:sprite("art/sprites/mousecursor_empty")
+	end
+end
+
+--fun things!
+function stage:update()
+	if keys_down.F5 then
+		persistence.store("lua/levels/test.level", map:save())
+	end
+	if keys_down.F6 then
+		map:load(persistence.load("lua/levels/test.level"))
 	end
 end

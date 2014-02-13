@@ -150,6 +150,10 @@ objects = {}
 tilemaps = {}
 
 GameEngine.processEvent = function(event)
+	if stage[event] then
+		stage[event](stage)
+	end
+	
 	for k, v in pairs(objects) do
 		if objects[k][event] then
 			objects[k][event](v)
@@ -208,3 +212,6 @@ dofile("lua/savetable.lua")
 
 --this is used by the level editor
 registered_objects = {}
+
+--global stuff goes here  (mostly update related functions)
+stage = {}
