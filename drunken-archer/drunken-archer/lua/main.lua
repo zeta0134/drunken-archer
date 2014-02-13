@@ -202,3 +202,16 @@ gamepad_up = setmetatable({}, {__index=_gamepad_up})
 
 --this is filled by the game engine, and is used in debug mode for restarts
 current_level = ""
+
+function saveTable(table, filename)
+	
+end
+
+function serializeTable(table)
+	--given a lua table, returns a string representation
+
+end
+
+function deserializeTable(string)
+	--given a table which has been serialized to a string, returns that table
+end

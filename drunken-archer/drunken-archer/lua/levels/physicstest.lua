@@ -33,15 +33,15 @@ end
 for i = 1, 10 do
 	paddle = Box.create()
 	paddle:sprite("art/sprites/paddle")
-	paddle.x = math.random(1, 60)
-	paddle.y = math.random(1, 30)
+	paddle.x = math.random(1, 30)
+	paddle.y = math.random(3, 15)
 end
 
 for i = 1, 10 do
 	triangle = Box.create()
 	triangle:sprite("art/sprites/triangle")
-	triangle.x = math.random(1, 60)
-	triangle.y = math.random(1, 30)
+	triangle.x = math.random(1, 30)
+	triangle.y = math.random(3, 15)
 end
 
 
@@ -54,13 +54,13 @@ map.y = 24 / 10.0
 
 --edges
 for x = 1, 38 do
-	map:setTile(x, 0, 2, false)
-	map:setTile(x, 20, 14, false)
+	map:setTile(x, 0, 4, true)
+	map:setTile(x, 20, 4, true)
 end
 
 for y = 1, 19 do
-	map:setTile(0, y, 7, false)
-	map:setTile(39, y, 9, false)
+	map:setTile(0, y, 4, true)
+	map:setTile(39, y, 4, true)
 end
 
 --fill
@@ -71,16 +71,10 @@ for y = 1, 19 do
 end
 
 --corners
-map:setTile(0,0,1, false)
-map:setTile(0,20,13, false)
-map:setTile(39,0,3, false)
-map:setTile(39,20,15, false)
-
---weird stuff!
-
-for x = 12, 27 do
-	map:setTile(x, 19, 4, true)
-end
+map:setTile(0,0,4, true)
+map:setTile(0,20,4, true)
+map:setTile(39,0,4, true)
+map:setTile(39,20,4, true)
 
 --add a camera
 dofile("lua/objects/WASDcamera.lua")
