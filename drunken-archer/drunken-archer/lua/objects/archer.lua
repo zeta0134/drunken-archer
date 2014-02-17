@@ -5,14 +5,15 @@ local Arrow = inherits(Object)
 function Arrow:init()
 	self:sprite("art/sprites/arrowhead") --everything else default
 	self.framesToLive = 300
+	self:shape("circle")
 end
 
---function Arrow:update()
---	self.framesToLive = self.framesToLive - 1
---	if self.framesToLive <= 0 then
---		self:destroy()
---	end
---end
+function Arrow:update_not()
+	self.framesToLive = self.framesToLive - 1
+	if self.framesToLive <= 0 then
+		self:destroy()
+	end
+end
 
 local Bow = inherits(Object)
 
@@ -59,7 +60,7 @@ function Archer:update()
 	end
 
 	--learn to turn
-	if gamepad_right:length() > 0.1 then
+	if gamepad_right:length() > 0.5 then
 		self.firingAngle = math.deg(gamepad_right.angle)
 	end
 
@@ -77,7 +78,7 @@ function Archer:update()
 	self.bow.y = self.y + 1.2
 	self.bow:setAngle(self.firingAngle)
 
-	if keys_down.Space or gamepad_down.RB or gamepad_down.LB then
+	if keys_down.Space or gamepad_down.RB or gamepad_held.LB then
 		--spawn an arrow!
 		arrow = Arrow.create()
 		

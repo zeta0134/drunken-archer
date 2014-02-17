@@ -153,9 +153,23 @@ namespace DrunkenArcher {
                 body.DestroyFixture(fixture);
             }
 
+            FixtureDef fdef = new FixtureDef();
+            fdef.density = 1.0f;
+            fdef.friction = 0.3f;
+
             switch (type) {
                 case "none":
                     break; //do nothing, leave the body with no fixture
+                case "circle":
+                    CircleShape circle = new CircleShape();
+                    circle._p = new Vector2((float)texture.Width / 20.0f, (float)texture.Height / 20.0f);
+                    circle._radius = (float)texture.Width / 20.0f;
+
+                    fdef.shape = circle;
+
+                    fixture = body.CreateFixture(fdef);
+                    body.ResetMassData();
+                    break;
                 case "box":
                 default:
                     PolygonShape box = new PolygonShape();
@@ -167,11 +181,8 @@ namespace DrunkenArcher {
                         new Vector2(phys_width / 2.0f, phys_height / 2.0f), 
                         0.0f);
 
-                    FixtureDef fdef = new FixtureDef();
                     fdef.shape = box;
-                    fdef.density = 1.0f;
-                    fdef.friction = 0.3f;
-
+                    
                     fixture = body.CreateFixture(fdef);
                     body.ResetMassData();
                     break;

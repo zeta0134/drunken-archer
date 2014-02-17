@@ -63,7 +63,9 @@ namespace DrunkenArcher {
             Fixture fixture = stage.CreateFixture(fdef);
 
             //this.IsMouseVisible = true;
+            this.IsFixedTimeStep = false;
 
+            
         }
 
         /// <summary>
@@ -287,7 +289,8 @@ namespace DrunkenArcher {
             }
 
             //process world stuffs
-            world.Step(1.0f / 60.0f, 8, 3);
+            //world.Step(1.0f / 60.0f, 8, 3);
+            world.Step(1.0f / 60.0f, 6, 2);
             vm.DoString("GameEngine.processEvent('update')");
 
             //If we need to change levels, do that now
