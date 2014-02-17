@@ -108,7 +108,7 @@ namespace DrunkenArcher {
                 //Attempt to load the song (we haven't done so yet)
                 sound[path] = Content.Load<SoundEffect>(path);
             }
-            sound[path].Play(0.5f, 0.0f, 0.0f);
+            sound[path].Play(1.0f, 0.0f, 0.0f);
         }
 
         private string stageToLoad = "";

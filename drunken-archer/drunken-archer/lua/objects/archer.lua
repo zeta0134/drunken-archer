@@ -7,12 +7,12 @@ function Arrow:init()
 	self.framesToLive = 300
 end
 
-function Arrow:update()
-	self.framesToLive = self.framesToLive - 1
-	if self.framesToLive <= 0 then
-		self:destroy()
-	end
-end
+--function Arrow:update()
+--	self.framesToLive = self.framesToLive - 1
+--	if self.framesToLive <= 0 then
+--		self:destroy()
+--	end
+--end
 
 local Bow = inherits(Object)
 
