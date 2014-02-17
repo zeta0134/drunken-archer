@@ -105,8 +105,11 @@ function Object.create(original)
 end
 
 function Object:destroy()
-	print("Destroying an object...")
-	GameEngine.destroy(self)
+	--print("Destroyed an object: ")
+	--print(self.ID())
+	objects[self.ID()] = nil --remove this object from the update table
+	self:destroyObject() --gameengine call
+	
 end
 
 --same as objects, now for TileMaps
@@ -120,7 +123,7 @@ function TileMap.create(original)
 	if original then
 		o = original
 	end
-	print(type(o))
+	--print(type(o))
 
 	process_defaults(o)
 
@@ -134,11 +137,6 @@ function TileMap.create(original)
 	end
 
 	return o
-end
-
-function TileMap:destroy()
-	print("Destroying a tilemap...")
-	GameEngine.destroy(self)
 end
 
 --table for GameEngine stuff

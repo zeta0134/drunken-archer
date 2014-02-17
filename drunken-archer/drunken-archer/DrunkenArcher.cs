@@ -167,19 +167,17 @@ namespace DrunkenArcher {
             GameObject new_object = new GameObject(vm, this);
             engine_objects.Add(new_object);
 
-            //the default layer is 0
-            layers[0].items.Add(new_object);
-
             //tell lua about the new object
             return new_object.ID();
+        }
+
+        public void DestroyObject(GameObject gameobject) {
+            engine_objects.Remove(gameobject);
         }
 
         public int CreateTileMap() {
             TileMap new_tilemap = new TileMap(vm, this);
             engine_objects.Add(new_tilemap);
-
-            //the default layer is 0
-            layers[0].items.Add(new_tilemap);
 
             //tell lua about the new object
             return new_tilemap.ID();
@@ -287,7 +285,7 @@ namespace DrunkenArcher {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null);
 
             //Draw each layer of the engine in turn; lower layers draw first so they
             //end up behind everything else

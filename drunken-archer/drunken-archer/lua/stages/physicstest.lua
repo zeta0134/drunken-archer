@@ -1,28 +1,12 @@
 ﻿--GameEngine.playMusic("music/menu-loop")
 
 dofile("lua/objects/physicsbox.lua")
+dofile("lua/objects/archer.lua")
 
 --create a box! (it should fall)
-box = Box.create()
-box:sprite("art/sprites/zero")
-box.x = 10
-box.y = 10
-box.vx = 5
-
-function box:update()
-	if keys_held.Up then
-		self.vy = -10
-	end
-	if keys_held.Down then
-		self.vy = 10
-	end
-	if keys_held.Left then
-		self.vx = -10
-	end
-	if keys_held.Right then
-		self.vx = 10
-	end
-end
+player = Archer.create()
+player.x = 10
+player.y = 10
 
 for i = 1, 5 do
 	paddle = Box.create()

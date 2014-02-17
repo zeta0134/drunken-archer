@@ -16,7 +16,7 @@ using Box2D.XNA;
  * */
 
 namespace DrunkenArcher {
-    class GameObject : Drawable {
+    public class GameObject : Drawable {
         protected static Game game;
 
         public float x {
@@ -40,6 +40,11 @@ namespace DrunkenArcher {
         public bool active {
             get { return body.IsActive(); }
             set { body.SetActive(value); }
+        }
+
+        public bool fixedRotation {
+            get { return body.IsFixedRotation(); }
+            set { body.SetFixedRotation(value); }
         }
 
         protected Vector2 _camera_weight = new Vector2(1.0f);
@@ -92,6 +97,10 @@ namespace DrunkenArcher {
             body = game.world.CreateBody(def);
 
             bind_to_lua(vm);
+
+            //the default layer is 0
+            game.layers[0].items.Add(this);
+            //Console.WriteLine("Spawned an object");
         }
 
         public int ID() {
@@ -131,34 +140,52 @@ namespace DrunkenArcher {
                 game.textures[path] = game.Content.Load<Texture2D>(path);
             }
             texture = game.textures[path];
-            
-            //setup fun physics things
+
+            if (fixture == null) {
+                //apply a default shape
+                shape("box");
+            }
+        }
+
+        public void shape(string type) {
+            //delete the existing body
             if (fixture != null) {
                 body.DestroyFixture(fixture);
             }
 
-            PolygonShape box = new PolygonShape();
-            float phys_width = (float)texture.Width / 10.0f;
-            float phys_height = (float)texture.Height / 10.0f;
-            box.SetAsBox(
-                phys_width / 2.0f,
-                phys_height / 2.0f,
-                new Vector2(phys_width / 2.0f, phys_height / 2.0f), 
-                0.0f);
+            switch (type) {
+                case "none":
+                    break; //do nothing, leave the body with no fixture
+                case "box":
+                default:
+                    PolygonShape box = new PolygonShape();
+                    float phys_width = (float)texture.Width / 10.0f;
+                    float phys_height = (float)texture.Height / 10.0f;
+                    box.SetAsBox(
+                        phys_width / 2.0f,
+                        phys_height / 2.0f,
+                        new Vector2(phys_width / 2.0f, phys_height / 2.0f), 
+                        0.0f);
 
-            FixtureDef fdef = new FixtureDef();
-            fdef.shape = box;
-            fdef.density = 1.0f;
-            fdef.friction = 0.3f;
+                    FixtureDef fdef = new FixtureDef();
+                    fdef.shape = box;
+                    fdef.density = 1.0f;
+                    fdef.friction = 0.3f;
 
-            fixture = body.CreateFixture(fdef);
-            body.ResetMassData();
+                    fixture = body.CreateFixture(fdef);
+                    body.ResetMassData();
+                    break;
+            }
         }
+
+
 
         public void bind_to_lua(Lua vm) {
             vm["object_to_bind"] = this;
             vm["body_to_bind"] = this.body;
         }
+
+        private Vector2 rotationOrigin = new Vector2(0);
 
         public virtual void Draw(Game game) {
             if (this.texture != null) {
@@ -168,9 +195,37 @@ namespace DrunkenArcher {
                 float scale = 1.0f;
                 float angle = body.GetAngle();
                 float layer = 0f;
-                game.spriteBatch.Draw(texture, new Vector2(draw_x, draw_y), null, sprite_color, angle, new Vector2(0.0f), scale, SpriteEffects.None, layer);
-                
+                game.spriteBatch.Draw(texture, new Vector2(draw_x, draw_y), null, sprite_color, angle, rotationOrigin, scale, SpriteEffects.None, layer);
             }
         }
+
+        public void setAngle(float angle) {
+            //note: may have strange effects on physics
+            body.SetTransform(body.GetPosition(), ((float)Math.PI / 180f) * angle);
+            body.SetAngularVelocity(0f); //avoid weird movement results
+        }
+
+        public void setRotationOrigin(float x, float y) {
+            rotationOrigin = new Vector2(x, y);
+        }
+
+        //this *may not work*
+        public void destroyObject() {
+            //remove this item from its current layer (assuming that exists)
+            if (game.layers.ContainsKey(layer)) {
+                if (game.layers[layer].items.Contains(this)) {
+                    game.layers[layer].items.Remove(this);
+                }
+
+                //if we just emptied this layer out, remove the list entirely
+                if (layer != 0 && game.layers[layer].items.Count == 0) {
+                    game.layers.Remove(layer);
+                }
+            }
+
+            game.world.DestroyBody(body);
+            game.DestroyObject(this);
+        }
+
     }
 }
