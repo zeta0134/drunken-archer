@@ -55,11 +55,11 @@ function Archer:update()
 	--jumping
 	if gamepad_down.A then
 		self.vy = -10
+		GameEngine.playSound("sound/Jump20")
 	end
 
 	--learn to turn
 	if gamepad_right:length() > 0.1 then
-		print(gamepad_right.angle)
 		self.firingAngle = math.deg(gamepad_right.angle)
 	end
 
@@ -77,7 +77,7 @@ function Archer:update()
 	self.bow.y = self.y + 1.2
 	self.bow:setAngle(self.firingAngle)
 
-	if keys_down.Space or gamepad_down.RB then
+	if keys_down.Space or gamepad_down.RB or gamepad_down.LB then
 		--spawn an arrow!
 		arrow = Arrow.create()
 		

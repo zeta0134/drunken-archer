@@ -1,4 +1,4 @@
-﻿--GameEngine.playMusic("music/menu-loop")
+﻿GameEngine.playMusic("music/game-loop")
 
 dofile("lua/objects/physicsbox.lua")
 dofile("lua/objects/archer.lua")
