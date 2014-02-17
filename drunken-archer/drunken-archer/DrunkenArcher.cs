@@ -210,6 +210,11 @@ namespace DrunkenArcher {
         MouseState lastMouse;
         MouseState currentMouse;
 
+        protected void SetButtonState(ButtonState state, string key) {
+            if (state == ButtonState.Pressed)
+                vm.DoString("gamepad_held." + key + " = true");
+        }
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -220,9 +225,31 @@ namespace DrunkenArcher {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            GamePadButtons gamepad = GamePad.GetState(PlayerIndex.One).Buttons;
-            vm.DoString("prev_gamepad_held = gamepad_held");
-            vm["gamepad_held"] = gamepad;
+            GamePadState gamepad_state = GamePad.GetState(PlayerIndex.One);
+            GamePadButtons gamepad = gamepad_state.Buttons;
+            vm.DoString("prev_gamepad_held = gamepad_held\ngamepad_held = {}");
+            
+            //gamepad buttons
+            SetButtonState(gamepad.A, "A");
+            SetButtonState(gamepad.B, "B");
+            SetButtonState(gamepad.X, "X");
+            SetButtonState(gamepad.Y, "Y");
+
+            SetButtonState(gamepad.Start, "Start");
+            SetButtonState(gamepad.Back, "Back");
+
+            SetButtonState(gamepad.LeftShoulder, "LB");
+            SetButtonState(gamepad.RightShoulder, "RB");
+
+            //triggers
+            //TODO: THIS
+            
+            vm.DoString("gamepad_left.x = " + gamepad_state.ThumbSticks.Left.X);
+            vm.DoString("gamepad_left.y = " + gamepad_state.ThumbSticks.Left.Y);
+            vm.DoString("gamepad_left.angle = " + Math.Atan2(-gamepad_state.ThumbSticks.Left.Y, gamepad_state.ThumbSticks.Left.X));
+            vm.DoString("gamepad_right.x = " + gamepad_state.ThumbSticks.Right.X);
+            vm.DoString("gamepad_right.y = " + gamepad_state.ThumbSticks.Right.Y);
+            vm.DoString("gamepad_right.angle = " + Math.Atan2(-gamepad_state.ThumbSticks.Right.Y, gamepad_state.ThumbSticks.Right.X));
 
             Keys[] keys_pressed = Keyboard.GetState().GetPressedKeys();
             vm.DoString("prev_keys_held = keys_held\nkeys_held = {}");

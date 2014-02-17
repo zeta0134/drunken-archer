@@ -178,6 +178,27 @@ keys_held = {}
 prev_gamepad_held = {}
 gamepad_held = {}
 
+gamepad_left = {}
+gamepad_right = {}
+
+function vector_length(vector)
+	return math.sqrt(vector.x * vector.x + vector.y * vector.y)
+end
+
+function vector_normal(vector)
+	local result = {}
+	local length = vector_length(vector)
+	result.x = vector.x / length
+	result.y = vector.y / length
+	print("result.x: " .. result.x)
+	return result
+end
+
+gamepad_left.length = vector_length
+gamepad_right.length = vector_length
+gamepad_left.normal = vector_normal
+gamepad_right.normal = vector_normal
+
 mouse = {}
 
 --These here let us do *sane things* with key polling
@@ -186,7 +207,7 @@ _key_down = function(t, k)
 end
 
 _gamepad_down = function(t, k)
-	return keys_held[k] and not prev_keys_held[k]
+	return gamepad_held[k] and not prev_gamepad_held[k]
 end
 
 _key_up = function(t, k)
@@ -194,7 +215,7 @@ _key_up = function(t, k)
 end
 
 _gamepad_up = function(t, k)
-	return prev_keys_held[k] and not keys_held[k]
+	return prev_gamepad_held[k] and not gamepad_held[k]
 end
 
 keys_down = setmetatable({}, {__index=_key_down})
