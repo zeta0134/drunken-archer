@@ -1,4 +1,4 @@
-﻿GameEngine.playMusic("music/game-loop")
+﻿--GameEngine.playMusic("music/game-loop")
 
 dofile("lua/objects/physicsbox.lua")
 dofile("lua/objects/archer.lua")
@@ -18,6 +18,7 @@ end
 for i = 1, 5 do
 	triangle = Box.create()
 	triangle:sprite("art/sprites/triangle")
+	triangle:shape("circle")
 	triangle.x = math.random(1, 30)
 	triangle.y = math.random(3, 15)
 end

@@ -64,8 +64,6 @@ namespace DrunkenArcher {
 
             //this.IsMouseVisible = true;
             this.IsFixedTimeStep = false;
-
-            
         }
 
         /// <summary>
@@ -152,6 +150,7 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
             vm.RegisterFunction("GameEngine.loadStage", this, GetType().GetMethod("luaLoadStage"));
             vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
+            vm.RegisterFunction("GameEngine.toggleDebug", this, GetType().GetMethod("toggleDebug"));
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_stage = \"" + path + "\"");
@@ -197,8 +196,12 @@ namespace DrunkenArcher {
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            debugBatch = new SpriteBatch(GraphicsDevice);
 
             pixelDouble = Content.Load<Effect>("PixelDouble");
+
+            //debug stuff
+            world.DebugDraw = new daDebugDraw(this);
         }
 
         /// <summary>
@@ -222,6 +225,8 @@ namespace DrunkenArcher {
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        bool debug = false;
         protected override void Update(GameTime gameTime) {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -302,10 +307,16 @@ namespace DrunkenArcher {
             base.Update(gameTime);
         }
 
+        public void toggleDebug() {
+            debug = !debug;
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        public SpriteBatch debugBatch;
         protected override void Draw(GameTime gameTime) {
             //setup a render to texture
             RenderTarget2D render_target = new RenderTarget2D(graphics.GraphicsDevice, graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
@@ -333,8 +344,16 @@ namespace DrunkenArcher {
             SpriteBatch newthing = new SpriteBatch(graphics.GraphicsDevice);
 
             newthing.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null);
-            newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.LightGray);
+            newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), (debug ? Color.FromNonPremultiplied(64, 64, 64, 255) : Color.White));
             newthing.End();
+
+            //debug!
+            if (debug) {
+                world.DebugDraw.Flags = DebugDrawFlags.Shape;
+                debugBatch.Begin();
+                world.DrawDebugData();
+                debugBatch.End();
+            }
 
             base.Draw(gameTime);
         }

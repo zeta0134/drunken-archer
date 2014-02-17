@@ -93,9 +93,12 @@ function Object.create(original)
 
 	o.object = object_to_bind
 	o.body = body_to_bind
-	objects[spawn_id] = o
 	
 	process_metatables(o)
+
+	if o.update then
+		objects[spawn_id] = o
+	end
 
 	if o.init then
 		o:init()
@@ -165,9 +168,14 @@ GameEngine.processEvent = function(event)
 	end
 
 	--debug code
-	if event == "update" and keys_up.F3 then
-		--reload the current level
-		GameEngine.loadStage(current_stage)
+	if event == "update" then
+		if keys_up.F9 then
+			--reload the current level
+			GameEngine.loadStage(current_stage)
+		end
+		if keys_up.F3 then
+			GameEngine.toggleDebug()
+		end
 	end
 end
 
