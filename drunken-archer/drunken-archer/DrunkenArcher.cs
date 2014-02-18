@@ -139,6 +139,7 @@ namespace DrunkenArcher {
 
             //clear out the physics everything
             world = new World(gravity, true);
+            world.DebugDraw = new daDebugDraw(this);
 
             //run the initial config set
             vm.DoFile("lua/main.lua");
