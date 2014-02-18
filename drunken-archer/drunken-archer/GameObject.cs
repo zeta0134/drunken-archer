@@ -57,6 +57,29 @@ namespace DrunkenArcher {
 
         public Body body;
         protected Fixture fixture;
+        public string collision_group;
+
+        public void set_group(string gp) {
+            collision_group = gp;
+        }
+
+        public string get_group() {
+            return collision_group;
+        }
+
+        public List<string> collision_targets = new List<string>();
+
+        public void add_target(string target) {
+            if (!collision_targets.Contains(target)) {
+                collision_targets.Add(target);
+                Console.WriteLine("added collision target: " + target);
+                Console.WriteLine("my collision group: " + collision_group);
+            }
+        }
+
+        public void remove_target(string target) {
+            collision_targets.Remove(target);
+        }
 
         public void engine_update() {
 
@@ -101,6 +124,9 @@ namespace DrunkenArcher {
             //the default layer is 0
             game.layers[0].items.Add(this);
             //Console.WriteLine("Spawned an object");
+
+            body.SetUserData(this);
+            collision_group = "gameobject";
         }
 
         public int ID() {

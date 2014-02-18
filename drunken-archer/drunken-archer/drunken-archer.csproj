@@ -116,6 +116,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactListener.cs" />
     <Compile Include="daDebugDraw.cs" />
     <Compile Include="DrawableList.cs" />
     <Compile Include="GameObject.cs" />

@@ -96,9 +96,7 @@ function Object.create(original)
 	
 	process_metatables(o)
 
-	if o.update then
-		objects[spawn_id] = o
-	end
+	objects[spawn_id] = o
 
 	if o.init then
 		o:init()
@@ -108,11 +106,17 @@ function Object.create(original)
 end
 
 function Object:destroy()
-	--print("Destroyed an object: ")
-	--print(self.ID())
-	objects[self.ID()] = nil --remove this object from the update table
-	self:destroyObject() --gameengine call
-	
+	--mark the object for deletion
+	self.dead = true
+end
+
+function destroyObjects()
+	for k,v in pairs(objects) do
+		if v.dead then
+			objects[v.ID()] = nil --remove this object from the update table
+			v:destroyObject() --gameengine call
+		end
+	end
 end
 
 --same as objects, now for TileMaps
@@ -179,6 +183,14 @@ GameEngine.processEvent = function(event)
 	end
 end
 
+--Collision handling
+function processCollision(aID, bID)
+	--make sure a collision handler and the objects themselves actually exist
+	if objects[aID] and objects[aID].handleCollision and objects[bID] then
+		objects[aID]:handleCollision(objects[bID])
+	end
+end
+
 --These are filled by the game engine
 prev_keys_held = {}
 keys_held = {}
@@ -198,7 +210,6 @@ function vector_normal(vector)
 	local length = vector_length(vector)
 	result.x = vector.x / length
 	result.y = vector.y / length
-	print("result.x: " .. result.x)
 	return result
 end
 

@@ -32,6 +32,8 @@ namespace DrunkenArcher {
         static Vector2 gravity = new Vector2(0.0f, 10.0f);
         public World world = new World(gravity, true);
 
+        private ContactListener listener;
+
         public Game() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -63,7 +65,7 @@ namespace DrunkenArcher {
             Fixture fixture = stage.CreateFixture(fdef);
 
             //this.IsMouseVisible = true;
-            this.IsFixedTimeStep = false;
+            //this.IsFixedTimeStep = false;
         }
 
         /// <summary>
@@ -155,6 +157,10 @@ namespace DrunkenArcher {
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_stage = \"" + path + "\"");
+
+            //set up collision for the new level
+            listener = new ContactListener(this, vm);
+            world.ContactListener = listener;
 
             //finally, run the level file
             vm.DoFile("lua/stages/" + path);
@@ -295,8 +301,9 @@ namespace DrunkenArcher {
             }
 
             //process world stuffs
-            //world.Step(1.0f / 60.0f, 8, 3);
             world.Step(1.0f / 60.0f, 6, 2);
+            listener.HandleEvents(); //process collisions engineside as needed
+            vm.DoString("destroyObjects()"); //cleanup any objects that need to die
             vm.DoString("GameEngine.processEvent('update')");
 
             //If we need to change levels, do that now

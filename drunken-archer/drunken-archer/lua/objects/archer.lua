@@ -4,11 +4,12 @@ local Arrow = inherits(Object)
 
 function Arrow:init()
 	self:sprite("art/sprites/arrowhead") --everything else default
-	self.framesToLive = 300
+	self.framesToLive = 1000
 	self:shape("circle")
+	self:set_group("arrow")
 end
 
-function Arrow:update_not()
+function Arrow:update()
 	self.framesToLive = self.framesToLive - 1
 	if self.framesToLive <= 0 then
 		self:destroy()
