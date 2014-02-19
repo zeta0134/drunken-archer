@@ -29,7 +29,7 @@ namespace DrunkenArcher {
         public Vector2 camera = new Vector2(0.0f);
 
         //physics stuff
-        static Vector2 gravity = new Vector2(0.0f, 10.0f);
+        static Vector2 gravity = new Vector2(0.0f, 20.0f);
         public World world = new World(gravity, true);
 
         private ContactListener listener;
@@ -123,6 +123,16 @@ namespace DrunkenArcher {
         public void setCamera(float x, float y) {
             camera.X = x;
             camera.Y = y;
+        }
+
+        float screen_scale = 10f;
+
+        public Vector2 screenCoordinates(Vector2 physics_coordinates) {
+            return screenCoordinates(physics_coordinates, Vector2.One);
+        }
+
+        public Vector2 screenCoordinates(Vector2 physics_coordinates, Vector2 camera_weight) {
+            return new Vector2((physics_coordinates.X * screen_scale) - camera.X * camera_weight.X, (physics_coordinates.Y * screen_scale) - camera.Y * camera_weight.Y);
         }
 
         public void loadStage(string path) {
@@ -279,8 +289,8 @@ namespace DrunkenArcher {
             //handle mouse movement / clicks
             lastMouse = currentMouse;
             currentMouse = Mouse.GetState();
-            vm.DoString("mouse.x = " + ((float)Math.Floor((currentMouse.X + camera.X) / 2) / 10f));
-            vm.DoString("mouse.y = " + ((float)Math.Floor((currentMouse.Y + camera.Y) / 2) / 10f));
+            vm.DoString("mouse.x = " + ((float)Math.Floor((currentMouse.X + camera.X * 2) / 2) / 10f));
+            vm.DoString("mouse.y = " + ((float)Math.Floor((currentMouse.Y + camera.Y * 2) / 2) / 10f));
 
 
             if (currentMouse.LeftButton == ButtonState.Pressed && lastMouse.LeftButton == ButtonState.Released) {

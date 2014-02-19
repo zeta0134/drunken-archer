@@ -79,7 +79,7 @@ function Archer:update()
 	self.bow.y = self.y + 1.2
 	self.bow:setAngle(self.firingAngle)
 
-	if keys_down.Space or gamepad_down.RB or gamepad_held.LB then
+	if keys_down.Space or gamepad_down.RB or gamepad_held.LB or keys_held.Y then
 		--spawn an arrow!
 		arrow = Arrow.create()
 		

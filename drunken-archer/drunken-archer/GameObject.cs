@@ -226,13 +226,15 @@ namespace DrunkenArcher {
 
         public virtual void Draw(Game game) {
             if (this.texture != null) {
-                float draw_x = (body.Position.X * 10.0f) - game.camera.X * _camera_weight.X;
-                float draw_y = (body.Position.Y * 10.0f) - game.camera.Y * _camera_weight.Y;
+                //float draw_x = (body.Position.X * 10.0f) - game.camera.X * _camera_weight.X;
+                //float draw_y = (body.Position.Y * 10.0f) - game.camera.Y * _camera_weight.Y;
+
+                Vector2 draw = game.screenCoordinates(body.Position, _camera_weight);
 
                 float scale = 1.0f;
                 float angle = body.GetAngle();
                 float layer = 0f;
-                game.spriteBatch.Draw(texture, new Vector2(draw_x, draw_y), null, sprite_color, angle, rotationOrigin, scale, SpriteEffects.None, layer);
+                game.spriteBatch.Draw(texture, new Vector2(draw.X, draw.Y), null, sprite_color, angle, rotationOrigin, scale, SpriteEffects.None, layer);
             }
         }
 

@@ -26,10 +26,10 @@ namespace DrunkenArcher {
 
         }
         public void PreSolve(Contact contact, ref Manifold oldManifold) {
-
+            
         }
         public void PostSolve(Contact contact, ref ContactImpulse impulse) {
-
+            
         }
 
         private List<Contact> contactsToProcess = new List<Contact>();

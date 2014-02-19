@@ -16,11 +16,13 @@ namespace DrunkenArcher {
         }
 
         private void drawLine(Vector2 start, Vector2 end, Color color) {
+            start = game.screenCoordinates(start) * 2;
+            end = game.screenCoordinates(end) * 2;
             Vector2 edge = end - start;
             float angle = (float)Math.Atan2(edge.Y, edge.X);
 
             game.debugBatch.Draw(pixel,
-                new Rectangle((int)(start.X * 20), (int)(start.Y * 20), (int)(edge.Length() * 20), 2),
+                new Rectangle((int)(start.X), (int)(start.Y), (int)(edge.Length()), 2),
                 null,
                 color,
                 angle,
