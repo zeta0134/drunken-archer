@@ -86,3 +86,27 @@ function load(filename)
 	map:load(persistence.load(filename))
 	current_filename = filename
 end
+
+function resize(w, h)
+	map:resizeMap(w, h)
+	borders:mapSize(w + 2, h + 2)
+	for x = 0, w + 1 do
+		borders:setTile(x, 0, 1, false);
+		borders:setTile(x, h + 1, 1, false);
+	end
+
+	for y = 0, h + 1 do
+		borders:setTile(0, y, 1, false);
+		borders:setTile(w + 1, y, 1, false);
+	end
+end
+
+function clearmap(tile, solid)
+	tile = tile or 0
+	solid = solid or false
+	for x = 0, map.width - 1 do
+		for y = 0, map.height - 1 do
+			map:setTile(x, y, tile, solid)
+		end
+	end
+end

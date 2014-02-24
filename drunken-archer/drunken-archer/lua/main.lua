@@ -253,3 +253,12 @@ registered_objects = {}
 
 --global stuff goes here  (mostly update related functions)
 stage = {}
+
+print = function(...)
+	local output = ""
+	local arg = {...}
+	for k,v in pairs(arg) do
+		output = output .. tostring(v)
+	end
+	GameEngine.consolePrint(output)
+end

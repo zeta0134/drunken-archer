@@ -60,8 +60,15 @@ namespace DrunkenArcher {
                 for (int i = 1; i < arguments.Length; i++) {
                     commandString += " " + arguments[i];
                 }
-                vm.DoString(commandString);
-                return "Did a thing: " + commandString;
+
+                try {
+                    vm.DoString(commandString);
+                    return "";
+                }
+                catch (NLua.Exceptions.LuaException e) {
+                    return "ERROR: " + e.Message;
+                }
+                
             }
         }
 
@@ -97,6 +104,8 @@ namespace DrunkenArcher {
 
             //this.IsMouseVisible = true;
             //this.IsFixedTimeStep = false;
+
+            
         }
 
         /// <summary>
@@ -198,6 +207,7 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
             vm.RegisterFunction("GameEngine.toggleDebug", this, GetType().GetMethod("toggleDebug"));
             vm.RegisterFunction("GameEngine.currentFrame", this, GetType().GetMethod("currentFrame"));
+            vm.RegisterFunction("GameEngine.consolePrint", this, GetType().GetMethod("consolePrint"));
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_stage = \"" + path + "\"");
@@ -208,6 +218,10 @@ namespace DrunkenArcher {
 
             //finally, run the level file
             vm.DoFile("lua/stages/" + path);
+        }
+
+        public void consolePrint(string thing) {
+            game_console.WriteLine(thing);
         }
 
         int current_frame = 0;
@@ -261,6 +275,8 @@ namespace DrunkenArcher {
 
             game_console = new GameConsole(this, spriteBatch);
             game_console.AddCommand(new LuaCommand(vm));
+
+            
         }
 
         /// <summary>
