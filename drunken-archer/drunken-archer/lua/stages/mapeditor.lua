@@ -73,4 +73,16 @@ function selector:scroll_click()
 	end
 end
 
---now we do interesting things with maps
+--here, expose console commands to run the editor
+current_filename = ""
+function save(filename)
+	filename = filename or current_filename
+	persistence.store(filename, map:save())
+	current_filename = filename
+end
+
+function load(filename)
+	filename = filename or current_filename
+	map:load(persistence.load(filename))
+	current_filename = filename
+end

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using NLua;
 using Box2D.XNA;
+using XNAGameConsole;
 
 namespace DrunkenArcher {
     /// <summary>
@@ -33,6 +34,36 @@ namespace DrunkenArcher {
         public World world = new World(gravity, true);
 
         private ContactListener listener;
+
+        GameConsole game_console;
+
+        private class LuaCommand : IConsoleCommand {
+            public string Name
+            {
+                get { return "l"; }
+            }
+
+            public string Description
+            {
+                get { return "l <command>: runs the command in the lua VM"; }
+            }
+
+            private Lua vm;
+            public LuaCommand(Lua vm)
+            {
+                this.vm = vm;
+            }
+
+            public string Execute(string[] arguments)
+            {
+                string commandString = arguments[0];
+                for (int i = 1; i < arguments.Length; i++) {
+                    commandString += " " + arguments[i];
+                }
+                vm.DoString(commandString);
+                return "Did a thing: " + commandString;
+            }
+        }
 
         public Game() {
             graphics = new GraphicsDeviceManager(this);
@@ -227,6 +258,9 @@ namespace DrunkenArcher {
 
             //debug stuff
             world.DebugDraw = new daDebugDraw(this);
+
+            game_console = new GameConsole(this, spriteBatch);
+            game_console.AddCommand(new LuaCommand(vm));
         }
 
         /// <summary>
@@ -284,10 +318,12 @@ namespace DrunkenArcher {
             vm.DoString("gamepad_right.y = " + gamepad_state.ThumbSticks.Right.Y);
             vm.DoString("gamepad_right.angle = " + Math.Atan2(-gamepad_state.ThumbSticks.Right.Y, gamepad_state.ThumbSticks.Right.X));
 
-            Keys[] keys_pressed = Keyboard.GetState().GetPressedKeys();
-            vm.DoString("prev_keys_held = keys_held\nkeys_held = {}");
-            foreach (var key in keys_pressed) {
-                vm.DoString("keys_held[\"" + key + "\"] = true");
+            if (!game_console.Opened) {
+                Keys[] keys_pressed = Keyboard.GetState().GetPressedKeys();
+                vm.DoString("prev_keys_held = keys_held\nkeys_held = {}");
+                foreach (var key in keys_pressed) {
+                    vm.DoString("keys_held[\"" + key + "\"] = true");
+                }
             }
 
             // TODO: Add your update logic here
