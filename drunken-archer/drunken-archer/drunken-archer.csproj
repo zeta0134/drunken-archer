@@ -114,9 +114,6 @@
     <Reference Include="System.Net">
       <Private>False</Private>
     </Reference>
-    <Reference Include="XNAGameConsole">
-      <HintPath>..\..\XNAGameConsole.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContactListener.cs" />
@@ -143,6 +140,10 @@
     <ProjectReference Include="..\drunken-archerContent\drunken-archerContent.contentproj">
       <Name>drunken_archerContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\XNAGameConsole\XNAGameConsole.csproj">
+      <Project>{9fc39f64-284b-4d6b-b174-885f2d78bfbd}</Project>
+      <Name>XNAGameConsole</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

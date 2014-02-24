@@ -40,12 +40,12 @@ namespace DrunkenArcher {
         private class LuaCommand : IConsoleCommand {
             public string Name
             {
-                get { return "l"; }
+                get { return "lua"; }
             }
 
             public string Description
             {
-                get { return "l <command>: runs the command in the lua VM"; }
+                get { return "lua <command>: runs the command in the lua VM"; }
             }
 
             private Lua vm;

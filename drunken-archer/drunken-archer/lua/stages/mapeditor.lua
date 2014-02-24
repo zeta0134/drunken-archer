@@ -13,21 +13,26 @@ function borders:update()
 	self:color(0, 0, 128 + 32 * math.sin(math.rad(cycle)), 255)
 end
 
-borders:mapSize(52,52)
 borders:setTiles("art/tiles/testytest")
 borders:z_index(1)
 borders.x = -1.6
 borders.y = -1.6
 
-for x = 0, 51 do
-	borders:setTile(x, 0, 1, false);
-	borders:setTile(x, 51, 1, false);
+function setBorders()
+	border_tile = 4
+	borders:mapSize(map.width + 2, map.height + 2)
+	for x = 0, map.width + 1 do
+		borders:setTile(x, 0, border_tile, false);
+		borders:setTile(x, map.height + 1, border_tile, false);
+	end
+
+	for y = 0, map.height + 1 do
+		borders:setTile(0, y, border_tile, false);
+		borders:setTile(map.width + 1, y, border_tile, false);
+	end
 end
 
-for y = 0, 51 do
-	borders:setTile(0, y, 1, false);
-	borders:setTile(51, y, 1, false);
-end
+setBorders()
 
 --add a camera
 dofile("lua/objects/WASDcamera.lua")
@@ -89,16 +94,7 @@ end
 
 function resize(w, h)
 	map:resizeMap(w, h)
-	borders:mapSize(w + 2, h + 2)
-	for x = 0, w + 1 do
-		borders:setTile(x, 0, 1, false);
-		borders:setTile(x, h + 1, 1, false);
-	end
-
-	for y = 0, h + 1 do
-		borders:setTile(0, y, 1, false);
-		borders:setTile(w + 1, y, 1, false);
-	end
+	setBorders()
 end
 
 function clearmap(tile, solid)
