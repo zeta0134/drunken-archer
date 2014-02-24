@@ -192,6 +192,9 @@
     <None Include="lua\objects\WASDcamera.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\stages\mapeditor.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\stages\physicstest.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

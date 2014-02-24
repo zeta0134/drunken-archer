@@ -153,6 +153,8 @@ namespace DrunkenArcher {
             world = new World(gravity, true);
             world.DebugDraw = new daDebugDraw(this);
 
+            current_frame = 0;
+
             //run the initial config set
             vm.DoFile("lua/main.lua");
 
@@ -164,6 +166,7 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.loadStage", this, GetType().GetMethod("luaLoadStage"));
             vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
             vm.RegisterFunction("GameEngine.toggleDebug", this, GetType().GetMethod("toggleDebug"));
+            vm.RegisterFunction("GameEngine.currentFrame", this, GetType().GetMethod("currentFrame"));
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_stage = \"" + path + "\"");
@@ -174,6 +177,11 @@ namespace DrunkenArcher {
 
             //finally, run the level file
             vm.DoFile("lua/stages/" + path);
+        }
+
+        int current_frame = 0;
+        public int currentFrame() {
+            return current_frame;
         }
 
         /// <summary>
@@ -209,7 +217,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadStage("physicstest.lua");
+            loadStage("mapeditor.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -245,6 +253,7 @@ namespace DrunkenArcher {
         /// 
         bool debug = false;
         protected override void Update(GameTime gameTime) {
+            current_frame += 1;
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();

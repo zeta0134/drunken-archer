@@ -53,7 +53,7 @@ namespace DrunkenArcher {
                         Vector2 tile_position = map_position + new Vector2(dx * tile_width, dy * tile_height);
                         if (tile_position.X >= 0 - tile_width && tile_position.Y >= 0 - tile_height &&
                             tile_position.X <= game.graphics.PreferredBackBufferWidth && tile_position.Y <= game.graphics.PreferredBackBufferHeight) {
-                                Color tile_color = Color.White;
+                                Color tile_color = sprite_color;
                                 if (debug) {
                                     if (highlight_x == dx && highlight_y == dy) {
                                         tile_color = Color.LightCoral;
@@ -94,6 +94,19 @@ namespace DrunkenArcher {
             width = w;
             height = h;
             map = new Tile[w, h];
+        }
+
+        public void resizeMap(int w, int h) {
+            var oldmap = map;
+            int oldwidth = width;
+            int oldheight = height;
+            mapSize(w, h);
+            //now, attempt to copy all the valid tiles from the old map into the new one
+            for (int x = 0; x < width && x < oldwidth; x++) {
+                for (int y = 0; y < height && y < oldheight; y++) {
+                    map[x, y] = oldmap[x, y];
+                }
+            }
         }
 
         public int getTile(int x, int y) {

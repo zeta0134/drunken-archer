@@ -58,6 +58,7 @@ namespace DrunkenArcher {
         public Body body;
         protected Fixture fixture;
         public string collision_group;
+        public int frames_alive;
 
         public void set_group(string gp) {
             collision_group = gp;
@@ -82,7 +83,7 @@ namespace DrunkenArcher {
         }
 
         public void engine_update() {
-
+            frames_alive += 1;
         }
 
         public void body_type(string type) {
