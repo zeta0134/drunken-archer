@@ -95,3 +95,17 @@ function Archer:update()
 		arrow.vy = math.sin(math.rad(self.firingAngle)) * 20.0
 	end
 end
+
+PlayerCamera = inherits(Object)
+
+function PlayerCamera:init()
+	self:body_type("static")
+end
+
+function PlayerCamera:update()
+	--determine a target location; this should keep the player onscreen within a considerable margin (200 px?)
+	--TODO: make this a thing
+
+	--actually update the game camera based on this object's position
+	GameEngine.setCamera(self.x, self.y)
+end

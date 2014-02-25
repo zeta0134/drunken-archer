@@ -48,11 +48,25 @@ namespace DrunkenArcher {
         }
 
         protected Vector2 _camera_weight = new Vector2(1.0f);
-        protected Rectangle bounding_box = new Rectangle(0, 0, 0, 0);
+        public Rectangle bounding_box = new Rectangle(0, 0, 0, 0);
 
         public void camera_weight(float x, float y) {
             _camera_weight.X = x;
             _camera_weight.Y = y;
+        }
+
+        public void click_event(float x, float y) {
+            //x and y should be raw map events; this will translate the coordinates
+            //this will pass the click event on to Lua
+            //(note that lua can also trigger this event this way)
+            game.vm.DoString("if objects[" + id + "].on_click then objects[" + id + "]:on_click(mouse.x - " + this.x + ", mouse.y - " + this.y + ") end");
+        }
+
+        public void right_click_event(float x, float y) {
+            //x and y should be passed in relative to the object's coordinates;
+            //this will pass the click event on to Lua
+            //(note that lua can also trigger this event this way)
+            game.vm.DoString("if objects[" + id + "].right_click then objects[" + id + "]:right_click(mouse.x - " + this.x + ", mouse.y - " + this.y + ") end");
         }
 
         public Body body;

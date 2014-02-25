@@ -6,6 +6,7 @@ function Box:init()
 	self:add_target("arrow")
 	self.health = 50
 	self.hurtTimer = 0
+	self:sprite("art/sprites/triangle")
 end
 
 function Box:update()

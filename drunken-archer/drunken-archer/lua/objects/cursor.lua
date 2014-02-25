@@ -30,4 +30,3 @@ end
 function TileCursor:displayTile(index)
 	self:setTile(0, 0, index, false)
 end
-

@@ -26,7 +26,7 @@ namespace DrunkenArcher {
         public Dictionary<String, Song> music;
         public Dictionary<String, SoundEffect> sound;
 
-        Lua vm;
+        public Lua vm;
         public Vector2 camera = new Vector2(0.0f);
 
         //physics stuff
@@ -48,10 +48,10 @@ namespace DrunkenArcher {
                 get { return "lua <command>: runs the command in the lua VM"; }
             }
 
-            private Lua vm;
-            public LuaCommand(Lua vm)
+            private Game game;
+            public LuaCommand(Game gm)
             {
-                this.vm = vm;
+                this.game = gm;
             }
 
             public string Execute(string[] arguments)
@@ -62,13 +62,12 @@ namespace DrunkenArcher {
                 }
 
                 try {
-                    vm.DoString(commandString);
+                    game.vm.DoString(commandString);
                     return "";
                 }
                 catch (NLua.Exceptions.LuaException e) {
                     return "ERROR: " + e.Message;
                 }
-                
             }
         }
 
@@ -262,7 +261,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadStage("mapeditor.lua");
+            loadStage("leveleditor.lua");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -274,9 +273,7 @@ namespace DrunkenArcher {
             world.DebugDraw = new daDebugDraw(this);
 
             game_console = new GameConsole(this, spriteBatch);
-            game_console.AddCommand(new LuaCommand(vm));
-
-            
+            game_console.AddCommand(new LuaCommand(this));
         }
 
         /// <summary>
@@ -350,12 +347,36 @@ namespace DrunkenArcher {
             //handle mouse movement / clicks
             lastMouse = currentMouse;
             currentMouse = Mouse.GetState();
-            vm.DoString("mouse.x = " + ((float)Math.Floor((currentMouse.X + camera.X * 2) / 2) / 10f));
-            vm.DoString("mouse.y = " + ((float)Math.Floor((currentMouse.Y + camera.Y * 2) / 2) / 10f));
+            Vector2 transformed_mouse = new Vector2(((float)Math.Floor((currentMouse.X + camera.X * 2) / 2) / 10f), ((float)Math.Floor((currentMouse.Y + camera.Y * 2) / 2) / 10f));
+            vm.DoString("mouse.x = " + transformed_mouse.X);
+            vm.DoString("mouse.y = " + transformed_mouse.Y);
 
 
             if (currentMouse.LeftButton == ButtonState.Pressed && lastMouse.LeftButton == ButtonState.Released) {
-                vm.DoString("GameEngine.processEvent('on_click')");
+                vm.DoString("if stage.on_click then stage.on_click(mouse.x, mouse.y) end");
+                foreach (var o in engine_objects) {
+                    Fixture thing = o.body.GetFixtureList();
+                    while (thing != null) {
+                        if (thing.TestPoint(transformed_mouse)) {
+                            o.click_event(transformed_mouse.X, transformed_mouse.Y);
+                        }
+                        thing = thing.GetNext();
+                    }
+                }
+            }
+
+            if (currentMouse.RightButton == ButtonState.Pressed && lastMouse.RightButton == ButtonState.Released) {
+                vm.DoString("if stage.right_click then stage.right_click(mouse.x, mouse.y) end");
+                foreach (var o in engine_objects) {
+                    Fixture thing = o.body.GetFixtureList();
+                    while (thing != null) {
+                        if (thing.TestPoint(transformed_mouse)) {
+                            Console.WriteLine("Attempting right click...");
+                            o.right_click_event(transformed_mouse.X, transformed_mouse.Y);
+                        }
+                        thing = thing.GetNext();
+                    }
+                }
             }
 
             if (currentMouse.ScrollWheelValue < lastMouse.ScrollWheelValue) {
