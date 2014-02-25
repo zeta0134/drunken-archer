@@ -175,6 +175,8 @@ namespace DrunkenArcher {
             sprite_color = new Color(r, g, b, a);
         }
 
+        private string current_shape = "box";
+
         public void sprite(string path) {
             if (!game.textures.ContainsKey(path)) {
                 //try to load the asset first
@@ -182,13 +184,11 @@ namespace DrunkenArcher {
             }
             texture = game.textures[path];
 
-            if (fixture == null) {
-                //apply a default shape
-                shape("box");
-            }
+            shape(current_shape);
         }
 
         public void shape(string type) {
+            current_shape = type;
             //delete the existing body
             if (fixture != null) {
                 body.DestroyFixture(fixture);

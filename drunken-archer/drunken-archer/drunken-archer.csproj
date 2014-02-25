@@ -135,6 +135,9 @@
     <None Include="lua\levels\empty">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\stages\levelloader.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\drunken-archerContent\drunken-archerContent.contentproj">

@@ -82,14 +82,15 @@ end
 current_filename = ""
 function save(filename)
 	filename = filename or current_filename
-	persistence.store(filename, map:save())
+	persistence.store("lua/maps/"..filename..".map", map:save())
 	current_filename = filename
 end
 
 function load(filename)
 	filename = filename or current_filename
-	map:load(persistence.load(filename))
+	map:load(persistence.load("lua/maps/"..filename..".map"))
 	current_filename = filename
+	setBorders()
 end
 
 function resize(w, h)
@@ -105,4 +106,9 @@ function clearmap(tile, solid)
 			map:setTile(x, y, tile, solid)
 		end
 	end
+end
+
+function stage.on_click()
+	--cheat
+	map:on_click()
 end

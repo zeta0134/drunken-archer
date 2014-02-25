@@ -159,6 +159,11 @@ namespace DrunkenArcher {
             stageToLoad = path;
         }
 
+        private string levelToLoad = "";
+        public void luaLoadLevel(string name) {
+            levelToLoad = name;
+        }
+
         public void setCamera(float x, float y) {
             camera.X = x;
             camera.Y = y;
@@ -203,6 +208,7 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.playMusic", this, GetType().GetMethod("playMusic"));
             vm.RegisterFunction("GameEngine.playSound", this, GetType().GetMethod("playSound"));
             vm.RegisterFunction("GameEngine.loadStage", this, GetType().GetMethod("luaLoadStage"));
+            vm.RegisterFunction("GameEngine.loadLevel", this, GetType().GetMethod("luaLoadLevel"));
             vm.RegisterFunction("GameEngine.setCamera", this, GetType().GetMethod("setCamera"));
             vm.RegisterFunction("GameEngine.toggleDebug", this, GetType().GetMethod("toggleDebug"));
             vm.RegisterFunction("GameEngine.currentFrame", this, GetType().GetMethod("currentFrame"));
@@ -217,6 +223,11 @@ namespace DrunkenArcher {
 
             //finally, run the level file
             vm.DoFile("lua/stages/" + path);
+        }
+
+        public void loadLevel(string name) {
+            loadStage("levelloader.lua");
+            vm.DoString("load(\"" + name + "\")");
         }
 
         public void consolePrint(string thing) {
@@ -402,6 +413,11 @@ namespace DrunkenArcher {
             if (stageToLoad != "") {
                 loadStage(stageToLoad);
                 stageToLoad = "";
+            }
+
+            if (levelToLoad != "") {
+                loadLevel(levelToLoad);
+                levelToLoad = "";
             }
 
             base.Update(gameTime);

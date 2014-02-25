@@ -135,7 +135,8 @@ function TileMap.create(original)
 	process_defaults(o)
 
 	o.object = object_to_bind
-	tilemaps[spawn_id] = o
+	--tilemaps[spawn_id] = o
+	objects[spawn_id] = o
 	
 	process_metatables(o)
 

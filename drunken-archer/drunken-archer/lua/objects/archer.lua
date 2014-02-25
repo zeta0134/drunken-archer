@@ -1,6 +1,6 @@
 ﻿--the main player! this is important
 
-local Arrow = inherits(Object)
+Arrow = inherits(Object)
 
 function Arrow:init()
 	self:sprite("art/sprites/arrowhead") --everything else default
@@ -104,7 +104,7 @@ end
 
 function PlayerCamera:update()
 	--determine a target location; this should keep the player onscreen within a considerable margin (200 px?)
-	--TODO: make this a thing
+	
 
 	--actually update the game camera based on this object's position
 	GameEngine.setCamera(self.x, self.y)
