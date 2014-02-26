@@ -1,9 +1,7 @@
 ﻿--note: global "level_name" is passed in by the game engine
 
 --objects!
-dofile("lua/objects/archer.lua")
-dofile("lua/objects/physicsbox.lua")
-dofile("lua/objects/exit.lua")
+GameEngine.loadAllObjects()
 
 function load_map(name)
 	--note: returns the tilemap in question

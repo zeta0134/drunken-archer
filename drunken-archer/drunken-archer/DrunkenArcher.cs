@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using NLua;
 using Box2D.XNA;
 using XNAGameConsole;
+using System.IO;
 
 namespace DrunkenArcher {
     /// <summary>
@@ -171,6 +172,13 @@ namespace DrunkenArcher {
 
         float screen_scale = 10f;
 
+        public void loadAllObjects() {
+            List<string> files = new List<string>(Directory.EnumerateFiles("lua/objects"));
+            foreach (var file in files) {
+                vm.DoFile(file);
+            }
+        }
+
         public Vector2 screenCoordinates(Vector2 physics_coordinates) {
             return screenCoordinates(physics_coordinates, Vector2.One);
         }
@@ -213,6 +221,7 @@ namespace DrunkenArcher {
             vm.RegisterFunction("GameEngine.toggleDebug", this, GetType().GetMethod("toggleDebug"));
             vm.RegisterFunction("GameEngine.currentFrame", this, GetType().GetMethod("currentFrame"));
             vm.RegisterFunction("GameEngine.consolePrint", this, GetType().GetMethod("consolePrint"));
+            vm.RegisterFunction("GameEngine.loadAllObjects", this, GetType().GetMethod("loadAllObjects"));
 
             //Set some engine-level variables for the lua code to use
             vm.DoString("current_stage = \"" + path + "\"");

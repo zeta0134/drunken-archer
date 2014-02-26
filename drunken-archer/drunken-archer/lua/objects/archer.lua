@@ -37,12 +37,6 @@ function Archer:init()
 end
 
 function Archer:update()
-	if keys_held.Up then
-		self.vy = -10
-	end
-	if keys_held.Down then
-		self.vy = 10
-	end
 	if keys_held.Left then
 		self.vx = -10
 	end
@@ -56,7 +50,7 @@ function Archer:update()
 	end
 
 	--jumping
-	if gamepad_down.A then
+	if gamepad_down.A or keys_down.Up then
 		self.vy = -10
 		GameEngine.playSound("sound/Jump20")
 	end

@@ -24,6 +24,7 @@ function Box:handleCollision(target)
 		self.hurtTimer = 5
 		if self.health <= 0 then
 			self:destroy()
+			GameEngine.playSound("sound/ballout")
 		end
 		target:destroy()
 	end

@@ -1,9 +1,6 @@
 ﻿--todo: find a nice way to automate this next block (later)
-dofile("lua/objects/archer.lua")
-dofile("lua/objects/physicsbox.lua")
-dofile("lua/objects/exit.lua")
 
-
+GameEngine.loadAllObjects()
 
 gameObjects = {}
 function registerObject(c, a)

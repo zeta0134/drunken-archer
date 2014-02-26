@@ -14,7 +14,6 @@ function Ball:update()
 			self.vy = 6
 			player_score = player_score + 1
 			--print("Player Scores! So far: " .. player_score)
-			GameEngine.playSound("sound/ballout")
 		else 
 			GameEngine.playSound("sound/paddlehit")
 		end
