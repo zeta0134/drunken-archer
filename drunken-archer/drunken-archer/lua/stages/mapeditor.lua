@@ -83,6 +83,9 @@ current_filename = ""
 function save(filename)
 	filename = filename or current_filename
 	persistence.store("lua/maps/"..filename..".map", map:save())
+	if debug then
+		persistence.store(debugpath.."lua/maps/"..filename..".map", map:save())
+	end
 	current_filename = filename
 end
 

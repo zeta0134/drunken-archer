@@ -1,4 +1,6 @@
 ﻿print("Lua Started...")
+debug = true
+debugpath = "../../../"
 
 --Object Inheretance; handles derived classes in a cleanish manner
 function inherits(parent_class)
@@ -263,3 +265,5 @@ print = function(...)
 	end
 	GameEngine.consolePrint(output)
 end
+
+

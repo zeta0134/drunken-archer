@@ -16,6 +16,7 @@ namespace DrunkenArcher {
         }
 
         Tile[,] map;
+        Fixture[,] fixtures;
 
         public int width = 0;
         public int height = 0;
@@ -89,11 +90,32 @@ namespace DrunkenArcher {
             //Note: undefined behavior if the tile texture is not an even multiple of the tile width / height
         }
 
+        private void updateFixtures() {
+            Fixture current = body.GetFixtureList();
+            //clear out all fixtures
+            while (current != null) {
+                Fixture destroy = current;
+                current = current.GetNext();
+                body.DestroyFixture(destroy);
+            }
+
+            //add new fixtures based on the existing tilemap
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    if (map[x, y].solid) {
+                        setTile(x, y, map[x, y].index, map[x, y].solid);
+                    }
+                }
+            }
+        }
+
         public void mapSize(int w, int h) {
             //Note: This does clear out the map contents by design; they'll need to be reset manually
             width = w;
             height = h;
             map = new Tile[w, h];
+            fixtures = new Fixture[w, h];
+            updateFixtures(); //this will clear out old fixtures and fix the state
         }
 
         public void resizeMap(int w, int h) {
@@ -104,7 +126,8 @@ namespace DrunkenArcher {
             //now, attempt to copy all the valid tiles from the old map into the new one
             for (int x = 0; x < width && x < oldwidth; x++) {
                 for (int y = 0; y < height && y < oldheight; y++) {
-                    map[x, y] = oldmap[x, y];
+                    //map[x, y] = oldmap[x, y];
+                    setTile(x, y, oldmap[x, y].index, oldmap[x, y].solid);
                 }
             }
         }
@@ -118,8 +141,7 @@ namespace DrunkenArcher {
         }
 
         public void setTile(int x, int y, int index, bool solid) {
-            //if this block was solid before, remove the physics object
-            //TODO: THIS
+            bool wassolid = map[x, y].solid;
             
             map[x, y].index = index;
             map[x, y].solid = solid;
@@ -144,7 +166,12 @@ namespace DrunkenArcher {
                 fdef.density = 1.0f;
                 fdef.friction = 0.3f;
 
-                fixture = body.CreateFixture(fdef);
+                fixtures[x, y] = body.CreateFixture(fdef);
+            }
+
+            //HACK
+            if (wassolid && !solid) {
+                updateFixtures(); //make sure fixtures get removed properly
             }
         }
     }
