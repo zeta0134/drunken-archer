@@ -74,7 +74,8 @@ namespace DrunkenArcher {
             }
         }
 
-        public void setTiles(string path) {
+        public void setTiles(string name) {
+            string path = "art/tiles/" + name;
             if (!game.textures.ContainsKey(path)) {
                 //try to load the asset first
                 game.textures[path] = game.Content.Load<Texture2D>(path);

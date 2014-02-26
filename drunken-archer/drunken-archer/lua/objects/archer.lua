@@ -3,10 +3,10 @@
 Arrow = inherits(Object)
 
 function Arrow:init()
-	self:sprite("art/sprites/arrowhead") --everything else default
+	self:sprite("arrowhead") --everything else default
 	self.framesToLive = 1000
 	self:shape("circle")
-	self:set_group("arrow")
+	self:set_group("archer")
 end
 
 function Arrow:update()
@@ -19,7 +19,7 @@ end
 local Bow = inherits(Object)
 
 function Bow:init()
-	self:sprite("art/sprites/bow")
+	self:sprite("bow")
 	self.active = false;
 	self:setRotationOrigin(21,21)
 end
@@ -27,7 +27,7 @@ end
 Archer = inherits(Object)
 
 function Archer:init()
-	self:sprite("art/sprites/blobby")
+	self:sprite("blobby")
 	self:set_group("archer")
 	self.fixedRotation = true; --don't rotate at all
 
@@ -106,5 +106,5 @@ function PlayerCamera:update()
 end
 
 --register the objects
-registered_objects["Archer"] = "art/sprites/blobby"
-registered_objects["Arrow"] = "art/sprites/arrowhead"
+registered_objects["Archer"] = "blobby"
+registered_objects["Arrow"] = "arrowhead"

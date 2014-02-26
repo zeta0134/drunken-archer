@@ -177,7 +177,8 @@ namespace DrunkenArcher {
 
         private string current_shape = "box";
 
-        public void sprite(string path) {
+        public void sprite(string name) {
+            string path = "art/sprites/" + name;
             if (!game.textures.ContainsKey(path)) {
                 //try to load the asset first
                 game.textures[path] = game.Content.Load<Texture2D>(path);

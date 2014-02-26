@@ -24,7 +24,7 @@ function load(name)
 	if current_level.map then
 		map = load_map(current_level.map)
 		map:z_index(-1)
-		map:setTiles("art/tiles/testytest")
+		map:setTiles("testytest")
 	end
 
 	--load up all the objects

@@ -91,7 +91,7 @@ end
 current_map = TileMap.create()
 current_map:mapSize(1,1)
 current_map:z_index(-1) --behind everything
-current_map:setTiles("art/tiles/testytest")
+current_map:setTiles("testytest")
 current_map.debug = true
 
 function current_map:load(input)

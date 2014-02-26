@@ -6,7 +6,7 @@ function Box:init()
 	self:add_target("arrow")
 	self.health = 50
 	self.hurtTimer = 0
-	self:sprite("art/sprites/triangle")
+	self:sprite("triangle")
 end
 
 function Box:update()
@@ -29,4 +29,4 @@ function Box:handleCollision(target)
 		target:destroy()
 	end
 end
-registered_objects["Box"] = "art/sprites/triangle"
+registered_objects["Box"] = "triangle"

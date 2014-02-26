@@ -13,7 +13,7 @@ function borders:update()
 	self:color(0, 0, 128 + 32 * math.sin(math.rad(cycle)), 255)
 end
 
-borders:setTiles("art/tiles/testytest")
+borders:setTiles("testytest")
 borders:z_index(1)
 borders.x = -1.6
 borders.y = -1.6
@@ -42,11 +42,11 @@ camera = WASDcamera.create()
 dofile("lua/objects/cursor.lua")
 cursor = Cursor.create()
 cursor:z_index(10)
-cursor:sprite("art/sprites/mousecursor")
+cursor:sprite("mousecursor")
 
 selector = TileCursor.create()
 selector:z_index(11)
-selector:setTiles("art/tiles/testytest")
+selector:setTiles("testytest")
 selector:displayTile(1)
 selector.offset_x = 8
 selector.offset_y = 7
@@ -72,9 +72,9 @@ end
 function selector:scroll_click()
 	selector.solid = not selector.solid
 	if selector.solid then
-		cursor:sprite("art/sprites/mousecursor")
+		cursor:sprite("mousecursor")
 	else
-		cursor:sprite("art/sprites/mousecursor_empty")
+		cursor:sprite("mousecursor_empty")
 	end
 end
 
