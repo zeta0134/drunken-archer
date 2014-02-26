@@ -222,11 +222,11 @@ namespace DrunkenArcher {
             world.ContactListener = listener;
 
             //finally, run the level file
-            vm.DoFile("lua/stages/" + path);
+            vm.DoFile("lua/stages/" + path + ".lua");
         }
 
         public void loadLevel(string name) {
-            loadStage("levelloader.lua");
+            loadStage("levelloader");
             vm.DoString("load(\"" + name + "\")");
         }
 
@@ -272,7 +272,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadStage("leveleditor.lua");
+            loadStage("leveleditor");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);

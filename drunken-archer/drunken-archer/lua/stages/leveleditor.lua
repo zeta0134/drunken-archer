@@ -1,15 +1,22 @@
 ﻿--todo: find a nice way to automate this next block (later)
 dofile("lua/objects/archer.lua")
 dofile("lua/objects/physicsbox.lua")
+dofile("lua/objects/exit.lua")
+
+
 
 gameObjects = {}
 function registerObject(c, a)
 	table.insert(gameObjects, {class=c,art=a})
 end
 
-registerObject("Archer", "art/sprites/blobby")
-registerObject("Arrow", "art/sprites/arrowhead")
-registerObject("Box", "art/sprites/triangle")
+--registerObject("Archer", "art/sprites/blobby")
+--registerObject("Arrow", "art/sprites/arrowhead")
+--registerObject("Box", "art/sprites/triangle")
+
+for k,v in pairs(registered_objects) do
+	registerObject(k,v)
+end
 
 insert_index = 1
 current_level = {
@@ -113,6 +120,9 @@ current_filename = ""
 function save(filename)
 	filename = filename or current_filename
 	persistence.store("lua/levels/"..filename..".data", current_level)
+	if debug then
+		persistence.store(debugpath.."lua/levels/"..filename..".data", current_level)
+	end
 	current_filename = filename
 end
 

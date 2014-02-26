@@ -28,4 +28,4 @@ function Box:handleCollision(target)
 		target:destroy()
 	end
 end
-registered_objects["Box"] = Box;
+registered_objects["Box"] = "art/sprites/triangle"

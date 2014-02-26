@@ -3,6 +3,7 @@
 --objects!
 dofile("lua/objects/archer.lua")
 dofile("lua/objects/physicsbox.lua")
+dofile("lua/objects/exit.lua")
 
 function load_map(name)
 	--note: returns the tilemap in question

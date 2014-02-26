@@ -178,7 +178,7 @@ GameEngine.processEvent = function(event)
 	if event == "update" then
 		if keys_up.F9 then
 			--reload the current level
-			GameEngine.loadStage(current_stage)
+			loadstage(current_stage)
 		end
 		if keys_up.F3 then
 			GameEngine.toggleDebug()

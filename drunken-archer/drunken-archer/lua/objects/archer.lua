@@ -28,6 +28,7 @@ Archer = inherits(Object)
 
 function Archer:init()
 	self:sprite("art/sprites/blobby")
+	self:set_group("archer")
 	self.fixedRotation = true; --don't rotate at all
 
 	--spawn in a bow and attach it to ourselves
@@ -109,3 +110,7 @@ function PlayerCamera:update()
 	--actually update the game camera based on this object's position
 	GameEngine.setCamera(self.x, self.y)
 end
+
+--register the objects
+registered_objects["Archer"] = "art/sprites/blobby"
+registered_objects["Arrow"] = "art/sprites/arrowhead"
