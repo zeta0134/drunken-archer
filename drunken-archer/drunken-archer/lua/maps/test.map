@@ -3,7 +3,7 @@ local multiRefObjects = {
 
 } -- multiRefObjects
 local obj1 = {
-	["width"] = 20;
+	["width"] = 40;
 	["height"] = 20;
 	["map"] = {
 		[1] = {
@@ -1564,7 +1564,7 @@ local obj1 = {
 				["index"] = 0;
 			};
 		};
-		[0] = {
+		[20] = {
 			[1] = {
 				["solid"] = false;
 				["index"] = 0;
@@ -1602,6 +1602,826 @@ local obj1 = {
 				["index"] = 0;
 			};
 			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[21] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[22] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[23] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[24] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[25] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[26] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[27] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[28] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[29] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[30] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[10] = {
 				["solid"] = true;
 				["index"] = 4;
 			};
@@ -1622,20 +2442,20 @@ local obj1 = {
 				["index"] = 4;
 			};
 			[15] = {
-				["solid"] = true;
-				["index"] = 4;
+				["solid"] = false;
+				["index"] = 0;
 			};
 			[16] = {
-				["solid"] = true;
-				["index"] = 4;
+				["solid"] = false;
+				["index"] = 0;
 			};
 			[17] = {
-				["solid"] = true;
-				["index"] = 4;
+				["solid"] = false;
+				["index"] = 0;
 			};
 			[18] = {
-				["solid"] = true;
-				["index"] = 4;
+				["solid"] = false;
+				["index"] = 0;
 			};
 			[19] = {
 				["solid"] = true;
@@ -1644,6 +2464,826 @@ local obj1 = {
 			[0] = {
 				["solid"] = false;
 				["index"] = 0;
+			};
+		};
+		[31] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[32] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[33] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[34] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[35] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[36] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[37] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[38] = {
+			[1] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[2] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[3] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[4] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[5] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[6] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[7] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[8] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[9] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[10] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[11] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[12] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[13] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[15] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[16] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[17] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[18] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 4;
+			};
+			[0] = {
+				["solid"] = false;
+				["index"] = 0;
+			};
+		};
+		[39] = {
+			[1] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[2] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[3] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[4] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[5] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[6] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[7] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[8] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[9] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[10] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[11] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[12] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[13] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[15] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[16] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[17] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[18] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+			[0] = {
+				["solid"] = true;
+				["index"] = 7;
+			};
+		};
+		[0] = {
+			[1] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[2] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[3] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[4] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[5] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[6] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[7] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[8] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[9] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[10] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[11] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[12] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[13] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[14] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[15] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[16] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[17] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[18] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[19] = {
+				["solid"] = true;
+				["index"] = 9;
+			};
+			[0] = {
+				["solid"] = true;
+				["index"] = 9;
 			};
 		};
 	};

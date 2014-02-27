@@ -4,7 +4,7 @@ EditableMap = inherits(TileMap)
 
 function EditableMap:init()
 	self:z_index(-2)
-	self:setTiles("art/tiles/testytest")
+	self:setTiles("testytest")
 	self.debug = true
 end
 

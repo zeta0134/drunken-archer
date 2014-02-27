@@ -5,50 +5,66 @@ local multiRefObjects = {
 local obj1 = {
 	["map"] = "test";
 	["objects"] = {
-		[1] = {
-			["defaults"] = {
-				["x"] = 24.5;
-				["y"] = -0.2;
-			};
-			["class"] = "Archer";
-		};
-		[2] = {
-			["defaults"] = {
-				["vy"] = -50;
-				["x"] = 14.8;
-				["vx"] = 0;
-				["y"] = 14.5;
-			};
-			["class"] = "Box";
-		};
-		[4] = {
-			["defaults"] = {
-				["x"] = 3.8;
-				["y"] = 22.6;
-			};
-			["class"] = "Box";
-		};
 		[3] = {
+			["class"] = "Box";
 			["defaults"] = {
 				["x"] = 27.1;
 				["y"] = 8.9;
 			};
+		};
+		[1] = {
+			["class"] = "Archer";
+			["defaults"] = {
+				["x"] = 24.5;
+				["y"] = -0.2;
+			};
+		};
+		[7] = {
+			["class"] = "ButtonRight";
+			["defaults"] = {
+				["x"] = 60.8;
+				["y"] = 7.1;
+				["name"] = "gray";
+			};
+		};
+		[4] = {
 			["class"] = "Box";
+			["defaults"] = {
+				["x"] = 3.8;
+				["y"] = 22.6;
+			};
+		};
+		[8] = {
+			["class"] = "Door";
+			["defaults"] = {
+				["x"] = 48;
+				["y"] = 24;
+				["name"] = "gray";
+			};
 		};
 		[5] = {
+			["class"] = "Box";
 			["defaults"] = {
 				["x"] = 23.1;
 				["y"] = 22.1;
 			};
-			["class"] = "Box";
 		};
 		[6] = {
+			["class"] = "Exit";
 			["defaults"] = {
+				["x"] = 57.2;
 				["targetLevel"] = "level2";
-				["x"] = 27.2;
 				["y"] = 24;
 			};
-			["class"] = "Exit";
+		};
+		[2] = {
+			["class"] = "Box";
+			["defaults"] = {
+				["x"] = 14.8;
+				["y"] = 14.5;
+				["vx"] = 0;
+				["vy"] = -50;
+			};
 		};
 	};
 }

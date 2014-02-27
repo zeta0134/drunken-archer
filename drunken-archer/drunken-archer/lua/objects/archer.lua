@@ -6,7 +6,7 @@ function Arrow:init()
 	self:sprite("arrowhead") --everything else default
 	self.framesToLive = 1000
 	self:shape("circle")
-	self:set_group("archer")
+	self:set_group("arrow")
 end
 
 function Arrow:update()

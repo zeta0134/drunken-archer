@@ -19,6 +19,7 @@ function inherits(parent_class)
 			--call the parent class's constructor
 			o = base.create(o)
 		end
+		
 		return o
 	end
 
@@ -50,7 +51,7 @@ end
 
 function process_metatables(o)
 	--attempt fun things!
-	local mt = getmetatable(o)
+	local mt = getmetatable(o) or {}
 	mt.__newindex = function(t, k, v)
 		if k ~= "object" and t.object and type(t.object[k]) ~= "string" then
 			t.object[k] = v
@@ -75,10 +76,16 @@ function process_metatables(o)
 		end
 		local parentclass = rawget(t, "parentclass")
 		if type(parentclass) == "table" then
+			if k == "released_art" then
+				print("RELEASED PARENT")
+				print(parentclass[k])
+				print(parentclass)
+			end
 			return parentclass[k]
 		end
 		return rawget(t, k)
 	end
+	setmetatable(o,mt)
 end
 
 function Object.create(original)
@@ -257,7 +264,8 @@ registered_objects = {}
 --global stuff goes here  (mostly update related functions)
 stage = {}
 
-print = function(...)
+
+debugprint = function(...)
 	local output = ""
 	local arg = {...}
 	for k,v in pairs(arg) do
@@ -266,4 +274,4 @@ print = function(...)
 	GameEngine.consolePrint(output)
 end
 
-
+--print = debugprint
