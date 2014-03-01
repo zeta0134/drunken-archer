@@ -96,7 +96,7 @@ namespace DrunkenArcher {
             collision_targets.Remove(target);
         }
 
-        public void engine_update() {
+        public virtual void engine_update() {
             frames_alive += 1;
         }
 
@@ -176,6 +176,11 @@ namespace DrunkenArcher {
         }
 
         private string current_shape = "box";
+
+        public void setDensity(float density) {
+            body.GetFixtureList().SetDensity(density);
+            body.ResetMassData();
+        }
 
         public void sprite(string name) {
             string path = "art/sprites/" + name;

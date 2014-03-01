@@ -39,6 +39,15 @@ namespace DrunkenArcher {
             body.SetType(Box2D.XNA.BodyType.Static);
         }
 
+        public override void engine_update()
+        {
+            base.engine_update();
+            if (dirty) {
+                updateFixtures();
+                dirty = false;
+            }
+        }
+
         public override void Draw(Game game) {
             Vector2 map_position = new Vector2(x * 10f - game.camera.X * _camera_weight.X, y * 10f - game.camera.Y * _camera_weight.Y);
 
@@ -91,6 +100,7 @@ namespace DrunkenArcher {
             //Note: undefined behavior if the tile texture is not an even multiple of the tile width / height
         }
 
+        bool dirty = false;
         private void updateFixtures() {
             Fixture current = body.GetFixtureList();
             //clear out all fixtures
@@ -101,10 +111,38 @@ namespace DrunkenArcher {
             }
 
             //add new fixtures based on the existing tilemap
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    if (map[x, y].solid) {
-                        setTile(x, y, map[x, y].index, map[x, y].solid);
+            bool line = false;
+            int lineStart = 0;
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    if (map[x, y].solid && !line) {
+                        line = true;
+                        lineStart = x;
+                    }
+
+                    if (((!map[x,y].solid) || x == width - 1) && line) {
+                        //finish out the current line
+                        //add a new physics object for this tile
+                        //(note: this method will probably fail)
+                        PolygonShape box = new PolygonShape();
+                        float phys_width = ((float)tile_width / 10.0f);
+                        float phys_height = (float)tile_height / 10.0f;
+
+                        box.SetAsBox(
+                            (phys_width * (x - lineStart + (x == width - 1 ? 1 : 0))) / 2.0f,
+                            phys_height / 2.0f,
+                            new Vector2(
+                                phys_width * (lineStart) + ((phys_width * (x - lineStart + (x == width - 1 ? 1 : 0))) / 2.0f),
+                                phys_height * y + phys_height / 2.0f),
+                            0.0f);
+
+                        FixtureDef fdef = new FixtureDef();
+                        fdef.shape = box;
+                        fdef.density = 1.0f;
+                        fdef.friction = 0.3f;
+
+                        fixtures[x, y] = body.CreateFixture(fdef);
+                        line = false;
                     }
                 }
             }
@@ -116,7 +154,7 @@ namespace DrunkenArcher {
             height = h;
             map = new Tile[w, h];
             fixtures = new Fixture[w, h];
-            updateFixtures(); //this will clear out old fixtures and fix the state
+            dirty = true;
         }
 
         public void resizeMap(int w, int h) {
@@ -131,6 +169,7 @@ namespace DrunkenArcher {
                     setTile(x, y, oldmap[x, y].index, oldmap[x, y].solid);
                 }
             }
+            dirty = true;
         }
 
         public int getTile(int x, int y) {
@@ -147,32 +186,9 @@ namespace DrunkenArcher {
             map[x, y].index = index;
             map[x, y].solid = solid;
 
-            if (solid) {
-                //add a new physics object for this tile
-                //(note: this method will probably fail)
-                PolygonShape box = new PolygonShape();
-                float phys_width = (float)tile_width / 10.0f;
-                float phys_height = (float)tile_height / 10.0f;
-
-                box.SetAsBox(
-                    phys_width / 2.0f,
-                    phys_height / 2.0f,
-                    new Vector2(
-                        phys_width * x + phys_width / 2.0f,
-                        phys_height * y + phys_height / 2.0f),
-                    0.0f);
-
-                FixtureDef fdef = new FixtureDef();
-                fdef.shape = box;
-                fdef.density = 1.0f;
-                fdef.friction = 0.3f;
-
-                fixtures[x, y] = body.CreateFixture(fdef);
-            }
-
             //HACK
-            if (wassolid && !solid) {
-                updateFixtures(); //make sure fixtures get removed properly
+            if (wassolid != solid) {
+                dirty = true; //make sure fixtures get removed properly
             }
         }
     }

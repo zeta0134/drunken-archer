@@ -197,6 +197,9 @@ namespace DrunkenArcher {
             //setup the default layer, 0
             layers.Add(0, new DrawableList());
 
+            //reset the game camera to 0,0
+            camera = new Vector2(0);
+
             //reset the lua VM entirely (the vm is re-run fresh for each new level)
             vm.Dispose(); //cleanup? NO IDEA. No documentation. None. Anywhere.
             vm = new Lua();

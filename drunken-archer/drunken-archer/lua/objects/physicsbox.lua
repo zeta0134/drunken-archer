@@ -20,7 +20,7 @@ end
 
 function Box:handleCollision(target)
 	if target.get_group() == "arrow" then
-		self.health = self.health - 5
+		self.health = self.health - target.damage
 		self.hurtTimer = 5
 		if self.health <= 0 then
 			self:destroy()
