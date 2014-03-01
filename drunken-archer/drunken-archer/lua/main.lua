@@ -165,10 +165,6 @@ objects = {}
 tilemaps = {}
 
 GameEngine.processEvent = function(event)
-	if stage[event] then
-		stage[event](stage)
-	end
-	
 	for k, v in pairs(objects) do
 		if objects[k][event] then
 			objects[k][event](v)
@@ -179,6 +175,10 @@ GameEngine.processEvent = function(event)
 		if tilemaps[k][event] then
 			tilemaps[k][event](v)
 		end
+	end
+
+	if stage[event] then
+		stage[event](stage)
 	end
 
 	--debug code

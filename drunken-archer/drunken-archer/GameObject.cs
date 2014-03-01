@@ -92,6 +92,20 @@ namespace DrunkenArcher {
             }
         }
 
+        public void addJoint(int target_id, string type, float x, float y) {
+            //TODO: YOU WERE HERE
+            GameObject target = game.engine_objects[target_id];
+
+            switch (type) {
+                case "revolute":
+                    RevoluteJointDef def = new RevoluteJointDef();
+                    def.Initialize(this.body, target.body, new Vector2(x, y));
+                    game.world.CreateJoint(def);
+                    Console.WriteLine("Added a revolute joint!");
+                    break;
+            }
+        }
+
         public void remove_target(string target) {
             collision_targets.Remove(target);
         }
@@ -117,8 +131,8 @@ namespace DrunkenArcher {
             }
         }
 
-        static int next_id = 1;
-        int id;
+        protected static int next_id = 1;
+        protected int id;
 
         public Color sprite_color;
         public Texture2D texture;

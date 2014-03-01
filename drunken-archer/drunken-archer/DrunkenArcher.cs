@@ -22,7 +22,8 @@ namespace DrunkenArcher {
         public SpriteBatch spriteBatch;
 
         public SortedList<int, DrawableList> layers = new SortedList<int, DrawableList>();
-        List<GameObject> engine_objects = new List<GameObject>();
+        //List<GameObject> engine_objects = new List<GameObject>();
+        public Dictionary<int, GameObject> engine_objects = new Dictionary<int, GameObject>();
         public Dictionary<String, Texture2D> textures;
         public Dictionary<String, Song> music;
         public Dictionary<String, SoundEffect> sound;
@@ -258,19 +259,19 @@ namespace DrunkenArcher {
         /// </summary>
         public int SpawnObject() {
             GameObject new_object = new GameObject(vm, this);
-            engine_objects.Add(new_object);
+            engine_objects.Add(new_object.ID(), new_object);
 
             //tell lua about the new object
             return new_object.ID();
         }
 
         public void DestroyObject(GameObject gameobject) {
-            engine_objects.Remove(gameobject);
+            engine_objects.Remove(gameobject.ID());
         }
 
         public int CreateTileMap() {
             TileMap new_tilemap = new TileMap(vm, this);
-            engine_objects.Add(new_tilemap);
+            engine_objects.Add(new_tilemap.ID(), new_tilemap);
 
             //tell lua about the new object
             return new_tilemap.ID();
@@ -364,7 +365,7 @@ namespace DrunkenArcher {
 
             // TODO: Add your update logic here
             foreach (var o in engine_objects) {
-                o.engine_update();
+                o.Value.engine_update();
             }
 
             //handle mouse movement / clicks
@@ -376,30 +377,30 @@ namespace DrunkenArcher {
 
 
             if (currentMouse.LeftButton == ButtonState.Pressed && lastMouse.LeftButton == ButtonState.Released) {
-                vm.DoString("if stage.on_click then stage.on_click(mouse.x, mouse.y) end");
                 foreach (var o in engine_objects) {
-                    Fixture thing = o.body.GetFixtureList();
+                    Fixture thing = o.Value.body.GetFixtureList();
                     while (thing != null) {
                         if (thing.TestPoint(transformed_mouse)) {
-                            o.click_event(transformed_mouse.X, transformed_mouse.Y);
+                            o.Value.click_event(transformed_mouse.X, transformed_mouse.Y);
                         }
                         thing = thing.GetNext();
                     }
                 }
+                vm.DoString("if stage.on_click then stage.on_click(mouse.x, mouse.y) end");
             }
 
             if (currentMouse.RightButton == ButtonState.Pressed && lastMouse.RightButton == ButtonState.Released) {
-                vm.DoString("if stage.right_click then stage.right_click(mouse.x, mouse.y) end");
                 foreach (var o in engine_objects) {
-                    Fixture thing = o.body.GetFixtureList();
+                    Fixture thing = o.Value.body.GetFixtureList();
                     while (thing != null) {
                         if (thing.TestPoint(transformed_mouse)) {
                             Console.WriteLine("Attempting right click...");
-                            o.right_click_event(transformed_mouse.X, transformed_mouse.Y);
+                            o.Value.right_click_event(transformed_mouse.X, transformed_mouse.Y);
                         }
                         thing = thing.GetNext();
                     }
                 }
+                vm.DoString("if stage.right_click then stage.right_click(mouse.x, mouse.y) end");
             }
 
             if (currentMouse.ScrollWheelValue < lastMouse.ScrollWheelValue) {

@@ -24,8 +24,8 @@ namespace DrunkenArcher {
         public int tile_width = 16;
         public int tile_height = 16;
 
-        static int next_id = 1;
-        int id;
+        //static int next_id = 1;
+        //int id;
 
         public bool debug = false;
         public int highlight_x = -1;

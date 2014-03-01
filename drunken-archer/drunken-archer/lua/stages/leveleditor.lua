@@ -7,23 +7,15 @@ function registerObject(c, a)
 	table.insert(gameObjects, {class=c,art=a})
 end
 
---registerObject("Archer", "art/sprites/blobby")
---registerObject("Arrow", "art/sprites/arrowhead")
---registerObject("Box", "art/sprites/triangle")
-
 for k,v in pairs(registered_objects) do
 	registerObject(k,v)
 end
 
 insert_index = 1
 current_level = {
-	objects={}
+	objects={},
+	joints={}
 }
-
-current_filename = ""
-function save(filename)
-	
-end
 
 --objects to make the editor work
 
@@ -70,22 +62,52 @@ function Placeholder:right_click()
 	--print("got right click!")
 end
 
-function stage.on_click(mx, my)
-	current_level.objects[insert_index] = {
-		class=gameObjects[selector.current_index].class,
-		defaults={
-			x=mx,
-			y=my
-		}
-	}
-	placeholders[insert_index] = Placeholder.create()
-	placeholders[insert_index].index = insert_index
-	placeholders[insert_index]:sprite(gameObjects[selector.current_index].art)
-	placeholders[insert_index].x = mx
-	placeholders[insert_index].y = my
-	placeholders[insert_index]:color(255,255,255,128)
+function Placeholder:on_click()
+	if mode == "joint" then
+		table.insert(joint_queue, self.index)
+		print("added " .. self.index .. " to queue")
+	end
+end
 
-	insert_index = insert_index + 1
+mode = "object"
+
+joint_queue = {}
+
+function stage.on_click(mx, my)
+	if mode == "object" then
+		current_level.objects[insert_index] = {
+			class=gameObjects[selector.current_index].class,
+			defaults={
+				x=mx,
+				y=my
+			}
+		}
+		placeholders[insert_index] = Placeholder.create()
+		placeholders[insert_index].index = insert_index
+		placeholders[insert_index]:sprite(gameObjects[selector.current_index].art)
+		placeholders[insert_index].x = mx
+		placeholders[insert_index].y = my
+		placeholders[insert_index]:color(255,255,255,128)
+
+		insert_index = insert_index + 1
+	end
+	if mode == "joint" then
+		if #joint_queue > 1 then
+			table.insert(current_level.joints, {objects=joint_queue,x=mx,y=my})
+			print("Joint created!")
+			--todo: add a placeholder for joints, so they can be selected and manipulated / destroyed
+		else
+			print("Could not add joint; not enough objects selected")
+			print("Queue size: " .. #joint_queue)
+		end
+		joint_queue = {}
+	end
+end
+
+function stage.update()
+	--do a thing
+	if keys_down.O then mode = "object" end
+	if keys_down.J then mode = "joint" end
 end
 
 current_map = TileMap.create()
@@ -134,6 +156,7 @@ end
 function load(filename)
 	filename = filename or current_filename
 	current_level = persistence.load("lua/levels/"..filename..".data")
+	if not current_level.joints then current_level.joints = {} end
 	current_filename = filename
 
 	--clear out the level state

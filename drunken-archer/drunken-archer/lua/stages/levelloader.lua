@@ -34,16 +34,27 @@ function load(name)
 		map:setTiles("testytest")
 	end
 
+	loaded_objects = {}
+
 	print("starting an object load...")
 	--load up all the objects
 	for k,v in pairs(current_level.objects) do
 		--sanity
 		if _G[v.class] then
 			print("Loading a " .. v.class)
-			_G[v.class].create(v.defaults)
+			loaded_objects[k] = _G[v.class].create(v.defaults)
 		else
 			print("Error loading object -- bad classname: " .. v.class);
 		end
 	end
-	print("Loaded the entire level!")
+	print("Loaded all objects")
+	
+	if current_level.joints then
+		print("starting joint processing...")
+		for k,v in pairs(current_level.joints) do
+			for i = 2, #v.objects do
+				loaded_objects[v.objects[1]]:addJoint(target_id,type_string,tx,ty)
+			end
+		end
+	end
 end
