@@ -156,6 +156,9 @@
     <None Include="lua\objects\exit.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\objects\wreckingball.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\stages\levelloader.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
