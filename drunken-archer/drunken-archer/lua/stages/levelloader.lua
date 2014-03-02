@@ -53,7 +53,9 @@ function load(name)
 		print("starting joint processing...")
 		for k,v in pairs(current_level.joints) do
 			for i = 2, #v.objects do
-				loaded_objects[v.objects[1]]:addJoint(target_id,type_string,tx,ty)
+				target_id = loaded_objects[v.objects[i]].ID()
+				type_string = "revolute"
+				loaded_objects[v.objects[1]]:addJoint(target_id,type_string,v.x,v.y)
 			end
 		end
 	end

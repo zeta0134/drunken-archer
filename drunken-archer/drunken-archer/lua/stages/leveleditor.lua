@@ -22,6 +22,7 @@ current_level = {
 dofile("lua/objects/cursor.lua")
 selector = Cursor.create()
 selector.current_index = 1
+selector:z_index(100) --no, really, in front of everything
 selector:sprite(gameObjects[selector.current_index].art)
 
 function selector:scroll_up()
@@ -41,13 +42,17 @@ end
 selected_object = nil
 property = nil --global for console editing
 placeholders = {}
-function select_object(index)
-	if selected_object then
-		placeholders[selected_object]:color(255, 255, 255, 128)
+function select_object(index, type)
+	type = type or "object"
+	if type == "object" then
+		if selected_object then
+			placeholders[selected_object]:color(255, 255, 255, 128)
+		end
+		selected_object = index
+		property = current_level.objects[selected_object].defaults
+		placeholders[index]:color(255, 255, 255, 255)
 	end
-	selected_object = index
-	property = current_level.objects[selected_object].defaults
-	placeholders[index]:color(255, 255, 255, 255)
+
 end
 
 Placeholder = inherits(Object)
@@ -58,7 +63,7 @@ function Placeholder:init()
 end
 
 function Placeholder:right_click()
-	select_object(self.index)
+	select_object(self.index, self.type)
 	--print("got right click!")
 end
 
@@ -96,6 +101,14 @@ function stage.on_click(mx, my)
 			table.insert(current_level.joints, {objects=joint_queue,x=mx,y=my})
 			print("Joint created!")
 			--todo: add a placeholder for joints, so they can be selected and manipulated / destroyed
+
+			joint_placeholder = Placeholder.create()
+			joint_placeholder.index = "42" --todo: bad! store this!
+			joint_placeholder:sprite("joint_marker")
+			joint_placeholder.x = mx
+			joint_placeholder.y = my
+			joint_placeholder.type = "joint"
+			joint_placeholder:z_index("3") --always on top
 		else
 			print("Could not add joint; not enough objects selected")
 			print("Queue size: " .. #joint_queue)
@@ -106,8 +119,16 @@ end
 
 function stage.update()
 	--do a thing
-	if keys_down.O then mode = "object" end
-	if keys_down.J then mode = "joint" end
+	if keys_down.O then 
+		mode = "object"
+		selector:sprite(gameObjects[selector.current_index].art)
+		selector:color(255,255,255,255)
+	end
+	if keys_down.J then 
+		mode = "joint"
+		selector:sprite("plain_cursor")
+		selector:color(255,255,0,255)
+	end
 end
 
 current_map = TileMap.create()
@@ -176,7 +197,7 @@ function load(filename)
 		print("no map..." .. current_level.map)
 	end
 
-	--populate the placeholders
+	--populate the placeholders for objects
 	selected_object = nil
 	insert_index = 1
 	for k,v in pairs(current_level.objects) do
@@ -191,4 +212,14 @@ function load(filename)
 		end
 	end
 
+	--populate the placeholders for joints
+	for k,v in pairs(current_level.joints) do
+		joint_placeholder = Placeholder.create()
+		joint_placeholder.index = "42" --todo: bad! store this!
+		joint_placeholder:sprite("joint_marker")
+		joint_placeholder.x = v.x
+		joint_placeholder.y = v.y
+		joint_placeholder.type = "joint"
+		joint_placeholder:z_index("3") --always on top
+	end
 end
