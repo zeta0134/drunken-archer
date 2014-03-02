@@ -149,7 +149,7 @@ namespace DrunkenArcher {
         public void playSound(string path) {
             if (!sound.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
-                sound[path] = Content.Load<SoundEffect>(path);
+                sound[path] = Content.Load<SoundEffect>("sound/" + path);
             }
             sound[path].Play(1.0f, 0.0f, 0.0f);
         }

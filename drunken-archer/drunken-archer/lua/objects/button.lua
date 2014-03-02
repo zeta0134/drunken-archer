@@ -11,13 +11,13 @@ function button_update(self)
 	if not self.triggered and stage.triggered[self.name] then
 		self.triggered = true
 		self:sprite(self.pressed_art)
-		GameEngine.playSound("sound/button-press")
+		GameEngine.playSound("button-press")
 	end
 
 	if self.triggered and not stage.triggered[self.name] then
 		self.triggered = false
 		self:sprite(self.released_art)
-		GameEngine.playSound("sound/button-press")
+		GameEngine.playSound("button-press")
 	end
 end
 

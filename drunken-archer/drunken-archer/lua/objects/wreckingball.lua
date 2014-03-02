@@ -16,7 +16,7 @@ BreakableChainlink = inherits(Object)
 function BreakableChainlink:init()
 	self:set_group("chain")
 	self:sprite("chainlink-cracked")
-	self.health = 15
+	self.health = 30
 	self.hurtTimer = 0
 	self:add_target("arrow")
 end
@@ -36,7 +36,9 @@ function BreakableChainlink:handleCollision(target)
 		self.hurtTimer = 5
 		if self.health <= 0 then
 			self:destroy()
-			--GameEngine.playSound("sound/ballout")
+			GameEngine.playSound("crumble")
+		else
+			GameEngine.playSound("light-hit")
 		end
 		target:destroy()
 	end

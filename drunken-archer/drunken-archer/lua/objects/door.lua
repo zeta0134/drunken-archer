@@ -12,13 +12,13 @@ function Door:update()
 		self.triggered = true
 		self:sprite("door-opened")
 		self:shape("none")
-		GameEngine.playSound("sound/door-open")
+		GameEngine.playSound("door-open")
 	end
 
 	if self.triggered and not stage.triggered[self.name] then
 		self.triggered = false
 		self:sprite("door-closed")
 		self:shape("box")
-		GameEngine.playSound("sound/door-close")
+		GameEngine.playSound("door-close")
 	end
 end

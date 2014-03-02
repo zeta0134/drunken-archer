@@ -196,6 +196,11 @@ namespace DrunkenArcher {
             body.ResetMassData();
         }
 
+        public void setFriction(float friction) {
+            body.GetFixtureList().SetFriction(friction);
+            body.ResetMassData();
+        }
+
         public void sprite(string name) {
             string path = "art/sprites/" + name;
             if (!game.textures.ContainsKey(path)) {

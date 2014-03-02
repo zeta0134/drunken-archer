@@ -1,5 +1,23 @@
 ﻿--the main player! this is important
 
+--timing defines
+chargelevel = {}
+chargelevel[1] = {
+	frame=10,
+	damage=5,
+	speed=15
+}
+chargelevel[2] = {
+	frame=40,
+	damage=10,
+	speed=30,
+}
+chargelevel[3] = {
+	frame=70,
+	damage=20,
+	speed=45
+}
+
 Arrow = inherits(Object)
 
 function Arrow:init()
@@ -28,17 +46,19 @@ end
 
 function Bow:update()
 	self:sprite("bow")
-	if self.owner.charge > 20 then
-		--Fus
-		self:sprite("bow1")
+	for i = 1,3 do
+		if self.owner.charge > chargelevel[i].frame then
+			--Fus, Roh, Dah!!
+			self:sprite("bow"..i)
+		end	
+		if self.owner.charge == chargelevel[i].frame then
+			GameEngine.playSound("charge"..i)
+		end
 	end
-	if self.owner.charge > 40 then
-		--Roh
-		self:sprite("bow2")
-	end
-	if self.owner.charge > 60 then
-		--Dah!!
-		self:sprite("bow3")
+	if self.owner.charge < 0 then
+		self:color(128,128,128,255)
+	else
+		self:color(255,255,255,255)
 	end
 end
 
@@ -48,6 +68,7 @@ function Archer:init()
 	self:sprite("blobby")
 	self:set_group("archer")
 	self.fixedRotation = true; --don't rotate at all
+	self:setFriction(1.5)
 
 	--spawn in a bow and attach it to ourselves
 	self.bow = Bow.create()
@@ -70,10 +91,10 @@ function Archer:update()
 	end
 
 	--jumping
-	if gamepad_down.A or keys_down.Up then
-		self.vy = -10
-		GameEngine.playSound("sound/Jump20")
-	end
+	--if gamepad_down.A or keys_down.Up then
+	--	self.vy = -10
+	--	GameEngine.playSound("Jump20")
+	--end
 
 	--learn to turn
 	if gamepad_right:length() > 0.5 then
@@ -94,7 +115,7 @@ function Archer:update()
 	self.bow.y = self.y + 1.2
 	self.bow:setAngle(self.firingAngle)
 
-	if self.charge > 20 and (keys_up.Space or gamepad_up.RB or gamepad_held.LB or keys_held.Y) then
+	if self.charge > chargelevel[1].frame and (keys_up.Space or gamepad_up.RB or gamepad_held.LB or keys_held.Y) then
 		--spawn an arrow!
 		arrow = Arrow.create()
 		
@@ -106,18 +127,20 @@ function Archer:update()
 		arrow.y = arrow.y + math.sin(math.rad(self.firingAngle)) * 3.0
 
 		--now set the arrow's velocity
-		speed = 10.0
-		arrow.damage = 5
+		speed = chargelevel[1].speed
+		arrow.damage = chargelevel[1].damage
 		arrow:color(255,128,128,255);
-		if self.charge > 40 then
-			speed = speed + 15
+
+		if self.charge > chargelevel[2].frame then
+			speed = chargelevel[2].speed
 			arrow:color(255,255,128,255)
-			arrow.damage = 10
+			arrow.damage = chargelevel[2].damage
 		end
-		if self.charge > 60 then
-			speed = speed + 25
+
+		if self.charge > chargelevel[3].frame then
+			speed = chargelevel[3].speed
 			arrow:color(128,255,255,255);
-			arrow.damage = 20
+			arrow.damage = chargelevel[3].damage
 		end
 
 		arrow.vx = math.cos(math.rad(self.firingAngle)) * speed
@@ -127,13 +150,15 @@ function Archer:update()
 		--(we use this for recoil, and also for jumping :D)
 		self.vx = self.vx - (arrow.vx / 2)
 		self.vy = self.vy - (arrow.vy / 2)
+
+		self.charge = -20 --cooldown
 	end
 
-	if keys_held.Space or gamepad_held.RB then
+	if keys_held.Space or gamepad_held.RB or self.charge < 0 then
 		self.charge = self.charge + 1
-	 else
+	else
 		self.charge = 0
-	 end
+	end
 end
 
 PlayerCamera = inherits(Object)

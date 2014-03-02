@@ -139,7 +139,7 @@ namespace DrunkenArcher {
                         FixtureDef fdef = new FixtureDef();
                         fdef.shape = box;
                         fdef.density = 1.0f;
-                        fdef.friction = 0.3f;
+                        fdef.friction = 1.0f;
 
                         fixtures[x, y] = body.CreateFixture(fdef);
                         line = false;
