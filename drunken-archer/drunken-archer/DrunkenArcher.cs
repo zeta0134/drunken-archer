@@ -326,8 +326,8 @@ namespace DrunkenArcher {
         protected override void Update(GameTime gameTime) {
             current_frame += 1;
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            //    this.Exit();
 
             GamePadState gamepad_state = GamePad.GetState(PlayerIndex.One);
             GamePadButtons gamepad = gamepad_state.Buttons;

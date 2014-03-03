@@ -74,7 +74,7 @@ function Placeholder:right_click()
 end
 
 function Placeholder:on_click()
-	if mode == "joint" then
+	if mode == "joint" and self.type ~= "joint" then
 		table.insert(joint_queue, self.index)
 		print("added " .. self.index .. " to queue")
 	end
@@ -134,6 +134,28 @@ function stage.update()
 		mode = "joint"
 		selector:sprite("plain_cursor")
 		selector:color(255,255,0,255)
+	end
+	if keys_up.X then
+		--attempt to delete the selected object, and any attached joints
+		if selected_object then
+			current_level.objects[selected_object] = nil
+			placeholders[selected_object]:destroy()
+			--destroy any joints that reference this object
+			for k,v in pairs(current_level.joints) do
+				for i = 1, #v do
+					if v[i] == selected_object then
+						--destroy this joint
+						--TODO: make this work
+						current_level.joints[k] = nil
+					end
+				end
+			end
+			selected_object = nil
+		end
+	end
+	if keys_up.F12 then
+		save()
+		loadlevel(current_filename)
 	end
 end
 

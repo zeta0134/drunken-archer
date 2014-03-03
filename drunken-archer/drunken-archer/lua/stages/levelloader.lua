@@ -6,6 +6,10 @@ GameEngine.loadAllObjects()
 --setup some things
 stage.triggered = {}
 
+current_filename = ""
+
+current_map = {}
+
 function load_map(name)
 	print("Called load map...")
 	--note: returns the tilemap in question
@@ -20,13 +24,23 @@ function load_map(name)
 		end
 	end
 	print("Successfully initialized the map")
+	current_map = map
 	return map
 end
 
 function load(name)
 	print("Called load level")
+	current_filename = name
 	current_level = persistence.load("lua/levels/"..name..".data")
 	
+	--load up the background
+	background = Background.create()
+
+	--ok, this is DEFINITELY a hack
+	background2 = Background.create()
+	background2.x = -89.3
+	background3 = Background.create()
+	background3.x = 89.3
 
 	if current_level.map then
 		map = load_map(current_level.map)
@@ -42,7 +56,6 @@ function load(name)
 	for k,v in pairs(current_level.objects) do
 		--sanity
 		if _G[v.class] then
-			print("Loading a " .. v.class)
 			loaded_objects[k] = _G[v.class].create(v.defaults)
 			if v.color then
 				loaded_objects[k]:color(v.color.r, v.color.g, v.color.b, v.color.a)
@@ -57,19 +70,24 @@ function load(name)
 		print("starting joint processing...")
 		for k,v in pairs(current_level.joints) do
 			for i = 2, #v.objects do
-				target_id = loaded_objects[v.objects[i]].ID()
-				type_string = "revolute"
-				loaded_objects[v.objects[1]]:addJoint(target_id,type_string,v.x,v.y)
+				if loaded_objects[v.objects[i]] and loaded_objects[v.objects[1]] then
+					target_id = loaded_objects[v.objects[i]].ID()
+					type_string = "revolute"
+					loaded_objects[v.objects[1]]:addJoint(target_id,type_string,v.x,v.y)
+				else
+					print("BAD JOINT: " .. k)
+				end
 			end
 		end
 	end
+end
 
-	--load up the background
-	background = Background.create()
+function stage.update()
+	--TODO: on F12, load this level up in the editor
 
-	--ok, this is DEFINITELY a hack
-	background2 = Background.create()
-	background2.x = -89.3
-	background3 = Background.create()
-	background3.x = 89.3
+
+	if keys_up.R or gamepad_up.Back then
+		--restart this level
+		loadlevel(current_filename)
+	end
 end

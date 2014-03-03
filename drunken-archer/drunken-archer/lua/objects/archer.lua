@@ -38,12 +38,40 @@ function Arrow:update()
 		GameEngine.playSound("arrow-die")
 		self:destroy()
 	end
+
+	--particles!
+	if self.framesToLive % 3 == 0 then
+		particle = Particle.create()
+		particle.x = self.x
+		particle.y = self.y
+		particle.vx = (math.random() - 0.5) * 4
+		particle.vy = (math.random() - 0.5) * 4
+		particle.vr = (math.random() - 0.5) * 4
+	end
 end
 
 function Arrow:handleCollision(target)
 	if target:get_group() == "level" or target:get_group() == "arrow" or target:get_group() == "door" then
 		GameEngine.playSound("arrow-die")
 		self:destroy()
+	end
+end
+
+Particle = inherits(Object)
+function Particle:init()
+	self:sprite("particle")
+	self:body_type("kinematic")
+	self:shape("none")
+	self.framesToLive = 20
+	self:z_index(-1)
+end
+
+function Particle:update()
+	self.framesToLive = self.framesToLive - 1
+	if self.framesToLive <= 0 then
+		self:destroy()
+	else
+		self:color(self.framesToLive * 11, self.framesToLive * 11, self.framesToLive * 11, self.framesToLive)
 	end
 end
 
@@ -175,6 +203,20 @@ function Archer:update()
 	else
 		self.charge = 0
 	end
+
+	--detect and respond to death
+	if self.x < current_map.x - 20 then
+		loadlevel(current_filename)
+		--print("off left")
+	end
+	if self.x > current_map.x + (current_map.width * 16 / 10) + 10 then
+		loadlevel(current_filename)
+		--print("off right")
+	end
+	if self.y > current_map.y + (current_map.height * 16 / 10) + 10 then
+		loadlevel(current_filename)
+		--print("off bottom")
+	end
 end
 
 PlayerCamera = inherits(Object)
@@ -189,15 +231,14 @@ function PlayerCamera:update()
 	--64,36 -- max coords onscreen
 	screen_width = 60
 	screen_height = 36
-	margin = 15
 
 	camera_max = {}
-	camera_max.x = self.target.x - margin
-	camera_max.y = self.target.y - margin
+	camera_max.x = self.target.x - 22
+	camera_max.y = self.target.y - 10
 
 	camera_min = {}
-	camera_min.x = self.target.x - screen_width + margin
-	camera_min.y = self.target.y - screen_height + margin
+	camera_min.x = self.target.x - screen_width + 22
+	camera_min.y = self.target.y - screen_height + 10
 
 	if self.x < camera_min.x then
 		self.x = camera_min.x

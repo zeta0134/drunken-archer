@@ -37,6 +37,11 @@ namespace DrunkenArcher {
             set { body.SetLinearVelocity(new Vector2(body.GetLinearVelocity().X, value)); body.SetAwake(true); }
         }
 
+        public float vr {
+            get { return body.GetAngularVelocity(); }
+            set { body.SetAngularVelocity(value); body.SetAwake(true); }
+        }
+
         public bool active {
             get { return body.IsActive(); }
             set { body.SetActive(value); }
@@ -87,8 +92,8 @@ namespace DrunkenArcher {
         public void add_target(string target) {
             if (!collision_targets.Contains(target)) {
                 collision_targets.Add(target);
-                Console.WriteLine("added collision target: " + target);
-                Console.WriteLine("my collision group: " + collision_group);
+                //Console.WriteLine("added collision target: " + target);
+                //Console.WriteLine("my collision group: " + collision_group);
             }
         }
 
@@ -101,7 +106,7 @@ namespace DrunkenArcher {
                     RevoluteJointDef def = new RevoluteJointDef();
                     def.Initialize(this.body, target.body, new Vector2(x, y));
                     game.world.CreateJoint(def);
-                    Console.WriteLine("Added a revolute joint!");
+                    //Console.WriteLine("Added a revolute joint!");
                     break;
             }
         }

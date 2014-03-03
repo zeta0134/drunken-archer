@@ -115,3 +115,9 @@ function stage.on_click()
 	--cheat
 	map:on_click()
 end
+
+function stage.update()
+	if keys_held.Space then
+		map:on_click()
+	end
+end
