@@ -117,6 +117,10 @@ function Archer:init()
 
 	self.camera = PlayerCamera.create()
 	self.camera.target = self
+
+	if self.bottomCamera then
+		self.camera.y = self.y + 100
+	end
 end
 
 function Archer:update()
@@ -234,11 +238,11 @@ function PlayerCamera:update()
 
 	camera_max = {}
 	camera_max.x = self.target.x - 22
-	camera_max.y = self.target.y - 10
+	camera_max.y = self.target.y - 3
 
 	camera_min = {}
 	camera_min.x = self.target.x - screen_width + 22
-	camera_min.y = self.target.y - screen_height + 10
+	camera_min.y = self.target.y - screen_height + 5
 
 	if self.x < camera_min.x then
 		self.x = camera_min.x
@@ -255,7 +259,7 @@ function PlayerCamera:update()
 	end
 
 	--actually update the game camera based on this object's position
-	GameEngine.setCamera(self.x * 10, self.y * 10)
+	GameEngine.setCamera(self.x * 10, (self.y) * 10)
 end
 
 --register the objects

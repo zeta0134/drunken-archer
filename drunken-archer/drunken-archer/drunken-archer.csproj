@@ -168,6 +168,9 @@
     <None Include="lua\objects\button.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\objects\deathfield.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\objects\door.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,293 @@
+-- Persistent Data
+local multiRefObjects = {
+
+} -- multiRefObjects
+local obj1 = {
+	["joints"] = {
+	};
+	["objects"] = {
+		[9] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 33.6;
+				["y"] = 53.6;
+			};
+		};
+		[18] = {
+			["class"] = "BouncepadVert";
+			["defaults"] = {
+				["x"] = 84;
+				["y"] = 41.6;
+			};
+		};
+		[10] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 40;
+				["y"] = 53.6;
+			};
+		};
+		[20] = {
+			["class"] = "BouncepadVert";
+			["defaults"] = {
+				["x"] = 84;
+				["y"] = 28.8;
+			};
+		};
+		[11] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 46.4;
+				["y"] = 53.6;
+			};
+		};
+		[22] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 35.2;
+				["y"] = 28.8;
+			};
+		};
+		[3] = {
+			["class"] = "Box";
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 35.2;
+			};
+		};
+		[6] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "ButtonLeft";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 25.5;
+				["y"] = 27.2;
+			};
+		};
+		[12] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 52.8;
+				["y"] = 53.6;
+			};
+		};
+		[24] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 48;
+				["y"] = 28.8;
+			};
+		};
+		[13] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 59.2;
+				["y"] = 53.6;
+			};
+		};
+		[17] = {
+			["class"] = "BouncepadVert";
+			["defaults"] = {
+				["x"] = 84;
+				["y"] = 48;
+			};
+		};
+		[34] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "DeathField";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 35.2;
+				["y"] = 19.2;
+			};
+		};
+		[7] = {
+			["class"] = "Exit";
+			["defaults"] = {
+				["x"] = 20.8;
+				["y"] = 19.2;
+			};
+		};
+		[14] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 65.6;
+				["y"] = 53.6;
+			};
+		};
+		[19] = {
+			["class"] = "BouncepadVert";
+			["defaults"] = {
+				["x"] = 84;
+				["y"] = 35.2;
+			};
+		};
+		[15] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 72;
+				["y"] = 53.6;
+			};
+		};
+		[21] = {
+			["class"] = "BouncepadVert";
+			["defaults"] = {
+				["x"] = 84;
+				["y"] = 22.4;
+			};
+		};
+		[33] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "DeathField";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 35.2;
+				["y"] = 20.8;
+			};
+		};
+		[26] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 60.8;
+				["y"] = 28.8;
+			};
+		};
+		[31] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "DeathField";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 35.2;
+				["y"] = 24;
+			};
+		};
+		[30] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "DeathField";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 35.2;
+				["y"] = 25.6;
+			};
+		};
+		[23] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 41.6;
+				["y"] = 28.8;
+			};
+		};
+		[29] = {
+			["class"] = "StrongBox";
+			["defaults"] = {
+				["x"] = 27.3;
+				["y"] = 22.4;
+			};
+		};
+		[28] = {
+			["class"] = "Archer";
+			["defaults"] = {
+				["bottomCamera"] = true;
+				["x"] = 53.2;
+				["y"] = 21.3;
+			};
+		};
+		[27] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 67.2;
+				["y"] = 28.8;
+			};
+		};
+		[1] = {
+			["class"] = "Box";
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 48;
+			};
+		};
+		[2] = {
+			["class"] = "StrongBox";
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 41.6;
+			};
+		};
+		[4] = {
+			["class"] = "StrongBox";
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 28.8;
+			};
+		};
+		[8] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "Door";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 25.6;
+				["y"] = 19.2;
+			};
+		};
+		[16] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 78.4;
+				["y"] = 53.6;
+			};
+		};
+		[32] = {
+			["color"] = {
+				["r"] = 255;
+				["g"] = 255;
+				["b"] = 0;
+				["a"] = 255;
+			};
+			["class"] = "DeathField";
+			["defaults"] = {
+				["name"] = "yellow";
+				["x"] = 35.2;
+				["y"] = 22.4;
+			};
+		};
+		[25] = {
+			["class"] = "BouncepadHoriz";
+			["defaults"] = {
+				["x"] = 54.4;
+				["y"] = 28.8;
+			};
+		};
+	};
+	["map"] = "bounce-1";
+}
+return obj1

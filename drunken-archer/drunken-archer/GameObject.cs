@@ -52,6 +52,11 @@ namespace DrunkenArcher {
             set { body.SetFixedRotation(value); }
         }
 
+        public bool isSensor {
+            get { return body.GetFixtureList().IsSensor(); }
+            set { body.GetFixtureList().SetSensor(value); }
+        }
+
         protected Vector2 _camera_weight = new Vector2(1.0f);
         public Rectangle bounding_box = new Rectangle(0, 0, 0, 0);
 

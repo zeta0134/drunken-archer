@@ -7,6 +7,7 @@ function Box:init()
 	self.health = 25
 	self.hurtTimer = 0
 	self:sprite("physicsbox")
+	self.fixedRotation = true
 end
 
 function Box:update()
@@ -34,6 +35,7 @@ StrongBox = inherits(Object)
 function StrongBox:init()
 	self:set_group("strongbox")
 	self:sprite("strongbox")
+	self.fixedRotation = true
 end
 
 registered_objects["Box"] = "physicsbox"

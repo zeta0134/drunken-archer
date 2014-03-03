@@ -3,7 +3,7 @@ function BouncepadHoriz:init()
 	self:sprite("bouncy-horiz")
 	self:body_type("static")
 	self:set_group("bouncepad")
-	self:setRestitution(1.2)
+	self:setRestitution(1.1)
 	self:add_target("arrow")
 	self:add_target("archer")
 end
