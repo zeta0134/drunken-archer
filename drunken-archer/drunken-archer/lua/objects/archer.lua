@@ -22,7 +22,7 @@ Arrow = inherits(Object)
 
 function Arrow:init()
 	self:sprite("arrowhead") --everything else default
-	self.framesToLive = 1000
+	self.framesToLive = 500
 	self:shape("circle")
 	self:set_group("arrow")
 	self.damage = 5
@@ -40,7 +40,7 @@ function Arrow:update()
 	end
 
 	--particles!
-	if self.framesToLive % 3 == 0 then
+	if self.framesToLive % 6 == 0 then
 		particle = Particle.create()
 		particle.x = self.x
 		particle.y = self.y
@@ -62,7 +62,7 @@ function Particle:init()
 	self:sprite("particle")
 	self:body_type("kinematic")
 	self:shape("none")
-	self.framesToLive = 20
+	self.framesToLive = 10
 	self:z_index(-1)
 end
 
@@ -71,7 +71,7 @@ function Particle:update()
 	if self.framesToLive <= 0 then
 		self:destroy()
 	else
-		self:color(self.framesToLive * 11, self.framesToLive * 11, self.framesToLive * 11, self.framesToLive)
+		self:color(self.framesToLive * 22, self.framesToLive * 22, self.framesToLive * 22, self.framesToLive)
 	end
 end
 
