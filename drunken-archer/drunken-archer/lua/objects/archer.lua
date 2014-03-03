@@ -28,6 +28,7 @@ function Arrow:init()
 	self.damage = 5
 	self:setDensity(10)
 	self:add_target("level")
+	self:add_target("door")
 	self:add_target("arrow")
 end
 
@@ -40,7 +41,7 @@ function Arrow:update()
 end
 
 function Arrow:handleCollision(target)
-	if target:get_group() == "level" or target:get_group() == "arrow" then
+	if target:get_group() == "level" or target:get_group() == "arrow" or target:get_group() == "door" then
 		GameEngine.playSound("arrow-die")
 		self:destroy()
 	end
@@ -136,8 +137,9 @@ function Archer:update()
 		arrow.y = self.y + 1.0 - 0.4
 
 		--move the arrow toward the bow's angle
-		arrow.x = arrow.x + math.cos(math.rad(self.firingAngle)) * 3.0
-		arrow.y = arrow.y + math.sin(math.rad(self.firingAngle)) * 3.0
+		firingdistance = 3.0
+		arrow.x = arrow.x + math.cos(math.rad(self.firingAngle)) * firingdistance
+		arrow.y = arrow.y + math.sin(math.rad(self.firingAngle)) * firingdistance
 
 		--now set the arrow's velocity
 		speed = chargelevel[1].speed

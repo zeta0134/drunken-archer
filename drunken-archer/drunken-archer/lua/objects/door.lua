@@ -5,6 +5,7 @@ function Door:init()
 	self:sprite("door-closed")
 	self:body_type("static")
 	self.triggered = false
+	self:set_group("door")
 end
 
 function Door:update()

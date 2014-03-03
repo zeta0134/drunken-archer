@@ -44,6 +44,9 @@ function load(name)
 		if _G[v.class] then
 			print("Loading a " .. v.class)
 			loaded_objects[k] = _G[v.class].create(v.defaults)
+			if v.color then
+				loaded_objects[k]:color(v.color.r, v.color.g, v.color.b, v.color.a)
+			end
 		else
 			print("Error loading object -- bad classname: " .. v.class);
 		end

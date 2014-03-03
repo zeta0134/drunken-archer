@@ -47,10 +47,16 @@ function select_object(index, type)
 	if type == "object" then
 		if selected_object then
 			placeholders[selected_object]:color(255, 255, 255, 128)
+			if current_level.objects[selected_object].color then
+				placeholders[selected_object]:color(current_level.objects[selected_object].color.r, current_level.objects[selected_object].color.g, current_level.objects[selected_object].color.b, 128)
+			end
 		end
 		selected_object = index
 		property = current_level.objects[selected_object].defaults
 		placeholders[index]:color(255, 255, 255, 255)
+		if current_level.objects[index].color then
+			placeholders[index]:color(current_level.objects[index].color.r, current_level.objects[index].color.g, current_level.objects[index].color.b, 255)
+		end
 	end
 
 end
@@ -151,6 +157,15 @@ function map(name)
 	current_level.map = name
 end
 
+function color(red, green, blue, alpha)
+	if selected_object then
+		current_level.objects[selected_object].color = {r=red,g=green,b=blue,a=alpha}
+		placeholders[selected_object]:color(red,green,blue,255)
+	else
+		print("No object selected!")
+	end
+end
+
 --WASD camera, for moving around the level and stuff
 dofile("lua/objects/WASDcamera.lua")
 camera = WASDcamera.create()
@@ -207,6 +222,9 @@ function load(filename)
 		placeholders[k].x = v.defaults.x
 		placeholders[k].y = v.defaults.y
 		placeholders[k]:color(255,255,255,128)
+		if v.color then
+			placeholders[k]:color(v.color.r,v.color.g,v.color.b,128)
+		end
 		if k >= insert_index then
 			insert_index = k + 1
 		end
