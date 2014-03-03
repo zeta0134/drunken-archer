@@ -147,6 +147,9 @@
     <None Include="lua\maps\test2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="lua\objects\background.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lua\objects\button.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

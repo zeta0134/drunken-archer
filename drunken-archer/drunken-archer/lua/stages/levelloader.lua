@@ -59,4 +59,7 @@ function load(name)
 			end
 		end
 	end
+
+	--load up the background
+	background = Background.create()
 end
