@@ -210,14 +210,20 @@ function Archer:update()
 
 	--detect and respond to death
 	if self.x < current_map.x - 20 then
+		GameEngine.playSound("death")
+		self:destroy()
 		loadlevel(current_filename)
 		--print("off left")
 	end
 	if self.x > current_map.x + (current_map.width * 16 / 10) + 10 then
+		GameEngine.playSound("death")
+		self:destroy()
 		loadlevel(current_filename)
 		--print("off right")
 	end
 	if self.y > current_map.y + (current_map.height * 16 / 10) + 10 then
+		GameEngine.playSound("death")
+		self:destroy()
 		loadlevel(current_filename)
 		--print("off bottom")
 	end

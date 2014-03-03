@@ -5,289 +5,290 @@ local multiRefObjects = {
 local obj1 = {
 	["joints"] = {
 	};
+	["map"] = "bounce-1";
 	["objects"] = {
 		[9] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 33.6;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[18] = {
-			["class"] = "BouncepadVert";
 			["defaults"] = {
 				["x"] = 84;
 				["y"] = 41.6;
 			};
+			["class"] = "BouncepadVert";
 		};
 		[10] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 40;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[20] = {
-			["class"] = "BouncepadVert";
 			["defaults"] = {
 				["x"] = 84;
 				["y"] = 28.8;
 			};
+			["class"] = "BouncepadVert";
 		};
 		[11] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 46.4;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[22] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 35.2;
 				["y"] = 28.8;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[3] = {
-			["class"] = "Box";
 			["defaults"] = {
 				["x"] = 27.2;
 				["y"] = 35.2;
 			};
+			["class"] = "Box";
 		};
 		[6] = {
+			["class"] = "ButtonLeft";
 			["color"] = {
 				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
 				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
 			};
-			["class"] = "ButtonLeft";
 			["defaults"] = {
+				["y"] = 27.2;
 				["name"] = "yellow";
 				["x"] = 25.5;
-				["y"] = 27.2;
 			};
 		};
 		[12] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 52.8;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[24] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 48;
 				["y"] = 28.8;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[13] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 59.2;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[17] = {
-			["class"] = "BouncepadVert";
 			["defaults"] = {
 				["x"] = 84;
 				["y"] = 48;
 			};
+			["class"] = "BouncepadVert";
 		};
 		[34] = {
+			["class"] = "DeathField";
 			["color"] = {
 				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
 				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
 			};
-			["class"] = "DeathField";
 			["defaults"] = {
+				["y"] = 19.2;
 				["name"] = "yellow";
 				["x"] = 35.2;
-				["y"] = 19.2;
 			};
 		};
 		[7] = {
-			["class"] = "Exit";
 			["defaults"] = {
-				["x"] = 20.8;
+				["targetLevel"] = "deathfields-1";
 				["y"] = 19.2;
+				["x"] = 20.8;
 			};
+			["class"] = "Exit";
 		};
 		[14] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 65.6;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[19] = {
-			["class"] = "BouncepadVert";
 			["defaults"] = {
 				["x"] = 84;
 				["y"] = 35.2;
 			};
+			["class"] = "BouncepadVert";
 		};
 		[15] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 72;
 				["y"] = 53.6;
 			};
+			["class"] = "BouncepadHoriz";
 		};
 		[21] = {
-			["class"] = "BouncepadVert";
 			["defaults"] = {
 				["x"] = 84;
 				["y"] = 22.4;
 			};
+			["class"] = "BouncepadVert";
 		};
 		[33] = {
+			["class"] = "DeathField";
 			["color"] = {
 				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
 				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
 			};
-			["class"] = "DeathField";
 			["defaults"] = {
-				["name"] = "yellow";
-				["x"] = 35.2;
 				["y"] = 20.8;
-			};
-		};
-		[26] = {
-			["class"] = "BouncepadHoriz";
-			["defaults"] = {
-				["x"] = 60.8;
-				["y"] = 28.8;
-			};
-		};
-		[31] = {
-			["color"] = {
-				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
-				["a"] = 255;
-			};
-			["class"] = "DeathField";
-			["defaults"] = {
 				["name"] = "yellow";
 				["x"] = 35.2;
-				["y"] = 24;
-			};
-		};
-		[30] = {
-			["color"] = {
-				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
-				["a"] = 255;
-			};
-			["class"] = "DeathField";
-			["defaults"] = {
-				["name"] = "yellow";
-				["x"] = 35.2;
-				["y"] = 25.6;
-			};
-		};
-		[23] = {
-			["class"] = "BouncepadHoriz";
-			["defaults"] = {
-				["x"] = 41.6;
-				["y"] = 28.8;
-			};
-		};
-		[29] = {
-			["class"] = "StrongBox";
-			["defaults"] = {
-				["x"] = 27.3;
-				["y"] = 22.4;
-			};
-		};
-		[28] = {
-			["class"] = "Archer";
-			["defaults"] = {
-				["bottomCamera"] = true;
-				["x"] = 53.2;
-				["y"] = 21.3;
-			};
-		};
-		[27] = {
-			["class"] = "BouncepadHoriz";
-			["defaults"] = {
-				["x"] = 67.2;
-				["y"] = 28.8;
-			};
-		};
-		[1] = {
-			["class"] = "Box";
-			["defaults"] = {
-				["x"] = 27.2;
-				["y"] = 48;
-			};
-		};
-		[2] = {
-			["class"] = "StrongBox";
-			["defaults"] = {
-				["x"] = 27.2;
-				["y"] = 41.6;
-			};
-		};
-		[4] = {
-			["class"] = "StrongBox";
-			["defaults"] = {
-				["x"] = 27.2;
-				["y"] = 28.8;
-			};
-		};
-		[8] = {
-			["color"] = {
-				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
-				["a"] = 255;
-			};
-			["class"] = "Door";
-			["defaults"] = {
-				["name"] = "yellow";
-				["x"] = 25.6;
-				["y"] = 19.2;
-			};
-		};
-		[16] = {
-			["class"] = "BouncepadHoriz";
-			["defaults"] = {
-				["x"] = 78.4;
-				["y"] = 53.6;
-			};
-		};
-		[32] = {
-			["color"] = {
-				["r"] = 255;
-				["g"] = 255;
-				["b"] = 0;
-				["a"] = 255;
-			};
-			["class"] = "DeathField";
-			["defaults"] = {
-				["name"] = "yellow";
-				["x"] = 35.2;
-				["y"] = 22.4;
 			};
 		};
 		[25] = {
-			["class"] = "BouncepadHoriz";
 			["defaults"] = {
 				["x"] = 54.4;
 				["y"] = 28.8;
 			};
+			["class"] = "BouncepadHoriz";
+		};
+		[31] = {
+			["class"] = "DeathField";
+			["color"] = {
+				["r"] = 255;
+				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
+			};
+			["defaults"] = {
+				["y"] = 24;
+				["name"] = "yellow";
+				["x"] = 35.2;
+			};
+		};
+		[30] = {
+			["class"] = "DeathField";
+			["color"] = {
+				["r"] = 255;
+				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
+			};
+			["defaults"] = {
+				["y"] = 25.6;
+				["name"] = "yellow";
+				["x"] = 35.2;
+			};
+		};
+		[23] = {
+			["defaults"] = {
+				["x"] = 41.6;
+				["y"] = 28.8;
+			};
+			["class"] = "BouncepadHoriz";
+		};
+		[29] = {
+			["defaults"] = {
+				["x"] = 27.3;
+				["y"] = 22.4;
+			};
+			["class"] = "StrongBox";
+		};
+		[28] = {
+			["defaults"] = {
+				["bottomCamera"] = true;
+				["y"] = 21.3;
+				["x"] = 53.2;
+			};
+			["class"] = "Archer";
+		};
+		[27] = {
+			["defaults"] = {
+				["x"] = 67.2;
+				["y"] = 28.8;
+			};
+			["class"] = "BouncepadHoriz";
+		};
+		[1] = {
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 48;
+			};
+			["class"] = "Box";
+		};
+		[2] = {
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 41.6;
+			};
+			["class"] = "StrongBox";
+		};
+		[4] = {
+			["defaults"] = {
+				["x"] = 27.2;
+				["y"] = 28.8;
+			};
+			["class"] = "StrongBox";
+		};
+		[8] = {
+			["class"] = "Door";
+			["color"] = {
+				["r"] = 255;
+				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
+			};
+			["defaults"] = {
+				["y"] = 19.2;
+				["name"] = "yellow";
+				["x"] = 25.6;
+			};
+		};
+		[16] = {
+			["defaults"] = {
+				["x"] = 78.4;
+				["y"] = 53.6;
+			};
+			["class"] = "BouncepadHoriz";
+		};
+		[32] = {
+			["class"] = "DeathField";
+			["color"] = {
+				["r"] = 255;
+				["a"] = 255;
+				["b"] = 0;
+				["g"] = 255;
+			};
+			["defaults"] = {
+				["y"] = 22.4;
+				["name"] = "yellow";
+				["x"] = 35.2;
+			};
+		};
+		[26] = {
+			["defaults"] = {
+				["x"] = 60.8;
+				["y"] = 28.8;
+			};
+			["class"] = "BouncepadHoriz";
 		};
 	};
-	["map"] = "bounce-1";
 }
 return obj1

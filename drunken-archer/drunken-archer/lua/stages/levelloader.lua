@@ -10,6 +10,8 @@ current_filename = ""
 
 current_map = {}
 
+GameEngine.playMusic("game-loop2")
+
 function load_map(name)
 	print("Called load map...")
 	--note: returns the tilemap in question

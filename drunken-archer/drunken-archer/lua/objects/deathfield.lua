@@ -9,8 +9,10 @@ function DeathField:init()
 	self.triggered = false
 end
 
-function DeathField:handleCollision()
+function DeathField:handleCollision(player)
 	if not stage.triggered[self.name] then
+		GameEngine.playSound("death")
+		player:destroy()
 		loadlevel(current_filename)
 	end
 end

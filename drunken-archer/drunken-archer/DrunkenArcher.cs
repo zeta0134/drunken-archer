@@ -125,7 +125,12 @@ namespace DrunkenArcher {
 
         SoundEffectInstance musicPlayer;
 
+        string currentSong = "";
         public void playMusic(string path) {
+            if (path == currentSong) {
+                return;
+            }
+            currentSong = path;
             /*if (!music.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
                 music[path] = Content.Load<Song>(path);
@@ -134,7 +139,7 @@ namespace DrunkenArcher {
             MediaPlayer.IsRepeating = true;*/
             if (!sound.ContainsKey(path)) {
                 //Attempt to load the song (we haven't done so yet)
-                sound[path] = Content.Load<SoundEffect>(path);
+                sound[path] = Content.Load<SoundEffect>("music/"+path);
             }
 
             if (musicPlayer != null) {
@@ -164,6 +169,7 @@ namespace DrunkenArcher {
         private string levelToLoad = "";
         public void luaLoadLevel(string name) {
             levelToLoad = name;
+            levelLoadCooldown = 60;
         }
 
         public void setCamera(float x, float y) {
@@ -285,7 +291,7 @@ namespace DrunkenArcher {
         /// </summary>
         protected override void LoadContent() {
             //load the test level
-            loadStage("leveleditor");
+            loadStage("title");
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -315,6 +321,8 @@ namespace DrunkenArcher {
             if (state == ButtonState.Pressed)
                 vm.DoString("gamepad_held." + key + " = true");
         }
+
+        int levelLoadCooldown = 0;
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -433,9 +441,12 @@ namespace DrunkenArcher {
                 stageToLoad = "";
             }
 
-            if (levelToLoad != "") {
+            if (levelToLoad != "" && levelLoadCooldown == 0) {
                 loadLevel(levelToLoad);
                 levelToLoad = "";
+            }
+            else if (levelLoadCooldown > 0) {
+                levelLoadCooldown--;
             }
 
             base.Update(gameTime);
@@ -478,7 +489,12 @@ namespace DrunkenArcher {
             SpriteBatch newthing = new SpriteBatch(graphics.GraphicsDevice);
 
             newthing.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null);
-            newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), (debug ? Color.FromNonPremultiplied(64, 64, 64, 255) : Color.White));
+            Color textureColor = Color.White;
+            if (levelToLoad != "") {
+                textureColor *= ((float)levelLoadCooldown) / 60f;
+                textureColor.A = 255;
+            }
+            newthing.Draw(render_target, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), (debug ? Color.FromNonPremultiplied(64, 64, 64, 255) : textureColor));
             newthing.End();
 
             //debug!

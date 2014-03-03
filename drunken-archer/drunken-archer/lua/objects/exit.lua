@@ -10,7 +10,12 @@ end
 
 function Exit:handleCollision(target)
 	if self.targetLevel then
+		GameEngine.playSound("enter-door")
 		loadlevel(self.targetLevel)
+	end
+	if self.targetStage then
+		GameEngine.playSound("enter-door")
+		loadstage(self.targetStage)
 	end
 end
 
