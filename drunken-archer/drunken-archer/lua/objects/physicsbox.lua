@@ -4,9 +4,9 @@ Box = inherits(Object)
 function Box:init()
 	self:set_group("box")
 	self:add_target("arrow")
-	self.health = 50
+	self.health = 25
 	self.hurtTimer = 0
-	self:sprite("triangle")
+	self:sprite("physicsbox")
 end
 
 function Box:update()
@@ -29,4 +29,12 @@ function Box:handleCollision(target)
 		target:destroy()
 	end
 end
-registered_objects["Box"] = "triangle"
+
+StrongBox = inherits(Object)
+function StrongBox:init()
+	self:set_group("strongbox")
+	self:sprite("strongbox")
+end
+
+registered_objects["Box"] = "physicsbox"
+registered_objects["StrongBox"] = "strongbox"

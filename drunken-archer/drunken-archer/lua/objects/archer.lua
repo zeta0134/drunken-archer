@@ -27,11 +27,21 @@ function Arrow:init()
 	self:set_group("arrow")
 	self.damage = 5
 	self:setDensity(10)
+	self:add_target("level")
+	self:add_target("arrow")
 end
 
 function Arrow:update()
 	self.framesToLive = self.framesToLive - 1
 	if self.framesToLive <= 0 then
+		GameEngine.playSound("arrow-die")
+		self:destroy()
+	end
+end
+
+function Arrow:handleCollision(target)
+	if target:get_group() == "level" or target:get_group() == "arrow" then
+		GameEngine.playSound("arrow-die")
 		self:destroy()
 	end
 end
@@ -75,6 +85,9 @@ function Archer:init()
 	self.bow.owner = self
 	self.firingAngle = 0.0
 	self.charge = 0
+
+	self.camera = PlayerCamera.create()
+	self.camera.target = self
 end
 
 function Archer:update()
@@ -115,7 +128,7 @@ function Archer:update()
 	self.bow.y = self.y + 1.2
 	self.bow:setAngle(self.firingAngle)
 
-	if self.charge > chargelevel[1].frame and (keys_up.Space or gamepad_up.RB or gamepad_held.LB or keys_held.Y) then
+	if self.charge >= chargelevel[1].frame and (keys_up.Space or gamepad_up.RB or gamepad_held.LB or keys_held.Y) then
 		--spawn an arrow!
 		arrow = Arrow.create()
 		
@@ -131,13 +144,13 @@ function Archer:update()
 		arrow.damage = chargelevel[1].damage
 		arrow:color(255,128,128,255);
 
-		if self.charge > chargelevel[2].frame then
+		if self.charge >= chargelevel[2].frame then
 			speed = chargelevel[2].speed
 			arrow:color(255,255,128,255)
 			arrow.damage = chargelevel[2].damage
 		end
 
-		if self.charge > chargelevel[3].frame then
+		if self.charge >= chargelevel[3].frame then
 			speed = chargelevel[3].speed
 			arrow:color(128,255,255,255);
 			arrow.damage = chargelevel[3].damage
@@ -152,6 +165,7 @@ function Archer:update()
 		self.vy = self.vy - (arrow.vy / 2)
 
 		self.charge = -20 --cooldown
+		GameEngine.playSound("fire")
 	end
 
 	if keys_held.Space or gamepad_held.RB or self.charge < 0 then
@@ -170,9 +184,35 @@ end
 function PlayerCamera:update()
 	--determine a target location; this should keep the player onscreen within a considerable margin (200 px?)
 	
+	--64,36 -- max coords onscreen
+	screen_width = 60
+	screen_height = 36
+	margin = 15
+
+	camera_max = {}
+	camera_max.x = self.target.x - margin
+	camera_max.y = self.target.y - margin
+
+	camera_min = {}
+	camera_min.x = self.target.x - screen_width + margin
+	camera_min.y = self.target.y - screen_height + margin
+
+	if self.x < camera_min.x then
+		self.x = camera_min.x
+	end
+	if self.y < camera_min.y then
+		self.y = camera_min.y
+	end
+
+	if self.x > camera_max.x then
+		self.x = camera_max.x
+	end
+	if self.y > camera_max.y then
+		self.y = camera_max.y
+	end
 
 	--actually update the game camera based on this object's position
-	GameEngine.setCamera(self.x, self.y)
+	GameEngine.setCamera(self.x * 10, self.y * 10)
 end
 
 --register the objects

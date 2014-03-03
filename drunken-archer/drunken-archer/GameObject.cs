@@ -201,6 +201,10 @@ namespace DrunkenArcher {
             body.ResetMassData();
         }
 
+        public void setRestitution(float restitution) {
+            body.GetFixtureList().SetRestitution(restitution);
+        }
+
         public void sprite(string name) {
             string path = "art/sprites/" + name;
             if (!game.textures.ContainsKey(path)) {

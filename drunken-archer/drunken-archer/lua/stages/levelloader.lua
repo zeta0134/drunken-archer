@@ -32,6 +32,7 @@ function load(name)
 		map = load_map(current_level.map)
 		map:z_index(-1)
 		map:setTiles("testytest")
+		map:set_group("level")
 	end
 
 	loaded_objects = {}
@@ -62,4 +63,10 @@ function load(name)
 
 	--load up the background
 	background = Background.create()
+
+	--ok, this is DEFINITELY a hack
+	background2 = Background.create()
+	background2.x = -89.3
+	background3 = Background.create()
+	background3.x = 89.3
 end
