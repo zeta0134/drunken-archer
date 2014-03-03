@@ -345,6 +345,11 @@ namespace DrunkenArcher {
             SetButtonState(gamepad.LeftShoulder, "LB");
             SetButtonState(gamepad.RightShoulder, "RB");
 
+            SetButtonState(gamepad_state.DPad.Up, "Up");
+            SetButtonState(gamepad_state.DPad.Down, "Down");
+            SetButtonState(gamepad_state.DPad.Left, "Left");
+            SetButtonState(gamepad_state.DPad.Right, "Right");
+
             //triggers
             //TODO: THIS
             

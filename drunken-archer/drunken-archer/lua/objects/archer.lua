@@ -230,6 +230,24 @@ function PlayerCamera:init()
 end
 
 function PlayerCamera:update()
+	--extra stuff: respond to the D-pad for player-controlled movement
+	if gamepad_held.Up then
+		self.y = self.y - 1
+	end
+
+	if gamepad_held.Down then
+		self.y = self.y + 1
+	end
+
+	if gamepad_held.Left then
+		self.x = self.x - 1
+	end
+
+	if gamepad_held.Right then
+		self.x = self.x + 1
+	end
+
+
 	--determine a target location; this should keep the player onscreen within a considerable margin (200 px?)
 	
 	--64,36 -- max coords onscreen
@@ -242,7 +260,7 @@ function PlayerCamera:update()
 
 	camera_min = {}
 	camera_min.x = self.target.x - screen_width + 22
-	camera_min.y = self.target.y - screen_height + 5
+	camera_min.y = self.target.y - screen_height + 10
 
 	if self.x < camera_min.x then
 		self.x = camera_min.x
